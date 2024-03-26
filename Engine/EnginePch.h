@@ -9,6 +9,8 @@
 #include <vector>
 #include <array>
 #include <tuple>
+#include <memory>
+#include <functional>
 
 #include "Types.h"
 

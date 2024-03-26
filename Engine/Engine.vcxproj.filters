@@ -23,6 +23,21 @@
     <Filter Include="Source Files\Manager">
       <UniqueIdentifier>{5785ee22-a506-4d0e-bc2b-be4c8d0bb177}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\World\Time">
+      <UniqueIdentifier>{44a1a8b1-c5d7-4539-9832-cf4a3d232205}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Objects">
+      <UniqueIdentifier>{f381bf86-84a2-4e06-a478-8aab4d254c6e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Objects\Actor">
+      <UniqueIdentifier>{d5be6953-3acd-4fc6-b740-db32ef48ad74}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Objects\Component">
+      <UniqueIdentifier>{f1bfb096-1aa4-4c6d-a17b-501fdbbecad9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\World\Level">
+      <UniqueIdentifier>{3377ff60-41f1-4925-9d21-9a4b6f3b69ca}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -52,8 +67,32 @@
     <ClInclude Include="World.h">
       <Filter>Source Files\World</Filter>
     </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>Source Files\World\Time</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceManager.h">
+      <Filter>Source Files\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>Source Files\Manager</Filter>
+    </ClInclude>
     <ClInclude Include="TimeManager.h">
       <Filter>Source Files\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="InputManager.h">
+      <Filter>Source Files\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Level.h">
+      <Filter>Source Files\World\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="Object.h">
+      <Filter>Source Files\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Actor.h">
+      <Filter>Source Files\Objects\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>Source Files\Objects\Component</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -78,8 +117,32 @@
     <ClCompile Include="World.cpp">
       <Filter>Source Files\World</Filter>
     </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>Source Files\World\Time</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceManager.cpp">
+      <Filter>Source Files\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>Source Files\Manager</Filter>
+    </ClCompile>
     <ClCompile Include="TimeManager.cpp">
       <Filter>Source Files\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="InputManager.cpp">
+      <Filter>Source Files\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Level.cpp">
+      <Filter>Source Files\World\Level</Filter>
+    </ClCompile>
+    <ClCompile Include="Object.cpp">
+      <Filter>Source Files\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Actor.cpp">
+      <Filter>Source Files\Objects\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="Component.cpp">
+      <Filter>Source Files\Objects\Component</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -32,7 +32,7 @@ void Engine::Render()
 	}
 
 	{
-		uint64 now = ::GetTickCount64();
+		uint32 now = static_cast<uint32>(::GetTickCount64());
 
 		int width = _screenWidth;
 
