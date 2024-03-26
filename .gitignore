@@ -1,5 +1,5 @@
 .vs/GameEngine/v17/ipch
-.vs/GameEngine/v17/*.VC.db
+.vs/GameEngine/v17/*.VC.*
 .vs/GameEngine/v17/*.json
 
 Intermediate/
