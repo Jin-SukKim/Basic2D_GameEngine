@@ -14,24 +14,72 @@
     <Filter Include="Source Files\Math">
       <UniqueIdentifier>{763d2bd9-81fe-4211-9fab-c986461ba835}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Utils">
+      <UniqueIdentifier>{b6e9c565-2a3d-4539-ad34-f1484707c3b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\World">
+      <UniqueIdentifier>{09d99d7f-3ea3-4251-b687-51abdb836179}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Manager">
+      <UniqueIdentifier>{5785ee22-a506-4d0e-bc2b-be4c8d0bb177}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
       <Filter>Source Files\Headers</Filter>
     </ClInclude>
-    <ClInclude Include="Vector.h">
+    <ClInclude Include="Vector2D.h">
       <Filter>Source Files\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="EnginePch.h">
+      <Filter>Source Files\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineWindow.h">
+      <Filter>Source Files\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine.h">
+      <Filter>Source Files\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="Types.h">
+      <Filter>Source Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="MathUtils.h">
+      <Filter>Source Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="WinUtils.h">
+      <Filter>Source Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="World.h">
+      <Filter>Source Files\World</Filter>
+    </ClInclude>
+    <ClInclude Include="TimeManager.h">
+      <Filter>Source Files\Manager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
       <Filter>Source Files\Headers</Filter>
     </ClCompile>
+    <ClCompile Include="Vector2D.cpp">
+      <Filter>Source Files\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="EnginePch.cpp">
+      <Filter>Source Files\Headers</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineWindow.cpp">
+      <Filter>Source Files\Main</Filter>
+    </ClCompile>
     <ClCompile Include="Engine.cpp">
       <Filter>Source Files\Main</Filter>
     </ClCompile>
-    <ClCompile Include="Vector.cpp">
-      <Filter>Source Files\Math</Filter>
+    <ClCompile Include="WinUtils.cpp">
+      <Filter>Source Files\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="World.cpp">
+      <Filter>Source Files\World</Filter>
+    </ClCompile>
+    <ClCompile Include="TimeManager.cpp">
+      <Filter>Source Files\Manager</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
