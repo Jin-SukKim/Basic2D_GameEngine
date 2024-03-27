@@ -11,7 +11,7 @@ void TimeManager::Init()
 	::QueryPerformanceCounter(reinterpret_cast<LARGE_INTEGER*>(&_prevCount)); // CPU 클락
 }
 
-void TimeManager::Update()
+void TimeManager::Tick()
 {
 	uint64 currentCount;
 	::QueryPerformanceCounter(reinterpret_cast<LARGE_INTEGER*>(&currentCount)); // CPU 클락

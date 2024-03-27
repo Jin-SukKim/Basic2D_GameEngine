@@ -7,7 +7,7 @@ public:
 	~TimeManager() {}
 
 	void Init();
-	void Update();
+	void Tick();
 
 	uint32 GetFPS() {
 		return _fps;

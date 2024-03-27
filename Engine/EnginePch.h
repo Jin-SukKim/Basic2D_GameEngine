@@ -6,6 +6,7 @@
 #include <string>
 #include <format>
 #include <cmath>
+#include <algorithm>
 #include <vector>
 #include <array>
 #include <tuple>
@@ -20,3 +21,6 @@
 
 // Utils
 #include "WinUtils.h"
+#include "Defines.h"
+
+#include "InputStates.h"

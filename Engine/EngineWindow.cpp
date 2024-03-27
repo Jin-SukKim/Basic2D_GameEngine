@@ -3,6 +3,9 @@
 
 EngineWindow* win = nullptr;
 
+int32 EngineWindow::_screenWidth = 800;
+int32 EngineWindow::_screenHeight = 600;
+
 LRESULT CALLBACK WndProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
     return win->WinProc(hwnd, uMsg, wParam, lParam);
 }
@@ -106,6 +109,7 @@ int EngineWindow::Run()
 {
     MSG msg = {};
 
+    Init();
     // 3) 메인 루프
     //  - 입력
     //  - 로직

@@ -94,6 +94,12 @@
     <ClInclude Include="Component.h">
       <Filter>Source Files\Objects\Component</Filter>
     </ClInclude>
+    <ClInclude Include="InputStates.h">
+      <Filter>Source Files\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Defines.h">
+      <Filter>Source Files\Headers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">

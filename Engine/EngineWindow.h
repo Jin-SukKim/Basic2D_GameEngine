@@ -18,10 +18,25 @@ public:
 		_screenHeight = height;
 	};
 
-	std::tuple<int32, int32> GetWindowSize() {
-		return {_screenWidth, _screenHeight};
+	static std::tuple<int32, int32> GetScreenSize() {
+		return { _screenWidth, _screenHeight };
+	}
+	static int32 GetScreenWidth() {
+		return _screenWidth;
+	}
+	static int32 GetScreenHeight() {
+		return _screenHeight;
 	}
 
+	std::tuple<int32, int32> GetMousePos() {
+		return { _mousePosX, _mousePosY };
+	}
+	int32 GetMouseX() {
+		return _mousePosX;
+	}
+	int32 GetMouseY() {
+		return _mousePosY;
+	}
 private:
 	// 1) 윈도우 창 정보 등록
 	bool RegisterWindowClass(HINSTANCE hInstance);
@@ -51,7 +66,7 @@ protected:
 	int32 _mousePosX = 0;
 	int32 _mousePosY = 0;
 
-	int32 _screenWidth = 800;
-	int32 _screenHeight = 600;
+	static int32 _screenWidth;
+	static int32 _screenHeight;
 };
 

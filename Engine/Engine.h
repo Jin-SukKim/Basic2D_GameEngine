@@ -15,7 +15,7 @@ public:
 	virtual void Tick() override;
 	virtual void Render() override;
 
-	Engine& GetEngine() { return *this;	}
+	Engine& GetEngine() { return *this; }
 private:
 	std::unique_ptr<World> _world;
 };

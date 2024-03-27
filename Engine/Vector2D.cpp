@@ -7,5 +7,5 @@ const Vector2D Vector2D::UnitY(0.f, 1.f);
 const Vector2D Vector2D::One(1.f, 1.f);
 
 extern Vector2D operator*(const float& scalar, const Vector2D& v) {
-	return Vector2D(scalar * v.x, scalar * v.y);
+	return Vector2D(scalar * v.X, scalar * v.Y);
 }
