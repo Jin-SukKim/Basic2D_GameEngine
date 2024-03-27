@@ -55,9 +55,6 @@
     <ClInclude Include="Engine.h">
       <Filter>Source Files\Main</Filter>
     </ClInclude>
-    <ClInclude Include="Types.h">
-      <Filter>Source Files\Utils</Filter>
-    </ClInclude>
     <ClInclude Include="MathUtils.h">
       <Filter>Source Files\Utils</Filter>
     </ClInclude>
@@ -73,7 +70,7 @@
     <ClInclude Include="ResourceManager.h">
       <Filter>Source Files\Manager</Filter>
     </ClInclude>
-    <ClInclude Include="SceneManager.h">
+    <ClInclude Include="LevelManager.h">
       <Filter>Source Files\Manager</Filter>
     </ClInclude>
     <ClInclude Include="TimeManager.h">
@@ -99,6 +96,15 @@
     </ClInclude>
     <ClInclude Include="Defines.h">
       <Filter>Source Files\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Types.h">
+      <Filter>Source Files\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="EditLevel.h">
+      <Filter>Source Files\World\Level</Filter>
+    </ClInclude>
+    <ClInclude Include="GameLevel.h">
+      <Filter>Source Files\World\Level</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -129,7 +135,7 @@
     <ClCompile Include="ResourceManager.cpp">
       <Filter>Source Files\Manager</Filter>
     </ClCompile>
-    <ClCompile Include="SceneManager.cpp">
+    <ClCompile Include="LevelManager.cpp">
       <Filter>Source Files\Manager</Filter>
     </ClCompile>
     <ClCompile Include="TimeManager.cpp">
@@ -149,6 +155,12 @@
     </ClCompile>
     <ClCompile Include="Component.cpp">
       <Filter>Source Files\Objects\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="EditLevel.cpp">
+      <Filter>Source Files\World\Level</Filter>
+    </ClCompile>
+    <ClCompile Include="GameLevel.cpp">
+      <Filter>Source Files\World\Level</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

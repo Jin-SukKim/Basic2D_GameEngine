@@ -17,6 +17,7 @@ void World::Init()
 	_timeManager->Init();
 }
 
+
 void World::Tick()
 {
 	_timeManager->Tick();
@@ -36,7 +37,7 @@ void World::Render(HDC hdc)
 		int width = Engine::GetScreenWidth();
 
 		std::wstring str = std::format(L"FPS({0}))", _timeManager->GetFPS());
-		::TextOut(hdc, width - 200, 10, str.c_str(), static_cast<int32>(str.size()));
+		::TextOut(hdc, width - 90, 10, str.c_str(), static_cast<int32>(str.size()));
 		
 	}
 }

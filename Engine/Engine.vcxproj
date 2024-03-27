@@ -162,9 +162,11 @@
     <ClInclude Include="Actor.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="Defines.h" />
+    <ClInclude Include="EditLevel.h" />
     <ClInclude Include="Engine.h" />
     <ClInclude Include="EnginePch.h" />
     <ClInclude Include="EngineWindow.h" />
+    <ClInclude Include="GameLevel.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="InputStates.h" />
     <ClInclude Include="Level.h" />
@@ -172,7 +174,7 @@
     <ClInclude Include="Object.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="ResourceManager.h" />
-    <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="LevelManager.h" />
     <ClInclude Include="TimeManager.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Types.h" />
@@ -183,9 +185,11 @@
   <ItemGroup>
     <ClCompile Include="Actor.cpp" />
     <ClCompile Include="Component.cpp" />
+    <ClCompile Include="EditLevel.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="EnginePch.cpp" />
     <ClCompile Include="EngineWindow.cpp" />
+    <ClCompile Include="GameLevel.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="Object.cpp" />
@@ -196,7 +200,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="ResourceManager.cpp" />
-    <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="LevelManager.cpp" />
     <ClCompile Include="TimeManager.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Vector2D.cpp" />
