@@ -44,6 +44,9 @@
     <Filter Include="Source Files\Objects\Component\Paper2D">
       <UniqueIdentifier>{b5311a2f-9f78-41d5-9a46-c03f7b082ab5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Objects\Actor\Paper2D">
+      <UniqueIdentifier>{860320f8-f0fe-4eb8-a5ad-71bbbc3529cb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -118,7 +121,9 @@
     <ClInclude Include="Texture.h">
       <Filter>Source Files\Resources</Filter>
     </ClInclude>
-    <ClInclude Include="TextureActor.h" />
+    <ClInclude Include="TextureActor.h">
+      <Filter>Source Files\Objects\Actor\Paper2D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -182,7 +187,7 @@
       <Filter>Source Files\Resources</Filter>
     </ClCompile>
     <ClCompile Include="TextureActor.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Objects\Actor\Paper2D</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

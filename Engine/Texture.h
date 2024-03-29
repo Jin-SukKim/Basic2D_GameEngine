@@ -9,7 +9,7 @@ public:
 	bool LoadBmp(HWND hwnd, const std::wstring& path);
 
 public:
-	HDC GetDC() { return _hdc; }
+	HDC GetDC();
 
 	void SetSize(Vector2D size) { _size = size; }
 	Vector2D GetSize() { return _size; }

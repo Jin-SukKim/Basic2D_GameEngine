@@ -11,7 +11,7 @@ Texture::~Texture()
 
 bool Texture::LoadBmp(HWND hwnd, const std::wstring& path)
 {
-	HDC hdc = ::GetDC(hwnd); // DC 생성
+	HDC hdc = ::GetDC(hwnd); // 이 Texture를 그릴 DC 생성
 
 	_hdc = ::CreateCompatibleDC(hdc);
 
@@ -26,8 +26,13 @@ bool Texture::LoadBmp(HWND hwnd, const std::wstring& path)
 
 	BITMAP bitMap = {};
 	::GetObject(_bitmap, sizeof(BITMAP), &bitMap); // 로드한 이미지의 정보 가져오기
-	_size.X = bitMap.bmWidth;
-	_size.Y = bitMap.bmHeight;
+	_size.X = static_cast<float>(bitMap.bmWidth);
+	_size.Y = static_cast<float>(bitMap.bmHeight);
 	
 	return true;
+}
+
+HDC Texture::GetDC()
+{
+	return _hdc;
 }

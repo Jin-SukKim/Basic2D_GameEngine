@@ -27,3 +27,6 @@ namespace fs = std::filesystem;
 #include "Defines.h"
 
 #include "InputStates.h"
+
+// TransparentBlt »ç¿ë
+#pragma comment(lib, "msimg32.lib")

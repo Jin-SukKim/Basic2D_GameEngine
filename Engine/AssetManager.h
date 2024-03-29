@@ -10,6 +10,7 @@ public:
 	~AssetManager();
 	void Init(HWND hwnd);
 
+	void SetResourcePath(fs::path& path) { _resourcePath = path; }
 	fs::path& GetResourcePath() { return _resourcePath; }
 
 

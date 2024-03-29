@@ -52,9 +52,9 @@ void Level::RemoveActor(std::shared_ptr<Actor> actor)
 
 int32 Level::GetActorCount()
 {
-	int32 count = 0;
+	size_t count = 0;
 	for (auto actors : _actors)
 			count += actors.size();
 	
-	return count;
+	return static_cast<int32>(count);
 }
