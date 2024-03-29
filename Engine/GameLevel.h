@@ -1,5 +1,9 @@
 #pragma once
-class GameLevel
+#include "Level.h"
+
+class GameLevel : public Level
 {
+	using Super = Level;
+public:
 };
 

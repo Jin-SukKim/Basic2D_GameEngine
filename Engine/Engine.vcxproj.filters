@@ -38,6 +38,12 @@
     <Filter Include="Source Files\World\Level">
       <UniqueIdentifier>{3377ff60-41f1-4925-9d21-9a4b6f3b69ca}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Resources">
+      <UniqueIdentifier>{e04903e1-a711-4ab7-a12e-33fb236627a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Objects\Component\Paper2D">
+      <UniqueIdentifier>{b5311a2f-9f78-41d5-9a46-c03f7b082ab5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -67,7 +73,7 @@
     <ClInclude Include="Timer.h">
       <Filter>Source Files\World\Time</Filter>
     </ClInclude>
-    <ClInclude Include="ResourceManager.h">
+    <ClInclude Include="AssetManager.h">
       <Filter>Source Files\Manager</Filter>
     </ClInclude>
     <ClInclude Include="LevelManager.h">
@@ -106,6 +112,13 @@
     <ClInclude Include="GameLevel.h">
       <Filter>Source Files\World\Level</Filter>
     </ClInclude>
+    <ClInclude Include="TextureComponent.h">
+      <Filter>Source Files\Objects\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>Source Files\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureActor.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -132,7 +145,7 @@
     <ClCompile Include="Timer.cpp">
       <Filter>Source Files\World\Time</Filter>
     </ClCompile>
-    <ClCompile Include="ResourceManager.cpp">
+    <ClCompile Include="AssetManager.cpp">
       <Filter>Source Files\Manager</Filter>
     </ClCompile>
     <ClCompile Include="LevelManager.cpp">
@@ -161,6 +174,15 @@
     </ClCompile>
     <ClCompile Include="GameLevel.cpp">
       <Filter>Source Files\World\Level</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureComponent.cpp">
+      <Filter>Source Files\Objects\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>Source Files\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureActor.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

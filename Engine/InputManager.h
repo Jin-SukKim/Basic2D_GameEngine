@@ -10,12 +10,15 @@ public:
 	void Init(HWND hwnd);
 	void Tick();
 
-	bool GetButtonDown(KeyType key) { return GetState(key) == KeyState::Down;	}
-	bool GetButtonPressed(KeyType key) { return GetState(key) == KeyState::Pressed;	}
-	bool GetButtonUp(KeyType key) { return GetState(key) == KeyState::Up;}
+	bool GetEventDown(KeyType key) { return GetState(key) == KeyState::Down;	}
+	bool GetEventPressed(KeyType key) { return GetState(key) == KeyState::Pressed;	}
+	bool GetEventUp(KeyType key) { return GetState(key) == KeyState::Up;}
 
 	void SetMousePos();
 	POINT GetMousePos() { return _mousePos; }
+	
+	// TODO : Button Event에 FunctionPtr 연결
+	// parameter : KeyType, EventType, owner, function_ptr
 
 private:
 	KeyState GetState(KeyType key) { return _states[static_cast<uint8>(key)]; }
@@ -24,5 +27,6 @@ private:
 	std::vector<KeyState> _states;
 	POINT _mousePos;
 	RECT _rect;
-};
 
+	// TODO: 따로 TriggerEvent Type을 만들어 사용하는 것도?
+};

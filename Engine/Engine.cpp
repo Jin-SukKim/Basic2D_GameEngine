@@ -2,6 +2,7 @@
 #include "Engine.h"
 #include "World.h"
 #include "InputManager.h"
+#include "AssetManager.h"
 
 Engine::Engine() : EngineWindow()
 {
@@ -14,6 +15,7 @@ Engine::~Engine()
 bool Engine::Init()
 {
 	GET_SINGLE(InputManager)->Init(_hwnd);
+	GET_SINGLE(AssetManager)->Init(_hwnd);
 
 	_world = std::make_unique<World>();
 	_world->Init();

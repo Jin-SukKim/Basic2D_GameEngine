@@ -12,6 +12,10 @@
 #include <tuple>
 #include <memory>
 #include <functional>
+#include <fstream>
+#include <filesystem>
+#include <unordered_map>
+namespace fs = std::filesystem;
 
 #include "Types.h"
 
@@ -20,7 +24,6 @@
 #include "Vector2D.h"
 
 // Utils
-#include "WinUtils.h"
 #include "Defines.h"
 
 #include "InputStates.h"

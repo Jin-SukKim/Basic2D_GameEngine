@@ -2,10 +2,12 @@
 #include "World.h"
 #include "Engine.h"
 #include "InputManager.h"
+#include "LevelManager.h"
 
 World::World()
 {
 	_timeManager = std::make_unique<TimeManager>();
+	_levelManager = std::make_unique<LevelManager>();
 }
 
 World::~World()
@@ -15,29 +17,42 @@ World::~World()
 void World::Init()
 {
 	_timeManager->Init();
+	_levelManager->Init();
+	_levelManager->ChangeLevel(LevelType::LEVEL_EDIT);
 }
 
 
 void World::Tick()
 {
 	_timeManager->Tick();
+	float deltaTime = _timeManager->GetDeltaTime();
+	_levelManager->Tick(deltaTime);
 }
 
 void World::Render(HDC hdc)
 {
+	_levelManager->Render(hdc);
 
-	uint32 now = static_cast<uint32>(::GetTickCount64());
+	// Option
 	{
-		auto [mousePosX, mousePosY] = GET_SINGLE(InputManager)->GetMousePos();
-		std::wstring str = std::format(L"Mouse({0}, {1})", mousePosX, mousePosY);
-		::TextOut(hdc, 20, 10, str.c_str(), static_cast<int32>(str.size())); uint64 prevTick = 0;
-	}
+		uint32 now = static_cast<uint32>(::GetTickCount64());
+		{
+			auto [mousePosX, mousePosY] = GET_SINGLE(InputManager)->GetMousePos();
+			std::wstring str = std::format(L"Mouse({0}, {1})", mousePosX, mousePosY);
+			::TextOut(hdc, 20, 10, str.c_str(), static_cast<int32>(str.size())); uint64 prevTick = 0;
+		}
 
-	{
-		int width = Engine::GetScreenWidth();
+		{
+			int width = Engine::GetScreenWidth();
 
-		std::wstring str = std::format(L"FPS({0}))", _timeManager->GetFPS());
-		::TextOut(hdc, width - 90, 10, str.c_str(), static_cast<int32>(str.size()));
-		
+			std::wstring str = std::format(L"FPS({0}))", _timeManager->GetFPS());
+			::TextOut(hdc, width - 90, 10, str.c_str(), static_cast<int32>(str.size()));
+
+		}
 	}
+}
+
+void World::SetLevel(std::unique_ptr<Level>& newLevel)
+{
+	_levelManager->SetLevel(newLevel); 
 }

@@ -10,11 +10,17 @@ using uint32 = unsigned __int32;
 using uint64 = unsigned __int64;
 
 // enum class가 아니므로 int로도 사용 가능
-enum LAYER_TYPE {
+enum LayerType {
 	LT_BACKGROUND,
 	LT_OBJECT,
 	LT_EFFECT,
 	LT_UI,
 
 	LT_MAXCOUNT
+};
+
+enum class LevelType {
+	LEVEL_DEFAULT,
+	LEVEL_GAME,
+	LEVEL_EDIT
 };
