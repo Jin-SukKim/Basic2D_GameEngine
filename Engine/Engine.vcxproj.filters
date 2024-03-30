@@ -47,9 +47,6 @@
     <Filter Include="Source Files\Objects\Actor\Paper2D">
       <UniqueIdentifier>{860320f8-f0fe-4eb8-a5ad-71bbbc3529cb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Resources\Paper2D">
-      <UniqueIdentifier>{cd03ca53-3c46-4e1d-8c2c-27a2e5206aff}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -127,12 +124,6 @@
     <ClInclude Include="TextureActor.h">
       <Filter>Source Files\Objects\Actor\Paper2D</Filter>
     </ClInclude>
-    <ClInclude Include="Sprite.h">
-      <Filter>Source Files\Resources\Paper2D</Filter>
-    </ClInclude>
-    <ClInclude Include="Flipbook.h">
-      <Filter>Source Files\Resources\Paper2D</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -197,12 +188,6 @@
     </ClCompile>
     <ClCompile Include="TextureActor.cpp">
       <Filter>Source Files\Objects\Actor\Paper2D</Filter>
-    </ClCompile>
-    <ClCompile Include="Sprite.cpp">
-      <Filter>Source Files\Resources\Paper2D</Filter>
-    </ClCompile>
-    <ClCompile Include="Flipbook.cpp">
-      <Filter>Source Files\Resources\Paper2D</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

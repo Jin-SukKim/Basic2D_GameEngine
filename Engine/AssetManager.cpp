@@ -25,17 +25,16 @@ bool AssetManager::LoadTexture(const std::wstring& key, const std::wstring& path
 		return false;
 
 	texture->SetTransparent(transparent);
-	_textures[key] = std::move(texture);
+	_textures[key] = texture;
 
 	return true;
 }
 
 std::shared_ptr<Texture> AssetManager::GetTexture(const std::wstring& key)
 {
+	// ¾ø´Ù¸é
 	if (_textures.find(key) == _textures.end())
-	{
-		::MessageBox(_hwnd, L"Texture needs to be loaded.", L"Texture does not exist.", NULL);
 		return nullptr;
-	}
+
 	return _textures[key];
 }

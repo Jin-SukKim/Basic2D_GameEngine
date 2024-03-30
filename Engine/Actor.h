@@ -16,8 +16,8 @@ public:
 
 	template<typename ReturnType>
 	std::shared_ptr<ReturnType> CreateComponent(std::wstring name);
-	void AddComponent(std::shared_ptr<Component> component);
-	void RemoveComponent(std::weak_ptr<Component> component);
+	void AddComponent(const std::shared_ptr<Component>& component);
+	void RemoveComponent(const std::shared_ptr<Component>& component);
 
 public:
 	LayerType GetLayer() {	return _layer; }
@@ -36,5 +36,5 @@ inline std::shared_ptr<ReturnType> Actor::CreateComponent(std::wstring name)
 	std::shared_ptr<ReturnType> component = std::make_shared<ReturnType>();
 	component->SetName(name);
 	AddComponent();
-	return std::move(component);
+	return component;
 }

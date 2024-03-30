@@ -28,22 +28,21 @@ void Actor::Render(HDC hdc)
 		comp->Render(hdc);
 }
 
-void Actor::AddComponent(std::shared_ptr<Component> component)
+void Actor::AddComponent(const std::shared_ptr<Component>& component)
 {
 	if (component == nullptr)
 		return;
 
 	component->SetOwner(weak_from_this());
-	_components.push_back(std::move(component));
+	_components.push_back(component);
 }
 
-void Actor::RemoveComponent(std::weak_ptr<Component> component)
+void Actor::RemoveComponent(const std::shared_ptr<Component>& component)
 {
-	std::shared_ptr<Component> comp = component.lock();
-	if (comp == nullptr)
+	if (component == nullptr)
 		return;
 
-	auto findIt = std::find(_components.begin(), _components.end(), comp);
+	auto findIt = std::find(_components.begin(), _components.end(), component);
 	if (findIt == _components.end())
 		return;
 

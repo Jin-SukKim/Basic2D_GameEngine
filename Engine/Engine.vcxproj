@@ -166,7 +166,6 @@
     <ClInclude Include="Engine.h" />
     <ClInclude Include="EnginePch.h" />
     <ClInclude Include="EngineWindow.h" />
-    <ClInclude Include="Flipbook.h" />
     <ClInclude Include="GameLevel.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="InputStates.h" />
@@ -176,7 +175,6 @@
     <ClInclude Include="pch.h" />
     <ClInclude Include="AssetManager.h" />
     <ClInclude Include="LevelManager.h" />
-    <ClInclude Include="Sprite.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TextureActor.h" />
     <ClInclude Include="TextureComponent.h" />
@@ -194,7 +192,6 @@
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="EnginePch.cpp" />
     <ClCompile Include="EngineWindow.cpp" />
-    <ClCompile Include="Flipbook.cpp" />
     <ClCompile Include="GameLevel.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="Level.cpp" />
@@ -207,7 +204,6 @@
     </ClCompile>
     <ClCompile Include="AssetManager.cpp" />
     <ClCompile Include="LevelManager.cpp" />
-    <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TextureActor.cpp" />
     <ClCompile Include="TextureComponent.cpp" />

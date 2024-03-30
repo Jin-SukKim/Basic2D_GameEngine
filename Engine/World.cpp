@@ -51,3 +51,8 @@ void World::Render(HDC hdc)
 		}
 	}
 }
+
+void World::SetLevel(std::unique_ptr<Level>& newLevel)
+{
+	_levelManager->SetLevel(newLevel); 
+}

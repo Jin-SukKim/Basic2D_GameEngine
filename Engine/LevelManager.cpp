@@ -56,7 +56,7 @@ void LevelManager::ChangeLevel(LevelType levelType)
 	_level->Init();
 }
 
-void LevelManager::SetLevel(std::unique_ptr<Level> level)
+void LevelManager::SetLevel(std::unique_ptr<Level>& level)
 {
 	if (_level == level)
 		return;

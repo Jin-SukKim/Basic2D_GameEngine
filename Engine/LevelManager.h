@@ -14,7 +14,7 @@ public:
 
 public:
 	void ChangeLevel(LevelType levelType);
-	void SetLevel(std::unique_ptr<Level> level);
+	void SetLevel(std::unique_ptr<Level>& level);
 
 private:
 	std::unique_ptr<class Level> _level;
