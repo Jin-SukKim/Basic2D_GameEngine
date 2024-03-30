@@ -17,6 +17,7 @@ public: // Getter/Setter
 	std::shared_ptr<Object> GetOwner() { return _owner.lock(); } // 없으면 nullptr
 	
 protected:
+	// weak_ptr : 보통 순환문제 해결, 임시로 데이터(cache) 사용할때 사용
 	std::weak_ptr<Object> _owner;
 };
 

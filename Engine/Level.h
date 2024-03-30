@@ -13,7 +13,7 @@ public:
 	virtual void Render(HDC hdc);
 
 	virtual void AddActor(std::shared_ptr<Actor> actor);
-	virtual void RemoveActor(std::shared_ptr<Actor> actor);
+	virtual void RemoveActor(std::weak_ptr<Actor> actor);
 
 	int32 GetActorCount();
 

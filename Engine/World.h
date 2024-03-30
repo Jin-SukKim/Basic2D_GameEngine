@@ -23,7 +23,6 @@ public:
 	template<typename T>
 	void SetTimer(T* owner, void(T::* func)(), float wait); // T type의 void() 함수 포인터를 받는다.
 
-	void SetLevel(std::unique_ptr<Level>& newLevel);
 private:
 	std::unique_ptr<TimeManager> _timeManager;
 	std::unique_ptr<LevelManager> _levelManager;

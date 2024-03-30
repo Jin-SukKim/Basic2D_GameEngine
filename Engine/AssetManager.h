@@ -16,6 +16,7 @@ public:
 
 public:
 	bool LoadTexture(const std::wstring& key, const std::wstring& path, uint32 transparent = RGB(255, 0, 255) /* Default = RGB(255, 0, 255)*/);
+	// TODO: shared_ptr vs weak_ptr?
 	std::shared_ptr<Texture> GetTexture(const std::wstring& key);
 
 private:

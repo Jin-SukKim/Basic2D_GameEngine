@@ -38,16 +38,17 @@ void Level::AddActor(std::shared_ptr<Actor> actor)
 		return;
 
 	std::vector<std::shared_ptr<Actor>>& v = _actors[actor->GetLayer()];
-	v.push_back(actor);
+	v.push_back(std::move(actor));
 }
 
-void Level::RemoveActor(std::shared_ptr<Actor> actor)
+void Level::RemoveActor(std::weak_ptr<Actor> actor)
 {
-	if (actor == nullptr)
+	std::shared_ptr<Actor> cachedActor = actor.lock();
+	if (cachedActor == nullptr)
 		return;
 
-	std::vector<std::shared_ptr<Actor>>& v = _actors[actor->GetLayer()];
-	v.erase(std::remove(v.begin(), v.end(), actor), v.end());
+	std::vector<std::shared_ptr<Actor>>& v = _actors[cachedActor->GetLayer()];
+	v.erase(std::remove(v.begin(), v.end(), cachedActor), v.end());
 }
 
 int32 Level::GetActorCount()
