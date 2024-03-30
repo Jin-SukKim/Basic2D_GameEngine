@@ -133,6 +133,12 @@
     <ClInclude Include="Flipbook.h">
       <Filter>Source Files\Resources\Paper2D</Filter>
     </ClInclude>
+    <ClInclude Include="SpriteActor.h">
+      <Filter>Source Files\Objects\Actor\Paper2D</Filter>
+    </ClInclude>
+    <ClInclude Include="FlipbookActor.h">
+      <Filter>Source Files\Objects\Actor\Paper2D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -203,6 +209,12 @@
     </ClCompile>
     <ClCompile Include="Flipbook.cpp">
       <Filter>Source Files\Resources\Paper2D</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteActor.cpp">
+      <Filter>Source Files\Objects\Actor\Paper2D</Filter>
+    </ClCompile>
+    <ClCompile Include="FlipbookActor.cpp">
+      <Filter>Source Files\Objects\Actor\Paper2D</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

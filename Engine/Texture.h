@@ -12,10 +12,10 @@ public:
 	HDC GetDC();
 
 	void SetSize(Vector2D size) { _size = size; }
-	Vector2D GetSize() { return _size; }
+	Vector2D GetSize() const { return _size; }
 
 	void SetTransparent(uint32 transparent) { _transparent = transparent;	}
-	uint32 GetTransparent() { return _transparent; }
+	uint32 GetTransparent() const { return _transparent; }
 
 private:
 	HDC _hdc = {};

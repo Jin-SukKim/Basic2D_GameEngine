@@ -9,12 +9,8 @@ public:
 	void Init();
 	void Tick();
 
-	uint32 GetFPS() {
-		return _fps;
-	}
-	float GetDeltaTime() {
-		return _deltaTime;
-	}
+	uint32 GetFPS() const {	return _fps; }
+	float GetDeltaTime() const { return _deltaTime; }
 
 private:
 	uint64 _frequency = 0; // 성능 카운터의 빈도수

@@ -23,14 +23,19 @@ void TextureActor::Init()
 void TextureActor::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
 }
 
 void TextureActor::Render(HDC hdc)
 {
 	Super::Render(hdc);
 
+	if (_texture == nullptr)
+		return;
+
 	Vector2D pos = GetPos();
 	Vector2D size = _texture->GetSize();
+
 	// TransparentBlt는 좌상단부터 그리는데 좌표가 중앙이 되도록 보정
 	pos -= size * 0.5f;
 
@@ -50,4 +55,12 @@ void TextureActor::Render(HDC hdc)
 		(int32)size.X,
 		(int32)size.Y,
 		_texture->GetTransparent());
+}
+
+void TextureActor::SetTexutre(std::shared_ptr<Texture> texture)
+{
+	if (!texture || _texture == texture)
+		return;
+
+	_texture = texture;
 }

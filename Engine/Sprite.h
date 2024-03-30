@@ -1,21 +1,24 @@
 #pragma once
-#include "Texture.h"
 
-class Sprite : public Texture
+class Texture;
+
+class Sprite
 {
 public:
-	Sprite(std::shared_ptr<Texture> texture, Vector2D& pos, Vector2D& size);
+	Sprite(std::shared_ptr<Texture> texture, Vector2D& spritePos, Vector2D& spriteSize);
 	virtual ~Sprite();
 
 public:
 	void SetTexture(std::shared_ptr<Texture> texture) { _texture = std::move(texture); }
 
-	Vector2D GetSpritePos() { return _spritePos; }
+	HDC GetDC();
+	int32 GetTransparent();
+	
+	Vector2D GetSpritePos() const { return _spritePos; }
 	void SetSpritePos(Vector2D pos) { _spritePos = pos; }
 
-	Vector2D GetSpriteSize() { return _spriteSize; }
+	Vector2D GetSpriteSize() const { return _spriteSize; }
 	void SetSpriteSize(Vector2D size) { _spriteSize = size; }
-
 
 private:
 	std::shared_ptr<Texture> _texture;

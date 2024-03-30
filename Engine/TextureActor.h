@@ -14,7 +14,9 @@ public:
 	virtual void Tick(float DeltaTime) override;
 	virtual void Render(HDC hdc) override;
 
-protected:
+	void SetTexutre(std::shared_ptr<Texture> texture);
+
+private:
 	std::shared_ptr<Texture> _texture;
 };
 

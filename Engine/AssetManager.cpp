@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "AssetManager.h"
 #include "Texture.h"
+#include "Sprite.h"
 
 AssetManager::~AssetManager()
 {
@@ -38,4 +39,31 @@ std::shared_ptr<Texture> AssetManager::GetTexture(const std::wstring& key)
 		return nullptr;
 	}
 	return _textures[key];
+}
+
+bool AssetManager::CreateSprite(const std::wstring& key, std::shared_ptr<Texture> texture, Vector2D spritePos, Vector2D spriteSize)
+{
+	if (texture == nullptr)
+		return false;
+
+	if (_sprites.find(key) != _sprites.end())
+		return true;
+
+	if (spriteSize == Vector2D::Zero)
+		spriteSize = texture->GetSize();
+
+	std::shared_ptr<Sprite> sprite = std::make_shared<Sprite>(texture, spritePos, spriteSize);
+	_sprites[key] = std::move(sprite);
+
+	return true;
+}
+
+std::shared_ptr<Sprite> AssetManager::GetSprite(const std::wstring& key)
+{
+	if (_sprites.find(key) == _sprites.end()){
+		::MessageBox(_hwnd, L"Sprite needs to be loaded.", L"Sprite does not exist.", NULL);
+		return nullptr;
+	}
+
+	return _sprites[key];
 }

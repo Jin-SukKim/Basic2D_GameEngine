@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "GameLevel.h"
-#include "TextureActor.h"
+#include "SpriteActor.h"
 
 GameLevel::GameLevel()
 {
@@ -14,8 +14,8 @@ void GameLevel::Init()
 {
 	// Temp
 	{
-		std::shared_ptr<TextureActor> background = std::make_shared<TextureActor>();
-		background->SetPos({ 400, 300 });
+		std::shared_ptr<SpriteActor> background = std::make_shared<SpriteActor>();
+		background->SetPos({ 0, 0 });
 
 		AddActor(background);
 	}

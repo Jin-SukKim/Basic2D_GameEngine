@@ -21,22 +21,14 @@ public:
 	static std::tuple<int32, int32> GetScreenSize() {
 		return { _screenWidth, _screenHeight };
 	}
-	static int32 GetScreenWidth() {
-		return _screenWidth;
-	}
-	static int32 GetScreenHeight() {
-		return _screenHeight;
-	}
+	static int32 GetScreenWidth() {	return _screenWidth; }
+	static int32 GetScreenHeight() { return _screenHeight; }
 
-	std::tuple<int32, int32> GetMousePos() {
+	std::tuple<int32, int32> GetMousePos() const {
 		return { _mousePosX, _mousePosY };
 	}
-	int32 GetMouseX() {
-		return _mousePosX;
-	}
-	int32 GetMouseY() {
-		return _mousePosY;
-	}
+	int32 GetMouseX() const { return _mousePosX; }
+	int32 GetMouseY() const { return _mousePosY; }
 private:
 	// 1) 윈도우 창 정보 등록
 	bool RegisterWindowClass(HINSTANCE hInstance);

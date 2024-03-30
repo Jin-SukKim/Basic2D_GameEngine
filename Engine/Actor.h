@@ -20,8 +20,6 @@ public:
 	void RemoveComponent(std::weak_ptr<Component> component);
 
 public:
-	LayerType GetLayer() {	return _layer; }
-
 	void SetLayer(LayerType layer) { _layer = layer;	}
 	LayerType GetLayer() const { return _layer;}
 
