@@ -23,9 +23,16 @@ public:
 	template<typename T>
 	void SetTimer(T* owner, void(T::* func)(), float wait); // T type의 void() 함수 포인터를 받는다.
 
+
+public:
+	static Vector2D GetCameraPos() { return _worldCamera; }
+	static void SetCameraPos(Vector2D pos) { _worldCamera = pos; }
+
 private:
 	std::unique_ptr<TimeManager> _timeManager;
 	std::unique_ptr<LevelManager> _levelManager;
+
+	static inline Vector2D _worldCamera = { 400, 300 };
 };
 
 // TODO: Thread로 돌리던지, World의 TimManager의 DeltaTime값을 사용해야 될것 같다

@@ -1,9 +1,17 @@
 #include "pch.h"
 #include "FlipbookActor.h"
 #include "Flipbook.h"
+#include "World.h"
+#include "Engine.h"
 
 FlipbookActor::FlipbookActor()
 {
+	bool load = GET_SINGLE(AssetManager)->LoadTexture(L"FB_PlayerDown", L"Sprite\\Player\\PlayerDown.bmp", RGB(128, 128, 128));
+	if (load) {
+		std::shared_ptr<Texture> texture = GET_SINGLE(AssetManager)->GetTexture(L"FB_PlayerDown");
+		_flipbook = GET_SINGLE(AssetManager)->CreateFlipbook(L"FB_PlayerDown");
+		_flipbook->SetInfo({ texture, L"FB_PlayerDown", {200, 200}, 0, 9, 0, 0.8f });
+	}
 }
 
 FlipbookActor::~FlipbookActor()
@@ -35,7 +43,7 @@ void FlipbookActor::Tick(float DeltaTime)
 	if (_sumTime >= delta)
 	{
 		_idx = _idx + 1;
-		if (_idx > frameCount)
+		if (_idx >= frameCount)
 			Reset();
 		else
 			_sumTime = 0.f;
@@ -54,9 +62,10 @@ void FlipbookActor::Render(HDC hdc)
 
 	Vector2D pos = GetPos();
 	Vector2D size = info.spriteSize;
-
+	Vector2D cameraPos = World::GetCameraPos();
 	// TransparentBlt는 좌상단부터 그리는데 좌표가 중앙이 되도록 보정
-	pos -= size * 0.5f;
+	pos = pos - size * 0.5f - (cameraPos - Engine::GetScreenSize() * 0.5f);
+
 
 	::TransparentBlt(hdc,
 		// 이미지 출력 위치 

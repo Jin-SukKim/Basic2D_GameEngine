@@ -18,6 +18,7 @@
 namespace fs = std::filesystem;
 
 #include "Types.h"
+#include "Enums.h"
 
 // Math
 #include "MathUtils.h"

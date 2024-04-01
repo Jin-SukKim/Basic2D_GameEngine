@@ -50,6 +50,9 @@
     <Filter Include="Source Files\Resources\Paper2D">
       <UniqueIdentifier>{cd03ca53-3c46-4e1d-8c2c-27a2e5206aff}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Objects\Actor\Game">
+      <UniqueIdentifier>{f187f931-c187-4b9f-87d8-e1db990b0fa5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -139,6 +142,21 @@
     <ClInclude Include="FlipbookActor.h">
       <Filter>Source Files\Objects\Actor\Paper2D</Filter>
     </ClInclude>
+    <ClInclude Include="Tilemap.h">
+      <Filter>Source Files\Resources\Paper2D</Filter>
+    </ClInclude>
+    <ClInclude Include="TilemapActor.h">
+      <Filter>Source Files\Objects\Actor\Paper2D</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraComponent.h">
+      <Filter>Source Files\Objects\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Source Files\Objects\Actor\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums.h">
+      <Filter>Source Files\Headers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -215,6 +233,18 @@
     </ClCompile>
     <ClCompile Include="FlipbookActor.cpp">
       <Filter>Source Files\Objects\Actor\Paper2D</Filter>
+    </ClCompile>
+    <ClCompile Include="Tilemap.cpp">
+      <Filter>Source Files\Resources\Paper2D</Filter>
+    </ClCompile>
+    <ClCompile Include="TilemapActor.cpp">
+      <Filter>Source Files\Objects\Actor\Paper2D</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraComponent.cpp">
+      <Filter>Source Files\Objects\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Source Files\Objects\Actor\Game</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

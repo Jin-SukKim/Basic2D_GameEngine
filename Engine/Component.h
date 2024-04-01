@@ -1,6 +1,8 @@
 #pragma once
 #include "Object.h"
 
+class Actor;
+
 class Component : public Object
 {
 	using Super = Object;
@@ -13,11 +15,11 @@ public:
 	virtual void Render(HDC hdc) = 0;
 
 public: // Getter/Setter
-	void SetOwner(std::weak_ptr<Object> owner) { _owner = owner; }
-	std::shared_ptr<Object> GetOwner() const { return _owner.lock(); } // 없으면 nullptr
+	void SetOwner(std::weak_ptr<Actor> owner) { _owner = owner; }
+	std::shared_ptr<Actor> GetOwner() const { return _owner.lock(); } // 없으면 nullptr
 	
 protected:
 	// weak_ptr : 보통 순환문제 해결, 임시로 데이터(cache) 사용할때 사용
-	std::weak_ptr<Object> _owner;
+	std::weak_ptr<Actor> _owner;
 };
 

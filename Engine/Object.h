@@ -25,6 +25,8 @@ public:
 
 		TODO: Asset에 Asset이 있으면 가져와 등록하고 Component에 넘겨주기
 		TODO: Template으로 한 함수로 모든 타입을 가져올 수 있게 하기 (어떻게?)
+
+		(type-trait를 사용하면 가능할수도, ex: std::is_convertiable<> 변환가능 한지 확인)
 	*/
 
 public: // Getter/Setter

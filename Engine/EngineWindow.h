@@ -18,11 +18,14 @@ public:
 		_screenHeight = height;
 	};
 
-	static std::tuple<int32, int32> GetScreenSize() {
-		return { _screenWidth, _screenHeight };
+	//static std::tuple<int32, int32> GetScreenSize() {
+	//	return { _screenWidth, _screenHeight };
+	//}	
+	static Vector2D GetScreenSize() {
+		return Vector2D(_screenWidth, _screenHeight);
 	}
-	static int32 GetScreenWidth() {	return _screenWidth; }
-	static int32 GetScreenHeight() { return _screenHeight; }
+	static const int32& GetScreenWidth() { return _screenWidth; }
+	static const int32& GetScreenHeight() { return _screenHeight; }
 
 	std::tuple<int32, int32> GetMousePos() const {
 		return { _mousePosX, _mousePosY };

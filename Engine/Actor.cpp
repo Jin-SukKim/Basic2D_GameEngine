@@ -32,8 +32,10 @@ void Actor::AddComponent(std::shared_ptr<Component> component)
 {
 	if (component == nullptr)
 		return;
-
-	component->SetOwner(weak_from_this());
+	
+	// 부모 클래스 가르킬땐 static_pointer_cast
+	// 자식 클래스 또는 다른 클래스를 가르킬땐 dynamic_pointer_cast
+	component->SetOwner(std::dynamic_pointer_cast<Actor>(shared_from_this()));
 	_components.push_back(std::move(component));
 }
 

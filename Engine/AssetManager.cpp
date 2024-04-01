@@ -2,6 +2,8 @@
 #include "AssetManager.h"
 #include "Texture.h"
 #include "Sprite.h"
+#include "Flipbook.h"
+#include "Tilemap.h"
 
 AssetManager::~AssetManager()
 {
@@ -41,13 +43,13 @@ std::shared_ptr<Texture> AssetManager::GetTexture(const std::wstring& key)
 	return _textures[key];
 }
 
-bool AssetManager::CreateSprite(const std::wstring& key, std::shared_ptr<Texture> texture, Vector2D spritePos, Vector2D spriteSize)
+std::shared_ptr<Sprite> AssetManager::CreateSprite(const std::wstring& key, std::shared_ptr<Texture> texture, Vector2D spritePos, Vector2D spriteSize)
 {
 	if (texture == nullptr)
-		return false;
+		return nullptr;
 
 	if (_sprites.find(key) != _sprites.end())
-		return true;
+		return _sprites[key];
 
 	if (spriteSize == Vector2D::Zero)
 		spriteSize = texture->GetSize();
@@ -55,7 +57,7 @@ bool AssetManager::CreateSprite(const std::wstring& key, std::shared_ptr<Texture
 	std::shared_ptr<Sprite> sprite = std::make_shared<Sprite>(texture, spritePos, spriteSize);
 	_sprites[key] = std::move(sprite);
 
-	return true;
+	return _sprites[key];
 }
 
 std::shared_ptr<Sprite> AssetManager::GetSprite(const std::wstring& key)
@@ -66,4 +68,72 @@ std::shared_ptr<Sprite> AssetManager::GetSprite(const std::wstring& key)
 	}
 
 	return _sprites[key];
+}
+
+std::shared_ptr<Flipbook> AssetManager::CreateFlipbook(const std::wstring& key)
+{
+	if (_flipbooks.find(key) != _flipbooks.end())
+		return _flipbooks[key];
+
+	std::shared_ptr<Flipbook> flipbook = std::make_shared<Flipbook>();
+	_flipbooks[key] = std::move(flipbook);
+
+	return _flipbooks[key];
+}
+
+std::shared_ptr<Flipbook> AssetManager::GetFlipbook(const std::wstring& key)
+{
+	if (_flipbooks.find(key) == _flipbooks.end()) {
+		::MessageBox(_hwnd, L"Flipbook needs to be created.", L"Flipbook does not exist.", NULL);
+		return nullptr;
+	}
+		
+	return _flipbooks[key];
+}
+
+bool AssetManager::LoadTilemap(const std::wstring& key, const std::wstring& path)
+{
+	if (_tilemaps.find(key) != _tilemaps.end())
+		return true;
+
+	std::shared_ptr<Tilemap> tilemap = std::make_shared<Tilemap>();
+	
+	fs::path fullPath = _resourcePath / path;
+	if (tilemap->LoadFile(fullPath)) {
+		::MessageBox(_hwnd, L"Incorrect path or Tilemap file is not exist.", L"Tilemap loads fail.", NULL);
+		return false;
+	}
+
+	_tilemaps[key] = std::move(tilemap);
+
+	return true;
+}
+
+void AssetManager::SaveTilemap(const std::wstring& key, const std::wstring& path)
+{
+	std::shared_ptr<Tilemap> tilemap = GetTilemap(key);
+
+	fs::path fullPath = _resourcePath / path;
+	tilemap->SaveFile(fullPath);
+}
+
+std::shared_ptr<Tilemap> AssetManager::CreateTilemap(const std::wstring& key)
+{
+	if (_tilemaps.find(key) != _tilemaps.end())
+		return _tilemaps[key];
+
+	std::shared_ptr<Tilemap> tilemap = std::make_shared <Tilemap>();
+	_tilemaps[key] = std::move(tilemap);
+
+	return _tilemaps[key];
+}
+
+std::shared_ptr<Tilemap> AssetManager::GetTilemap(const std::wstring& key)
+{
+	if (_tilemaps.find(key) == _tilemaps.end()) {
+		::MessageBox(_hwnd, L"Tilemap needs to be loaded first.", L"Tilemap is not exist.", NULL);
+		return nullptr;
+	}
+
+	return _tilemaps[key];
 }
