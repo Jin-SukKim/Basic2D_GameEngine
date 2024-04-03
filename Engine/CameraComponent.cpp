@@ -24,7 +24,7 @@ void CameraComponent::Tick(float DeltaTime)
 	Vector2D pos = owner->GetPos();
 
 	// TODO: World에 저장된 A
-	// background map size에서 clamp
+	// background map size에서 clamp (보정)
 	pos.X = std::clamp(pos.X, 400.f, 3024.f - 400.f);
 	pos.Y = std::clamp(pos.Y, 300.f, 2064.f - 300.f);
 

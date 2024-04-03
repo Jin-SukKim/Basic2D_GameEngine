@@ -93,18 +93,17 @@ std::shared_ptr<Flipbook> AssetManager::GetFlipbook(const std::wstring& key)
 
 bool AssetManager::LoadTilemap(const std::wstring& key, const std::wstring& path)
 {
-	if (_tilemaps.find(key) != _tilemaps.end())
-		return true;
-
-	std::shared_ptr<Tilemap> tilemap = std::make_shared<Tilemap>();
+	std::shared_ptr<Tilemap> tilemap = nullptr;
+	if (_tilemaps.find(key) == _tilemaps.end())
+		_tilemaps[key] = std::make_shared<Tilemap>();
 	
+	tilemap = _tilemaps[key];
+
 	fs::path fullPath = _resourcePath / path;
-	if (tilemap->LoadFile(fullPath)) {
+	if (!tilemap->LoadFile(fullPath)) {
 		::MessageBox(_hwnd, L"Incorrect path or Tilemap file is not exist.", L"Tilemap loads fail.", NULL);
 		return false;
 	}
-
-	_tilemaps[key] = std::move(tilemap);
 
 	return true;
 }

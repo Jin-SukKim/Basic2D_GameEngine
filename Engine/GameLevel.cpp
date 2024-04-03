@@ -26,7 +26,6 @@ GameLevel::GameLevel()
 	{
 		std::shared_ptr<TilemapActor> tilemap = std::make_shared<TilemapActor>();
 		tilemap->SetShowDebug(true);
-		tilemap->SetPos({ 400, 300 });
 
 		AddActor(tilemap);
 	}
