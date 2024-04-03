@@ -3,10 +3,8 @@
 
 class CameraComponent : public Component
 {
-	using Super = Component;
+	GENERATE_BODY(CameraComponent, Component)
 public:
-	CameraComponent();
-	virtual ~CameraComponent();
 
 	virtual void Init() override;
 	virtual void Tick(float DeltaTime) override;

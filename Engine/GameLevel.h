@@ -3,10 +3,8 @@
 
 class GameLevel : public Level
 {
-	using Super = Level;
+	GENERATE_BODY(GameLevel, Level)
 public:
-	GameLevel();
-	virtual ~GameLevel() override;
 
 	virtual void Init() override;
 	virtual void Tick(float DeltaTime) override;

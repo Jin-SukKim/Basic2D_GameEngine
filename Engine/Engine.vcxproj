@@ -162,7 +162,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Actor.h" />
+    <ClInclude Include="CollisionManager.h" />
+    <ClInclude Include="SquareComponent.h" />
     <ClInclude Include="CameraComponent.h" />
+    <ClInclude Include="Collider.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="Defines.h" />
     <ClInclude Include="EditLevel.h" />
@@ -182,6 +185,7 @@
     <ClInclude Include="AssetManager.h" />
     <ClInclude Include="LevelManager.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="CircleComponent.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="SpriteActor.h" />
     <ClInclude Include="Texture.h" />
@@ -198,7 +202,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Actor.cpp" />
+    <ClCompile Include="CollisionManager.cpp" />
+    <ClCompile Include="SquareComponent.cpp" />
     <ClCompile Include="CameraComponent.cpp" />
+    <ClCompile Include="Collider.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="EditLevel.cpp" />
     <ClCompile Include="Engine.cpp" />
@@ -219,6 +226,7 @@
     <ClCompile Include="AssetManager.cpp" />
     <ClCompile Include="LevelManager.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="CircleComponent.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="SpriteActor.cpp" />
     <ClCompile Include="Texture.cpp" />

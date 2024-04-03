@@ -28,3 +28,14 @@ enum class ActionState {
 	AS_Move,
 	AS_Attack,
 };
+
+enum class ColliderType {
+	CT_Square,
+	CT_Circle
+};
+
+enum CollisionLayerType {
+	CLT_Object,
+	CLT_Ground,
+	CLT_Wall
+};

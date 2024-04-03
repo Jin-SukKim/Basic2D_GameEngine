@@ -5,10 +5,8 @@ class Texture;
 
 class TextureActor : public Actor
 {
-	using Super = Actor;
+	GENERATE_BODY(TextureActor, Actor)
 public:
-	TextureActor();
-	virtual ~TextureActor() override;
 
 	virtual void Init() override;
 	virtual void Tick(float DeltaTime) override;

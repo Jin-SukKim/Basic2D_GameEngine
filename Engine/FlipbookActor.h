@@ -4,10 +4,8 @@ class Flipbook;
 
 class FlipbookActor : public Actor
 {
-	using Super = Actor;
+	GENERATE_BODY(FlipbookActor, Actor)
 public:
-	FlipbookActor();
-	virtual ~FlipbookActor() override;
 
 	virtual void Init() override;
 	virtual void Tick(float DeltaTime) override;

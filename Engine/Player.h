@@ -5,11 +5,8 @@ class CameraComponent;
 
 class Player : public FlipbookActor
 {
-	using Super = FlipbookActor;
+	GENERATE_BODY(Player, FlipbookActor)
 public:
-	Player();
-	virtual ~Player();
-
 	virtual void Init() override;
 	virtual void Tick(float DeltaTime) override;
 	virtual void Render(HDC hdc) override;

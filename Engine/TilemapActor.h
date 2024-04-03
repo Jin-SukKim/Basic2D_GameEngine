@@ -12,10 +12,8 @@ enum TILE_SIZE {
 
 class TilemapActor : public Actor
 {
-	using Super = Actor;
+	GENERATE_BODY(TilemapActor, Actor)
 public:
-	TilemapActor();
-	virtual ~TilemapActor() override;
 
 	virtual void Init() override;
 	virtual void Tick(float DeltaTime) override;

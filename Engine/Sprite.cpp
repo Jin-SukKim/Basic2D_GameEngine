@@ -3,7 +3,7 @@
 #include "Texture.h"
 
 Sprite::Sprite(std::shared_ptr<Texture> texture, Vector2D& pos, Vector2D& size) :
-	_texture(std::move(texture)), _spritePos(pos), _spriteSize(size)
+	_texture(texture), _spritePos(pos), _spriteSize(size)
 {
 }
 

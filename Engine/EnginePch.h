@@ -15,6 +15,7 @@
 #include <fstream>
 #include <filesystem>
 #include <unordered_map>
+#include <unordered_set>
 namespace fs = std::filesystem;
 
 #include "Types.h"

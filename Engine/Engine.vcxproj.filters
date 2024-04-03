@@ -53,6 +53,12 @@
     <Filter Include="Source Files\Objects\Actor\Game">
       <UniqueIdentifier>{f187f931-c187-4b9f-87d8-e1db990b0fa5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Objects\Component\Features">
+      <UniqueIdentifier>{44dc76e4-b09e-445e-9bab-cb43915724bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Objects\Component\Collision">
+      <UniqueIdentifier>{9f21edc3-4b55-4d53-8ee0-29baca29c596}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -121,9 +127,6 @@
     <ClInclude Include="GameLevel.h">
       <Filter>Source Files\World\Level</Filter>
     </ClInclude>
-    <ClInclude Include="TextureComponent.h">
-      <Filter>Source Files\Objects\Component</Filter>
-    </ClInclude>
     <ClInclude Include="Texture.h">
       <Filter>Source Files\Resources</Filter>
     </ClInclude>
@@ -148,14 +151,29 @@
     <ClInclude Include="TilemapActor.h">
       <Filter>Source Files\Objects\Actor\Paper2D</Filter>
     </ClInclude>
-    <ClInclude Include="CameraComponent.h">
-      <Filter>Source Files\Objects\Component</Filter>
-    </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>Source Files\Objects\Actor\Game</Filter>
     </ClInclude>
     <ClInclude Include="Enums.h">
       <Filter>Source Files\Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraComponent.h">
+      <Filter>Source Files\Objects\Component\Features</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureComponent.h">
+      <Filter>Source Files\Objects\Component\Features</Filter>
+    </ClInclude>
+    <ClInclude Include="SquareComponent.h">
+      <Filter>Source Files\Objects\Component\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Collider.h">
+      <Filter>Source Files\Objects\Component\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="CircleComponent.h">
+      <Filter>Source Files\Objects\Component\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionManager.h">
+      <Filter>Source Files\Manager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -213,9 +231,6 @@
     <ClCompile Include="GameLevel.cpp">
       <Filter>Source Files\World\Level</Filter>
     </ClCompile>
-    <ClCompile Include="TextureComponent.cpp">
-      <Filter>Source Files\Objects\Component</Filter>
-    </ClCompile>
     <ClCompile Include="Texture.cpp">
       <Filter>Source Files\Resources</Filter>
     </ClCompile>
@@ -240,11 +255,26 @@
     <ClCompile Include="TilemapActor.cpp">
       <Filter>Source Files\Objects\Actor\Paper2D</Filter>
     </ClCompile>
-    <ClCompile Include="CameraComponent.cpp">
-      <Filter>Source Files\Objects\Component</Filter>
-    </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>Source Files\Objects\Actor\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraComponent.cpp">
+      <Filter>Source Files\Objects\Component\Features</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureComponent.cpp">
+      <Filter>Source Files\Objects\Component\Features</Filter>
+    </ClCompile>
+    <ClCompile Include="SquareComponent.cpp">
+      <Filter>Source Files\Objects\Component\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="Collider.cpp">
+      <Filter>Source Files\Objects\Component\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="CircleComponent.cpp">
+      <Filter>Source Files\Objects\Component\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionManager.cpp">
+      <Filter>Source Files\Manager</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

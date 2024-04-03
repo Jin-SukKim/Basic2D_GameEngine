@@ -4,10 +4,8 @@
 class Texture;
 
 class TextureComponent : public Component {
-	using Super = Component;
+	GENERATE_BODY(TextureComponent, Component)
 public:
-	TextureComponent(ObjectType type = ObjectType::Component);
-	virtual ~TextureComponent();
 
 	virtual void Init();
 	virtual void Tick(float DeltaTime);

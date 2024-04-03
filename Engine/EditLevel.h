@@ -2,9 +2,8 @@
 #include "Level.h"
 class EditLevel : public Level
 {
+	GENERATE_BODY(EditLevel, Level)
 public:
-	EditLevel();
-	virtual ~EditLevel();
 
 	virtual void Init() override;
 	virtual void Tick(float DeltaTime) override;

@@ -5,10 +5,8 @@ class Sprite;
 
 class SpriteActor : public Actor
 {
-	using Super = Actor;
+	GENERATE_BODY(SpriteActor, Actor)
 public:
-	SpriteActor();
-	virtual ~SpriteActor() override;
 
 	virtual void Init() override;
 	virtual void Tick(float DeltaTime) override;
