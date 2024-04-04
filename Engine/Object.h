@@ -7,7 +7,7 @@ enum class ObjectType {
 	Component
 };
 
-class Object : public std::enable_shared_from_this<Object>
+class Object
 {
 public:
 	Object(ObjectType type = ObjectType::Object);
@@ -32,7 +32,7 @@ public:
 public: // Getter/Setter
 	ObjectType GetType() const { return _type; }
 	
-	void SetPos(const Vector2D& pos) { _pos = pos; };
+	virtual void SetPos(const Vector2D& pos) { _pos = pos; };
 	Vector2D GetPos() const { return _pos; }
 	
 	void SetSize(const Vector2D& size) { _size = size; };

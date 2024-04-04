@@ -3,7 +3,7 @@
 
 class Component;
 
-class Actor : public Object
+class Actor : public Object, public std::enable_shared_from_this<Actor>
 {
 	using Super = Object;
 public:

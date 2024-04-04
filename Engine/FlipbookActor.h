@@ -22,8 +22,10 @@ private:
 	void Reset();
 
 protected:
-	std::shared_ptr<Flipbook> _flipbook;
 	float _sumTime = 0.f;
 	int32 _idx = 0;
+
+private:
+	std::shared_ptr<Flipbook> _flipbook;
 };
 

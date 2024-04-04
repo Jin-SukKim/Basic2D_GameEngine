@@ -6,12 +6,6 @@
 
 FlipbookActor::FlipbookActor()
 {
-	bool load = GET_SINGLE(AssetManager)->LoadTexture(L"FB_PlayerDown", L"Sprite\\Player\\PlayerDown.bmp", RGB(128, 128, 128));
-	if (load) {
-		std::shared_ptr<Texture> texture = GET_SINGLE(AssetManager)->GetTexture(L"FB_PlayerDown");
-		_flipbook = GET_SINGLE(AssetManager)->CreateFlipbook(L"FB_PlayerDown");
-		_flipbook->SetInfo({ texture, L"FB_PlayerDown", {200, 200}, 0, 9, 0, 0.8f });
-	}
 }
 
 FlipbookActor::~FlipbookActor()
@@ -107,6 +101,7 @@ void FlipbookActor::SetFlipbook(std::shared_ptr<Flipbook> flipbook)
 	_flipbook = flipbook;
 	Reset();
 }
+
 
 void FlipbookActor::Reset()
 {

@@ -19,8 +19,10 @@ public:
 	Flipbook(const FlipbookInfo& info);
 	~Flipbook();
 
+public:
 	void SetInfo(const FlipbookInfo& info) { _info = info; }
 	const FlipbookInfo& GetInfo() const { return _info; }
+
 private:
 	FlipbookInfo _info;
 };

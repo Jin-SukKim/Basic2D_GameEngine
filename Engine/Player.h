@@ -12,24 +12,35 @@ public:
 	virtual void Render(HDC hdc) override;
 
 protected:
-	// state ±â¹Ý
-	void TickIdle();
-	void TickMove();
-	void TickAttack();
-
 	void UpdateAnimation();
 
 public:
-	void SetDir(Dir dir) { _dir = dir; }
+	void SetDir(Dir dir);
 	Dir GetDir() const { return _dir; }
 
 	void SetState(ActionState state);
 	ActionState GetState() const { return _state; }
+private:
+	void SetPlayerAnimation();
+	void PlayerInput();
 
+public:
+	void SetSpeed(Vector2D speed) { _speed = speed; }
+	Vector2D GetSpeed() const { return _speed; }
+	void PlayerMove(float DeltaTime);
 private:
 	Dir _dir = DIR_Down;
-	ActionState _state = ActionState::AS_Idle;
+	ActionState _state;
 
 	std::shared_ptr<CameraComponent> _camera;
+
+	std::array<std::shared_ptr<Flipbook>, 4> _idle;
+	std::array<std::shared_ptr<Flipbook>, 4> _move;
+	std::array<std::shared_ptr<Flipbook>, 4> _attack;
+
+	bool _keyPressed = false;
+
+	Vector2D _speed = Vector2D::Zero;
+	float _maxSpeed = 100.f;
 };
 

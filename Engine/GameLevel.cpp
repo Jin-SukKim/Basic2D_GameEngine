@@ -1,8 +1,8 @@
 #include "pch.h"
 #include "GameLevel.h"
 #include "SpriteActor.h"
-#include "FlipbookActor.h"
 #include "TilemapActor.h"
+#include "Player.h"
 
 GameLevel::GameLevel()
 {
@@ -16,16 +16,16 @@ GameLevel::GameLevel()
 
 	// flipbook
 	{
-		std::shared_ptr<FlipbookActor> flipbook = std::make_shared<FlipbookActor>();
-		flipbook->SetPos({ 400, 300 });
+		std::shared_ptr<Player> player = std::make_shared<Player>();
+		player->SetPos({ 400, 300 });
 
-		AddActor(flipbook);
+		AddActor(player);
 	}
 
 	// Tilemap
 	{
 		std::shared_ptr<TilemapActor> tilemap = std::make_shared<TilemapActor>();
-		tilemap->SetShowDebug(true);
+		tilemap->SetShowDebug(false);
 
 		AddActor(tilemap);
 	}
