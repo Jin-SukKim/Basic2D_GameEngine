@@ -109,7 +109,6 @@ int EngineWindow::Run()
 {
     MSG msg = {};
 
-    Init();
     // 3) 메인 루프
     //  - 입력
     //  - 로직

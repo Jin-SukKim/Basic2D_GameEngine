@@ -3,14 +3,20 @@
 #include "CameraComponent.h"
 #include "Flipbook.h"
 #include "InputManager.h" // TODO: manager보다는 InputComponent가 더 좋을것 같다
+#include "SquareComponent.h"
 
 Player::Player()
 {
 	// Set texture/flipbook
 	SetPlayerAnimation();
 
+	_square = std::make_shared<SquareComponent>();
+	_square->SetSize({200.f, 200.f});
+	AddComponent(_square);
+
 	_camera = std::make_shared<CameraComponent>();
 	AddComponent(_camera);
+
 }
 
 Player::~Player()
@@ -20,7 +26,6 @@ Player::~Player()
 void Player::Init()
 {
 	Super::Init();
-
 
 }
 

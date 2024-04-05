@@ -2,7 +2,9 @@
 #include "FlipbookActor.h"
 
 class CameraComponent;
+class SquareComponent;
 
+// TODO : Input과 Animation을 Component로 따로 만드는게 더 좋지 않을까
 class Player : public FlipbookActor
 {
 	GENERATE_BODY(Player, FlipbookActor)
@@ -32,6 +34,7 @@ private:
 	Dir _dir = DIR_Down;
 	ActionState _state;
 
+	std::shared_ptr<SquareComponent> _square;
 	std::shared_ptr<CameraComponent> _camera;
 
 	std::array<std::shared_ptr<Flipbook>, 4> _idle;

@@ -20,6 +20,8 @@ void Collider::Tick(float DeltaTime)
 
 void Collider::Render(HDC hdc)
 {
+	if (_showDebug == false)
+		return;
 }
 
 bool Collider::CheckCollision(std::weak_ptr<Collider> other)
@@ -33,6 +35,14 @@ bool Collider::CheckCollision(std::weak_ptr<Collider> other)
 		return true;
 
 	return false;
+}
+
+void Collider::OnComponentBeginOverlap(std::shared_ptr<Collider> collider, std::shared_ptr<Collider> other)
+{
+}
+
+void Collider::OnComponentEndOverlap(std::shared_ptr<Collider> collider, std::shared_ptr<Collider> other)
+{
 }
 
 // https://blog.naver.com/winterwolfs/10165506488

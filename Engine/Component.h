@@ -10,9 +10,9 @@ public:
 	Component(ObjectType type = ObjectType::Component);
 	virtual ~Component();
 
-	virtual void Init() = 0;
-	virtual void Tick(float DeltaTime) = 0;
-	virtual void Render(HDC hdc) = 0;
+	virtual void Init() {};
+	virtual void Tick(float DeltaTime) {};
+	virtual void Render(HDC hdc) {};
 
 public: // Getter/Setter
 	void SetOwner(std::weak_ptr<Actor> owner) { _owner = owner; }

@@ -14,7 +14,7 @@ GameLevel::GameLevel()
 		AddActor(background);
 	}
 
-	// flipbook
+	// Actor
 	{
 		std::shared_ptr<Player> player = std::make_shared<Player>();
 		player->SetPos({ 400, 300 });

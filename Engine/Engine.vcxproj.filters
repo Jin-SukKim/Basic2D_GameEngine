@@ -175,6 +175,10 @@
     <ClInclude Include="CollisionManager.h">
       <Filter>Source Files\Manager</Filter>
     </ClInclude>
+    <ClInclude Include="ColliderDelegate.h">
+      <Filter>Source Files\Objects\Component\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -275,6 +279,9 @@
     </ClCompile>
     <ClCompile Include="CollisionManager.cpp">
       <Filter>Source Files\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

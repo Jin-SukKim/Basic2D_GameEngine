@@ -1,10 +1,12 @@
 #pragma once
 #include "Component.h"
+#include "ColliderDelegate.h"
 
 class SquareComponent;
 class CircleComponent;
+class Actor;
 
-class Collider : public Component
+class Collider : public Component, public std::enable_shared_from_this<Collider>
 {
 	GENERATE_BODY(Collider, Component)
 public:
@@ -17,7 +19,26 @@ public:
 	// TODO : 두 Collider가 서로 충돌할건지 Bit flag를 활용해 좀 더 최적화
 	virtual bool CheckCollision(std::weak_ptr<Collider> other);
 
+	// 이미 충돌했는지
+	bool IsCollided(std::shared_ptr<Collider> other) {
+		return _collisionSet.contains(other);
+	}
+
 	// TODO: OnComponentBeginOverlap, EndOverlap과 연결될 Delegate Funciont도 만들기
+	virtual void OnComponentBeginOverlap(std::shared_ptr<Collider> collider, std::shared_ptr<Collider> other);
+	virtual void OnComponentEndOverlap(std::shared_ptr<Collider> collider, std::shared_ptr<Collider> other);
+
+	template<typename T>
+	void BindBeginOverlap(T* owner, void(T::* func)(Collider, Actor, Collider)) {
+		_beginOverlap = [owner, func]() {
+			(owner->*func)(std::placeholders::_1, std::placeholders::_2, std::placeholders::_3);
+		};
+	}
+
+	template<typename T>
+	void Test(Collider* comp, Actor* actor, Collider* otherComp, T func) {
+		func(comp, actor, otherComp);
+	}
 protected:
 	bool CheckCollisionSquareToSqaure(std::weak_ptr<SquareComponent> b1, std::weak_ptr<SquareComponent> b2);
 	bool CheckCollisionCircleToSquare(std::weak_ptr<CircleComponent> c1, std::weak_ptr<SquareComponent> b1);
@@ -38,6 +59,17 @@ public:
 	void ResetCollisionFlag() { _collisionFlag = 0; }
 	void AddCollisionFlagLayer(CollisionLayerType layer);
 	void RemoveCollisionFlagLayer(CollisionLayerType layer);
+
+	void AddCollisionSet(std::shared_ptr<Collider> other) { _collisionSet.insert(other); }
+	void RemoveCollisionSet(std::shared_ptr<Collider> other) { _collisionSet.erase(other); }
+
+public:
+	// parameter : 자기자신의 component, 충돌한 Actor, 충돌한 Actor의 Component
+	std::function<void(Collider, Actor, Collider)> _beginOverlap = nullptr;
+	std::function<void(Collider, Actor, Collider)> _endOverlap = nullptr;
+
+	OverlapDelegate _beginOverlapDelegate;
+
 private:
 	ColliderType _colliderType; 
 	bool _showDebug = true; 
@@ -53,4 +85,3 @@ private:
 	std::unordered_set<std::shared_ptr<Collider>> _collisionSet;
 
 };
-
