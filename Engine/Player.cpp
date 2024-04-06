@@ -5,6 +5,7 @@
 #include "InputManager.h" // TODO: manager보다는 InputComponent가 더 좋을것 같다
 #include "SquareComponent.h"
 
+
 Player::Player()
 {
 	// Set texture/flipbook
@@ -16,7 +17,6 @@ Player::Player()
 
 	_camera = std::make_shared<CameraComponent>();
 	AddComponent(_camera);
-
 }
 
 Player::~Player()
@@ -27,6 +27,9 @@ void Player::Init()
 {
 	Super::Init();
 
+	//_square->_beginOverlapDelegate.BindDelegate(dynamic_pointer_cast<Player>(shared_from_this()), &Player::BeginOverlapFunction);
+	_square->_beginOverlapDelegate.BindDelegateTest(this, &Player::TestOverlap);
+	//_square->_beginOverlapDelegate.BindDelegateTestSmartPtr(dynamic_pointer_cast<Player>(shared_from_this()), &Player::TestOverlap);
 }
 
 void Player::Tick(float DeltaTime)
@@ -47,6 +50,8 @@ void Player::Render(HDC hdc)
 {
 	Super::Render(hdc); // Flipbook Actor에서 설정된 _flipbook을 렌더링
 }
+
+
 
 void Player::UpdateAnimation()
 {

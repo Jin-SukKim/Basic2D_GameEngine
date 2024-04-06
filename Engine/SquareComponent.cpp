@@ -29,11 +29,22 @@ void SquareComponent::Render(HDC hdc)
 	Vector2D pos = GetOwner()->GetPos();
 	pos -= camPos - Engine::GetScreenSize() * 0.5f;
 
-	HBRUSH myBrush = (HBRUSH)::GetStockObject(NULL_BRUSH); // 그릴 펜 색 변경해서 가져오기
+	::SetDCPenColor(hdc, RGB(255, 0, 0));
+
+	HPEN myPen = (HPEN)::GetStockObject(DC_PEN);
+	HPEN oldPen = (HPEN)::SelectObject(hdc, myPen);
+
+	HBRUSH myBrush = (HBRUSH)::GetStockObject(NULL_BRUSH); // 그릴 펜의 Handle가져오기 (NULL_BRUSH 내부를 안채운다)
 	HBRUSH oldBrush = (HBRUSH)::SelectObject(hdc, myBrush);
+	
+	::SetDCPenColor(hdc, RGB(255, 0, 0));
+	
 	WinUtils::DrawRect(hdc, pos, static_cast<int32>(_size.X), static_cast<int32>(_size.Y));
 	::SelectObject(hdc, oldBrush);
 	::DeleteObject(myBrush);
+
+	::SelectObject(hdc, oldPen);
+	::DeleteObject(myPen);
 }
 
 bool SquareComponent::CheckCollision(std::weak_ptr<Collider> other)

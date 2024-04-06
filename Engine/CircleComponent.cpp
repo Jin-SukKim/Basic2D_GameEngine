@@ -28,11 +28,21 @@ void CircleComponent::Render(HDC hdc)
 	Vector2D pos = GetOwner()->GetPos();
 	pos -= camPos - Engine::GetScreenSize() * 0.5f;
 
-	HBRUSH myBrush = (HBRUSH)::GetStockObject(NULL_BRUSH); // 그릴 펜 색 변경해서 가져오기
+	HPEN myPen = (HPEN)::GetStockObject(DC_PEN);
+	HPEN oldPen = (HPEN)::SelectObject(hdc, myPen);
+
+	HBRUSH myBrush = (HBRUSH)::GetStockObject(NULL_BRUSH);
 	HBRUSH oldBrush = (HBRUSH)::SelectObject(hdc, myBrush);
+
+	::SetDCPenColor(hdc, RGB(255, 0, 0));
+
 	WinUtils::DrawCircle(hdc, pos, static_cast<int32>(_radius));
+
 	::SelectObject(hdc, oldBrush);
 	::DeleteObject(myBrush);
+
+	::SelectObject(hdc, oldPen);
+	::DeleteObject(myPen);
 }
 
 

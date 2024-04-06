@@ -1,6 +1,7 @@
 #pragma once
 
 class Actor;
+class CollisionManager;
 
 class Level
 {
@@ -17,7 +18,7 @@ public:
 
 	int32 GetActorCount();
 
-public:
+private:
 	// TODO: Actor 관리는 unordered_map으로 하는게 더 좋을수도?, level보다는 world에서 관리하는게 맞을것같다.
 	// TODO: Level은 일종의 맵이므로 level에 속한 Actor를 따로 관리하는게 좋을것 같다.
 	// (즉, World에 속한 actor와 level에 속한 actor로 나누는것?)

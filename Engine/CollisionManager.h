@@ -4,13 +4,12 @@ class Collider;
 
 class CollisionManager
 {
+	GENERATE_SINGLE(CollisionManager);
 public:
-	CollisionManager();
 	~CollisionManager();
 
 	void Init();
-	void Tick(float DeltaTime);
-	void Render();
+	void Tick();
 
 	void AddCollider(std::shared_ptr<Collider> collider);
 	void RemoveCollider(std::shared_ptr<Collider> collider);

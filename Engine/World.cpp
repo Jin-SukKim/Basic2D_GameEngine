@@ -3,6 +3,7 @@
 #include "Engine.h"
 #include "InputManager.h"
 #include "LevelManager.h"
+#include "CollisionManager.h"
 
 World::World()
 {
@@ -19,6 +20,8 @@ void World::Init()
 	_timeManager->Init();
 	_levelManager->Init();
 	_levelManager->ChangeLevel(LevelType::LEVEL_GAME);
+
+	GET_SINGLE(CollisionManager)->Init();
 }
 
 
@@ -26,7 +29,11 @@ void World::Tick()
 {
 	_timeManager->Tick();
 	float deltaTime = _timeManager->GetDeltaTime();
+
+	GET_SINGLE(CollisionManager)->Tick();
+
 	_levelManager->Tick(deltaTime);
+
 }
 
 void World::Render(HDC hdc)

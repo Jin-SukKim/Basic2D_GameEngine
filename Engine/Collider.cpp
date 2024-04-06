@@ -3,8 +3,10 @@
 #include "Actor.h"
 #include "SquareComponent.h"
 #include "CircleComponent.h"
+#include "CollisionManager.h"
 
-Collider::Collider() : _colliderType(ColliderType::CT_Square) {}
+Collider::Collider() : _colliderType(ColliderType::CT_Square) {
+}
 
 Collider::~Collider() {}
 
@@ -12,6 +14,7 @@ Collider::Collider(ColliderType colliderType) : _colliderType(colliderType) {}
 
 void Collider::Init()
 {
+	GET_SINGLE(CollisionManager)->AddCollider(shared_from_this());
 }
 
 void Collider::Tick(float DeltaTime)
@@ -39,6 +42,7 @@ bool Collider::CheckCollision(std::weak_ptr<Collider> other)
 
 void Collider::OnComponentBeginOverlap(std::shared_ptr<Collider> collider, std::shared_ptr<Collider> other)
 {
+	_beginOverlapDelegate(collider, other->GetOwner(), other);
 }
 
 void Collider::OnComponentEndOverlap(std::shared_ptr<Collider> collider, std::shared_ptr<Collider> other)

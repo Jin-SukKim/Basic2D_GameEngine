@@ -3,6 +3,7 @@
 #include "SpriteActor.h"
 #include "TilemapActor.h"
 #include "Player.h"
+#include "Enemy.h"
 
 GameLevel::GameLevel()
 {
@@ -20,6 +21,13 @@ GameLevel::GameLevel()
 		player->SetPos({ 400, 300 });
 
 		AddActor(player);
+	}
+	// Enemy
+	{
+		std::shared_ptr<Enemy> enemy = std::make_shared<Enemy>();
+		enemy->SetPos({ 700, 300 });
+
+		AddActor(enemy);
 	}
 
 	// Tilemap

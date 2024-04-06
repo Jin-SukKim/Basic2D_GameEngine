@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Level.h"
 #include "Actor.h"
+#include "CollisionManager.h"
 
 Level::Level()
 {
@@ -12,13 +13,16 @@ Level::~Level()
 
 void Level::Init()
 {
+
 	for (auto& actors : _actors)
 		for (std::shared_ptr<Actor>& actor : actors)
 			actor->Init();
+
 }
 
 void Level::Tick(float DeltaTime)
 {
+
 	for (auto& actors : _actors)
 		for (std::shared_ptr<Actor>& actor : actors)
 			actor->Tick(DeltaTime);

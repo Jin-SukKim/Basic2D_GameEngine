@@ -65,10 +65,10 @@ public:
 
 public:
 	// parameter : 자기자신의 component, 충돌한 Actor, 충돌한 Actor의 Component
-	std::function<void(Collider, Actor, Collider)> _beginOverlap = nullptr;
-	std::function<void(Collider, Actor, Collider)> _endOverlap = nullptr;
+	std::function<void(std::weak_ptr<Collider>, std::weak_ptr<Actor>, std::weak_ptr<Collider>)> _beginOverlap = nullptr;
+	std::function<void(std::weak_ptr<Collider>, std::weak_ptr<Actor>, std::weak_ptr<Collider>)> _endOverlap = nullptr;
 
-	OverlapDelegate _beginOverlapDelegate;
+	Delegate _beginOverlapDelegate;
 
 private:
 	ColliderType _colliderType; 

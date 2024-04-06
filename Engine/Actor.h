@@ -3,6 +3,8 @@
 
 class Component;
 
+// TODO: Actor와 Component를 생성하는 클래스를 만들어 사용하는게 좋을것같다 (UE의 CreateDefaultSubobject 처럼)
+// TODO: 만약 그렇다면 Actor와 Component들을 vector보다는 map으로 관리하는게 더 좋을수 있을것 같다
 class Actor : public Object, public std::enable_shared_from_this<Actor>
 {
 	using Super = Object;

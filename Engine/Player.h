@@ -3,6 +3,7 @@
 
 class CameraComponent;
 class SquareComponent;
+class Collider;
 
 // TODO : Input과 Animation을 Component로 따로 만드는게 더 좋지 않을까
 class Player : public FlipbookActor
@@ -12,7 +13,12 @@ public:
 	virtual void Init() override;
 	virtual void Tick(float DeltaTime) override;
 	virtual void Render(HDC hdc) override;
-
+	
+	void BeginOverlapFunction(std::weak_ptr<Collider> comp, std::weak_ptr<Actor> other, std::weak_ptr<Collider> otherComp)
+	{
+		int x = 11;
+	}
+	void TestOverlap() { int x = 10; }
 protected:
 	void UpdateAnimation();
 
@@ -22,14 +28,15 @@ public:
 
 	void SetState(ActionState state);
 	ActionState GetState() const { return _state; }
+
+	void SetSpeed(Vector2D speed) { _speed = speed; }
+	Vector2D GetSpeed() const { return _speed; }
+	void PlayerMove(float DeltaTime);
+
 private:
 	void SetPlayerAnimation();
 	void PlayerInput();
 
-public:
-	void SetSpeed(Vector2D speed) { _speed = speed; }
-	Vector2D GetSpeed() const { return _speed; }
-	void PlayerMove(float DeltaTime);
 private:
 	Dir _dir = DIR_Down;
 	ActionState _state;

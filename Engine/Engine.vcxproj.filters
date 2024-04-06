@@ -178,7 +178,9 @@
     <ClInclude Include="ColliderDelegate.h">
       <Filter>Source Files\Objects\Component\Collision</Filter>
     </ClInclude>
-    <ClInclude Include="Enemy.h" />
+    <ClInclude Include="Enemy.h">
+      <Filter>Source Files\Objects\Actor\Game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -281,7 +283,7 @@
       <Filter>Source Files\Manager</Filter>
     </ClCompile>
     <ClCompile Include="Enemy.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Objects\Actor\Game</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
