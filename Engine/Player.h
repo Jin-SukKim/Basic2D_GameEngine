@@ -14,11 +14,7 @@ public:
 	virtual void Tick(float DeltaTime) override;
 	virtual void Render(HDC hdc) override;
 	
-	void BeginOverlapFunction(std::weak_ptr<Collider> comp, std::weak_ptr<Actor> other, std::weak_ptr<Collider> otherComp)
-	{
-		int x = 11;
-	}
-	void TestOverlap() { int x = 10; }
+	void BeginOverlapFunction(std::weak_ptr<Collider> comp, std::weak_ptr<Actor> other, std::weak_ptr<Collider> otherComp);
 protected:
 	void UpdateAnimation();
 

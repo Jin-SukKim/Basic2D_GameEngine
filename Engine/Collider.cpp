@@ -5,12 +5,13 @@
 #include "CircleComponent.h"
 #include "CollisionManager.h"
 
-Collider::Collider() : _colliderType(ColliderType::CT_Square) {
-}
-
-Collider::~Collider() {}
+Collider::Collider() : _colliderType(ColliderType::CT_Square) {}
 
 Collider::Collider(ColliderType colliderType) : _colliderType(colliderType) {}
+
+Collider::~Collider() {
+}
+
 
 void Collider::Init()
 {
@@ -25,6 +26,11 @@ void Collider::Render(HDC hdc)
 {
 	if (_showDebug == false)
 		return;
+}
+
+void Collider::Clear()
+{
+	GET_SINGLE(CollisionManager)->RemoveCollider(shared_from_this());
 }
 
 bool Collider::CheckCollision(std::weak_ptr<Collider> other)
@@ -47,24 +53,60 @@ void Collider::OnComponentBeginOverlap(std::shared_ptr<Collider> collider, std::
 
 void Collider::OnComponentEndOverlap(std::shared_ptr<Collider> collider, std::shared_ptr<Collider> other)
 {
+	_endOverlapDelegate(collider, other->GetOwner(), other);
 }
 
 // https://blog.naver.com/winterwolfs/10165506488
 bool Collider::CheckCollisionSquareToSqaure(std::weak_ptr<SquareComponent> b1, std::weak_ptr<SquareComponent> b2)
 {
 	std::shared_ptr<SquareComponent> square1 = b1.lock();
-	if (square1)
+	if (square1 == nullptr)
 		return false;
 	std::shared_ptr<SquareComponent> square2 = b2.lock();
-	if (square2)
+	if (square2 == nullptr)
 		return false;
+
+	RECT r1 = square1->GetRect();
+	RECT r2 = square2->GetRect();
 
 	RECT intersect = {};
 
 	// 겹치는 영역까지 알려준다.
-	// return ::IntersectRect(&intersect, &s1->GetRect(), &s2->GetRect());
+	bool check = ::IntersectRect(&intersect, &r1, &r2);
+	
+	{
+		// 최대한 간단한 버전 (정확하지가 않다)
+		// Frame이 낮으면 제대로 동작하지 않는다. 이유가 뭘까?
+		Vector2D intersectVec = Vector2D::Zero;
+		
+		int32 w = intersect.right - intersect.left;
+		int32 h = intersect.bottom - intersect.top;
 
-	// 두 사각형이 겹치는지
+		// 정확히 겹친 영역만큼만 계산한다면 border가 겹칠수 있다. (미세한만큼 추가로 보정해 계산해준다)
+		if (w > h) {
+			if (intersect.top == r2.top) {
+				intersectVec.Y += h + 1;
+			}
+			else {
+				intersectVec.Y -= h - 1;
+			}
+		}
+		else {
+			if (intersect.left == r2.left) {
+				intersectVec.X += w + 1;
+			}
+			else {
+				intersectVec.X -= w - 1;
+			}
+		}
+
+		SetIntersect(intersectVec);
+	}
+
+	return check;
+
+	// 두 사각형이 겹치는지만 알 수 있따.
+	/*
 	{
 		const Vector2D pos1 = square1->GetOwner()->GetPos();
 		const Vector2D halfSize1 = square1->GetSize() * 0.5f;
@@ -86,6 +128,7 @@ bool Collider::CheckCollisionSquareToSqaure(std::weak_ptr<SquareComponent> b1, s
 	}
 
 	return true;
+	*/
 }
 
 bool Collider::CheckCollisionCircleToSquare(std::weak_ptr<CircleComponent> c1, std::weak_ptr<SquareComponent> b1)

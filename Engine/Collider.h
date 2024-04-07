@@ -16,6 +16,8 @@ public:
 	virtual void Tick(float DeltaTime) override;
 	virtual void Render(HDC hdc) override;
 
+	virtual void Clear() override;
+
 	// TODO : 두 Collider가 서로 충돌할건지 Bit flag를 활용해 좀 더 최적화
 	virtual bool CheckCollision(std::weak_ptr<Collider> other);
 
@@ -28,17 +30,6 @@ public:
 	virtual void OnComponentBeginOverlap(std::shared_ptr<Collider> collider, std::shared_ptr<Collider> other);
 	virtual void OnComponentEndOverlap(std::shared_ptr<Collider> collider, std::shared_ptr<Collider> other);
 
-	template<typename T>
-	void BindBeginOverlap(T* owner, void(T::* func)(Collider, Actor, Collider)) {
-		_beginOverlap = [owner, func]() {
-			(owner->*func)(std::placeholders::_1, std::placeholders::_2, std::placeholders::_3);
-		};
-	}
-
-	template<typename T>
-	void Test(Collider* comp, Actor* actor, Collider* otherComp, T func) {
-		func(comp, actor, otherComp);
-	}
 protected:
 	bool CheckCollisionSquareToSqaure(std::weak_ptr<SquareComponent> b1, std::weak_ptr<SquareComponent> b2);
 	bool CheckCollisionCircleToSquare(std::weak_ptr<CircleComponent> c1, std::weak_ptr<SquareComponent> b1);
@@ -63,12 +54,13 @@ public:
 	void AddCollisionSet(std::shared_ptr<Collider> other) { _collisionSet.insert(other); }
 	void RemoveCollisionSet(std::shared_ptr<Collider> other) { _collisionSet.erase(other); }
 
+	void SetIntersect(Vector2D intersect) { _intersect = intersect;	}
+	Vector2D GetIntersect() const { return _intersect; }
 public:
-	// parameter : 자기자신의 component, 충돌한 Actor, 충돌한 Actor의 Component
-	std::function<void(std::weak_ptr<Collider>, std::weak_ptr<Actor>, std::weak_ptr<Collider>)> _beginOverlap = nullptr;
-	std::function<void(std::weak_ptr<Collider>, std::weak_ptr<Actor>, std::weak_ptr<Collider>)> _endOverlap = nullptr;
-
+	// Collider Component는 owner object가 사라질때 Manager 클래스에서 같이 사라지게 했으므로
+	// raw pointer인 this를 사용해도 될 것 같다.
 	Delegate _beginOverlapDelegate;
+	Delegate _endOverlapDelegate;
 
 private:
 	ColliderType _colliderType; 
@@ -84,4 +76,5 @@ private:
 	// 자신과 충돌한 Collider 추적 (이미 충돌한 Collider들은 충돌체크를 더 하지 않도록)
 	std::unordered_set<std::shared_ptr<Collider>> _collisionSet;
 
+	Vector2D _intersect = Vector2D::Zero;
 };

@@ -27,9 +27,7 @@ void Player::Init()
 {
 	Super::Init();
 
-	//_square->_beginOverlapDelegate.BindDelegate(dynamic_pointer_cast<Player>(shared_from_this()), &Player::BeginOverlapFunction);
-	_square->_beginOverlapDelegate.BindDelegateTest(this, &Player::TestOverlap);
-	//_square->_beginOverlapDelegate.BindDelegateTestSmartPtr(dynamic_pointer_cast<Player>(shared_from_this()), &Player::TestOverlap);
+	_square->_beginOverlapDelegate.BindDelegate(this, &Player::BeginOverlapFunction);
 }
 
 void Player::Tick(float DeltaTime)
@@ -49,6 +47,13 @@ void Player::Tick(float DeltaTime)
 void Player::Render(HDC hdc)
 {
 	Super::Render(hdc); // Flipbook Actor에서 설정된 _flipbook을 렌더링
+}
+
+void Player::BeginOverlapFunction(std::weak_ptr<Collider> comp, std::weak_ptr<Actor> other, std::weak_ptr<Collider> otherComp)
+{
+	std::shared_ptr<Collider> collider = comp.lock();
+	if (collider)
+		SetPos(GetPos() - collider->GetIntersect());
 }
 
 

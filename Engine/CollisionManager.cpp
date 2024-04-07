@@ -4,6 +4,8 @@
 
 CollisionManager::~CollisionManager()
 {
+	_colliders.clear();
+	_colliders.shrink_to_fit();
 }
 
 void CollisionManager::Init()

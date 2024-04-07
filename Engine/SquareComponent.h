@@ -12,12 +12,8 @@ public:
 	virtual bool CheckCollision(std::weak_ptr<Collider> other);
 
 public:
-	void SetSize(Vector2D size) {
-		_size = size;
-	}
-	Vector2D GetSize() const {
-		return _size;
-	}
+	void SetSize(Vector2D size) {	_size = size;}
+	Vector2D GetSize() const {	return _size;}
 
 	RECT GetRect();
 private:

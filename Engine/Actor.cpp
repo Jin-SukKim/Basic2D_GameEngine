@@ -8,6 +8,8 @@ Actor::Actor(ObjectType type) : Super(type)
 
 Actor::~Actor()
 {
+	for (auto comp : _components)
+		comp->Clear();
 }
 
 void Actor::Init()
