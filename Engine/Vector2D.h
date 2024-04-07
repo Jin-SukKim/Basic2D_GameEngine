@@ -4,6 +4,7 @@ struct Vector2D
 {
 	Vector2D() : X(0.f), Y(0.f) {}
 	Vector2D(float X, float Y) : X(X), Y(Y) {}
+	Vector2D(float XY) : X(XY), Y(XY) {}
 	Vector2D(int X, int Y) : X(static_cast<float>(X)), Y(static_cast<float>(Y)) {}
 	Vector2D(POINT pt) : X((float)pt.x), Y((float)pt.y) {}
 	Vector2D(const Vector2D& other) : X(other.X), Y(other.Y) {}

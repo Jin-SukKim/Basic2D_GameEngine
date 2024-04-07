@@ -59,6 +59,22 @@ void Tilemap::SaveFile(const std::wstring& path)
 	}
 }
 
+bool Tilemap::CanGo(Vector2D cellPos)
+{
+	if (_tiles.empty())
+		return false;
+
+	Tile* tile = GetTileAt(cellPos);
+	if (tile == nullptr)
+		return false;
+
+	// TODO: Tile struct이나 TileInfo struct/bit를 새로 생성하고 parameter로 받아
+	// 갈수있는지 확인할 용으로 사용하기
+
+	// 현재는 벽이 아닌지만 확인
+	return tile->value != 1;
+}
+
 // Mapsize / tilesize => 맵의 tile 개수(mapsize.x * mapsize.y)
 void Tilemap::SetMapSize(const Vector2D& size)
 {

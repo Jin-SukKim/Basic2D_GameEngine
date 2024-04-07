@@ -23,7 +23,6 @@ public:
 	template<typename T>
 	void SetTimer(T* owner, void(T::* func)(), float wait); // T type의 void() 함수 포인터를 받는다.
 
-
 public:
 	static Vector2D GetCameraPos() { return _worldCamera; }
 	static void SetCameraPos(Vector2D pos) { _worldCamera = pos; }

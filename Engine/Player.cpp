@@ -4,7 +4,8 @@
 #include "Flipbook.h"
 #include "InputManager.h" // TODO: manager보다는 InputComponent가 더 좋을것 같다
 #include "SquareComponent.h"
-
+#include "Level.h"
+#include "Tilemap.h"
 
 Player::Player()
 {
@@ -191,6 +192,12 @@ void Player::PlayerMove(float DeltaTime)
 	if (_state == ActionState::AS_Attack)
 		return;
 
+	std::shared_ptr<Tilemap> tilemap = Level::GetCurTilemap();
+	if (tilemap && tilemap->CanGo(GetPos() + _maxSpeed * DeltaTime) == false) {
+		SetSpeed(Vector2D::Zero);
+	}
+		
+	
 	if (_speed == Vector2D::Zero)
 		SetState(ActionState::AS_Idle);
 	else

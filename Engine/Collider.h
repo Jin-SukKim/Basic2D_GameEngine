@@ -26,7 +26,6 @@ public:
 		return _collisionSet.contains(other);
 	}
 
-	// TODO: OnComponentBeginOverlap, EndOverlap과 연결될 Delegate Funciont도 만들기
 	virtual void OnComponentBeginOverlap(std::shared_ptr<Collider> collider, std::shared_ptr<Collider> other);
 	virtual void OnComponentEndOverlap(std::shared_ptr<Collider> collider, std::shared_ptr<Collider> other);
 

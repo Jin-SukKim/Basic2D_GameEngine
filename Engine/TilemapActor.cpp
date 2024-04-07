@@ -132,3 +132,13 @@ void TilemapActor::TickPicking()
 		}
 	}
 }
+
+Vector2D TilemapActor::ConvertToTilemapPos(Vector2D pos)
+{
+	if (_tilemap == nullptr)
+		return Vector2D::Zero;
+
+	int32 size = _tilemap->GetTileSize();
+
+	return GetPos() + pos * static_cast<float>(size) + Vector2D(size * 0.5f);
+}

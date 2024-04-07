@@ -21,12 +21,15 @@ public:
 
 	void TickPicking();
 
+	// Tilemap 기반의 좌표로 변환 
+	Vector2D ConvertToTilemapPos(Vector2D pos);
 public:
 	void SetTilemap(std::shared_ptr<Tilemap> tilemap) { _tilemap = tilemap;	}
 	std::shared_ptr<Tilemap> GetTilemap() {return _tilemap; }
 
 	void SetShowDebug(bool showDebug) { _showDebug = showDebug; }
 private:
+	// TODO: 왠만하면 Component로 바꿔주기
 	std::shared_ptr<Tilemap> _tilemap;
 	std::shared_ptr<Sprite> _spriteX;
 	std::shared_ptr<Sprite> _spriteO;

@@ -33,6 +33,7 @@ GameLevel::GameLevel()
 	// Tilemap
 	{
 		std::shared_ptr<TilemapActor> tilemap = std::make_shared<TilemapActor>();
+		SetCurrentTilemapActor(tilemap);
 		tilemap->SetShowDebug(false);
 
 		AddActor(tilemap);

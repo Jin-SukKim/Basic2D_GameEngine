@@ -2,6 +2,8 @@
 #include "Level.h"
 #include "Actor.h"
 #include "CollisionManager.h"
+#include "TilemapActor.h"
+#include "Tilemap.h"
 
 Level::Level()
 {
@@ -62,4 +64,11 @@ int32 Level::GetActorCount()
 			count += actors.size();
 	
 	return static_cast<int32>(count);
+}
+
+std::shared_ptr<Tilemap> Level::GetCurTilemap()
+{
+	if (_curTilemapActor == nullptr)
+		return nullptr;
+	return GetCurrentTilemapActor()->GetTilemap();
 }

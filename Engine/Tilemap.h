@@ -14,6 +14,7 @@ public:
 	bool LoadFile(const std::wstring& path);
 	void SaveFile(const std::wstring& path);
 
+	bool CanGo(Vector2D cellPos);
 public:
 	// Mapsize / tilesize => ¸ÊÀÇ tile °³¼ö(mapsize.x * mapsize.y)
 	void SetMapSize(const Vector2D& size);
