@@ -84,6 +84,7 @@ bool Collider::CheckCollisionSquareToSqaure(std::weak_ptr<SquareComponent> b1, s
 
 		// 정확히 겹친 영역만큼만 계산한다면 border가 겹칠수 있다. (미세한만큼 추가로 보정해 계산해준다)
 		if (w > h) {
+			// 위에서 충돌했으면
 			if (intersect.top == r2.top) {
 				intersectVec.Y += h + 1;
 			}
@@ -92,6 +93,7 @@ bool Collider::CheckCollisionSquareToSqaure(std::weak_ptr<SquareComponent> b1, s
 			}
 		}
 		else {
+			// 왼쪽에서 충돌했으면
 			if (intersect.left == r2.left) {
 				intersectVec.X += w + 1;
 			}
