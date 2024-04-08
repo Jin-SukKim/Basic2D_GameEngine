@@ -27,11 +27,15 @@ public:
 	static Vector2D GetCameraPos() { return _worldCamera; }
 	static void SetCameraPos(Vector2D pos) { _worldCamera = pos; }
 
+	static void SetCurrentLevel(std::shared_ptr<Level> level) { _curLevel = level; }
+	static std::shared_ptr<Level> GetCurrentLevel() { return _curLevel; }
 private:
 	std::unique_ptr<TimeManager> _timeManager;
-	std::unique_ptr<LevelManager> _levelManager;
+	std::unique_ptr<LevelManager> _levelManager = nullptr;
 
-	static inline Vector2D _worldCamera = { 400, 300 };
+	inline static std::shared_ptr<Level> _curLevel = nullptr;
+
+	inline static Vector2D _worldCamera = { 400, 300 };
 };
 
 // TODO: Thread로 돌리던지, World의 TimManager의 DeltaTime값을 사용해야 될것 같다

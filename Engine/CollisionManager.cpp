@@ -56,6 +56,8 @@ void CollisionManager::AddCollider(std::shared_ptr<Collider> collider)
 
 void CollisionManager::RemoveCollider(std::shared_ptr<Collider> collider)
 {
+	if (_colliders.empty())
+		return;
 	auto it = std::remove(_colliders.begin(), _colliders.end(), collider);
 	_colliders.erase(it, _colliders.end());
 }

@@ -121,7 +121,7 @@ std::shared_ptr<Tilemap> AssetManager::CreateTilemap(const std::wstring& key)
 	if (_tilemaps.find(key) != _tilemaps.end())
 		return _tilemaps[key];
 
-	std::shared_ptr<Tilemap> tilemap = std::make_shared <Tilemap>();
+	std::shared_ptr<Tilemap> tilemap = std::make_shared<Tilemap>();
 	_tilemaps[key] = std::move(tilemap);
 
 	return _tilemaps[key];

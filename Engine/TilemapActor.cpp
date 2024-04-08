@@ -9,18 +9,19 @@
 
 TilemapActor::TilemapActor()
 {
-	bool load = GET_SINGLE(AssetManager)->LoadTilemap(L"Tilemap_Basic", L"Tilemap\\Tilemap_Basic.txt");
-	if (load) {
+	_tilemap = GET_SINGLE(AssetManager)->CreateTilemap(L"Tilemap_Basic");
+	_tilemap->SetMapSize({ 63, 43 }); // Mapsize / tilesize => 맵의 tile 개수(mapsize.X * mapsize.Y)
+	_tilemap->SetTileSize(48);
+	GET_SINGLE(AssetManager)->LoadTilemap(L"Tilemap_Basic", L"Tilemap\\Tilemap_basic_FINAL.txt");
+
+	// Tile sprites
+	{
 		bool loadTexture = GET_SINGLE(AssetManager)->LoadTexture(L"Tile", L"Sprite\\Map\\Tile.bmp", RGB(128, 128, 128));
 		if (loadTexture)
 		{
 			_spriteO = GET_SINGLE(AssetManager)->CreateSprite(L"TileO", GET_SINGLE(AssetManager)->GetTexture(L"Tile"), { 0, 0 }, { 48, 48 });
 			_spriteX = GET_SINGLE(AssetManager)->CreateSprite(L"TileX", GET_SINGLE(AssetManager)->GetTexture(L"Tile"), { 48, 0 }, { 48, 48 });
 		}
-
-		_tilemap = GET_SINGLE(AssetManager)->CreateTilemap(L"Tilemap_Basic");
-		_tilemap->SetMapSize({ 63, 43 }); // Mapsize / tilesize => 맵의 tile 개수(mapsize.X * mapsize.Y)
-		_tilemap->SetTileSize(48);
 	}
 }
 
@@ -64,6 +65,7 @@ void TilemapActor::Render(HDC hdc)
 	const Vector2D tileSize = { 1 / (float)TILE_SIZEX, 1 / (float)TILE_SIZEY };
 	Vector2D pos = GetPos();
 
+	// 보여야할 부분
 	Vector2D start = (cameraPos - halfScreenSize - pos) * tileSize;
 	Vector2D end = (cameraPos + halfScreenSize - pos) * tileSize;
 
@@ -128,7 +130,7 @@ void TilemapActor::TickPicking()
 		Tile* tile = _tilemap->GetTileAt(pos);
 		if (tile) {
 			// TODO : 여러가지 Tile 값 설정
- 			tile->value = 1;
+ 			tile->value = tile->value ^ 1; // 0과 1 설정할 수 있게 xor로 변환
 		}
 	}
 }
@@ -139,6 +141,8 @@ Vector2D TilemapActor::ConvertToTilemapPos(Vector2D pos)
 		return Vector2D::Zero;
 
 	int32 size = _tilemap->GetTileSize();
+	const Vector2D tileSize = { 1 / (float)TILE_SIZEX, 1 / (float)TILE_SIZEY };
 
-	return GetPos() + pos * static_cast<float>(size) + Vector2D(size * 0.5f);
+	Vector2D tilePos = pos * tileSize;
+	return tilePos;
 }

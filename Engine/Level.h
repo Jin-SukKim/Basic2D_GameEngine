@@ -19,8 +19,7 @@ public:
 
 	int32 GetActorCount();
 
-
-
+	std::shared_ptr<Actor> FindClosestTarget(Vector2D pos);
 public:
 	static void SetCurrentTilemapActor(std::shared_ptr<TilemapActor> tilemapActor) { _curTilemapActor = tilemapActor;	}
 	static std::shared_ptr<TilemapActor> GetCurrentTilemapActor() { return _curTilemapActor; }

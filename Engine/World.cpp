@@ -20,6 +20,7 @@ void World::Init()
 	_timeManager->Init();
 	_levelManager->Init();
 	_levelManager->ChangeLevel(LevelType::LEVEL_GAME);
+	SetCurrentLevel(_levelManager->GetCurrentLevel());
 
 	GET_SINGLE(CollisionManager)->Init();
 }

@@ -59,6 +59,7 @@ void Tilemap::SaveFile(const std::wstring& path)
 	}
 }
 
+// TODO: 최적화 필요
 bool Tilemap::CanGo(Vector2D cellPos)
 {
 	if (_tiles.empty())

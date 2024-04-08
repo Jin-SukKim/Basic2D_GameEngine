@@ -11,7 +11,7 @@ SpriteActor::SpriteActor()
 	if (load) {
 		_sprite = GET_SINGLE(AssetManager)->CreateSprite(L"Map", GET_SINGLE(AssetManager)->GetTexture(L"Map"));
 		SetLayer(LT_BACKGROUND);
-		SetSize(_sprite->GetSpritePos());
+		SetSize(_sprite->GetSpriteSize());
 	}
 }
 

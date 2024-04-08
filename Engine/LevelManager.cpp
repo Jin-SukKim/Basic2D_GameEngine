@@ -14,7 +14,7 @@ LevelManager::~LevelManager()
 
 void LevelManager::Init()
 {
-	_level = std::make_unique<Level>();
+	_level = std::make_shared<Level>();
 }
 
 void LevelManager::Tick(float DeltaTime)
@@ -34,17 +34,17 @@ void LevelManager::ChangeLevel(LevelType levelType)
 	if (_levelType == levelType)
 		return;
 
-	std::unique_ptr<Level> newLevel;
+	std::shared_ptr<Level> newLevel;
 
 	switch (levelType)
 	{
 	case LevelType::LEVEL_DEFAULT:
 		break;
 	case LevelType::LEVEL_GAME:
-		newLevel = std::make_unique<GameLevel>();
+		newLevel = std::make_shared<GameLevel>();
 		break;
 	case LevelType::LEVEL_EDIT:
-		newLevel = std::make_unique<EditLevel>();
+		newLevel = std::make_shared<EditLevel>();
 		break;
 	default:
 		break;
@@ -56,7 +56,7 @@ void LevelManager::ChangeLevel(LevelType levelType)
 	_level->Init();
 }
 
-void LevelManager::SetLevel(std::unique_ptr<Level> level)
+void LevelManager::SetLevel(std::shared_ptr<Level> level)
 {
 	if (_level == level)
 		return;

@@ -32,6 +32,7 @@ public:
 private:
 	void SetPlayerAnimation();
 	void PlayerInput();
+	Vector2D GetDirVector2D(Dir dir);
 
 private:
 	Dir _dir = DIR_Down;

@@ -6,6 +6,7 @@
 
 Engine::Engine() : EngineWindow()
 {
+	_world = std::make_unique<World>();
 }
 
 Engine::~Engine()
@@ -17,7 +18,6 @@ bool Engine::Init()
 	GET_SINGLE(InputManager)->Init(_hwnd);
 	GET_SINGLE(AssetManager)->Init(_hwnd);
 
-	_world = std::make_unique<World>();
 	_world->Init();
 
 	return true;

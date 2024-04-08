@@ -14,9 +14,10 @@ public:
 
 public:
 	void ChangeLevel(LevelType levelType);
-	void SetLevel(std::unique_ptr<Level> level);
+	void SetLevel(std::shared_ptr<Level> level);
 
+	std::shared_ptr<Level> GetCurrentLevel() const { return _level; }
 private:
-	std::unique_ptr<class Level> _level;
+	std::shared_ptr<Level> _level;
 	LevelType _levelType = LevelType::LEVEL_DEFAULT;
 };

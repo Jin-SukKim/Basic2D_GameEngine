@@ -15,10 +15,19 @@ GameLevel::GameLevel()
 		AddActor(background);
 	}
 
+	// Tilemap
+	{
+		std::shared_ptr<TilemapActor> tilemap = std::make_shared<TilemapActor>();
+		SetCurrentTilemapActor(tilemap);
+		tilemap->SetShowDebug(false);
+
+		AddActor(tilemap);
+	}
 	// Actor
 	{
 		std::shared_ptr<Player> player = std::make_shared<Player>();
 		player->SetPos({ 400, 300 });
+		player->SetSize({ 48.f, 48.f});
 
 		AddActor(player);
 	}
@@ -30,14 +39,6 @@ GameLevel::GameLevel()
 		AddActor(enemy);
 	}
 
-	// Tilemap
-	{
-		std::shared_ptr<TilemapActor> tilemap = std::make_shared<TilemapActor>();
-		SetCurrentTilemapActor(tilemap);
-		tilemap->SetShowDebug(false);
-
-		AddActor(tilemap);
-	}
 }
 
 GameLevel::~GameLevel()

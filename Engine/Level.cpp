@@ -15,7 +15,6 @@ Level::~Level()
 
 void Level::Init()
 {
-
 	for (auto& actors : _actors)
 		for (std::shared_ptr<Actor>& actor : actors)
 			actor->Init();
@@ -66,9 +65,30 @@ int32 Level::GetActorCount()
 	return static_cast<int32>(count);
 }
 
+std::shared_ptr<Actor> Level::FindClosestTarget(Vector2D pos)
+{
+	float best = FLT_MAX;
+	std::shared_ptr<Actor> target = nullptr;
+
+	for (std::shared_ptr<Actor> actor : _actors[LayerType::LT_OBJECT]) {
+		if (actor->GetTag() == L"Player") {
+			Vector2D dir = pos - actor->GetPos();
+			float dist = dir.LengthSquared();
+			if (dist < best) {
+				best = dist;
+				target = actor;
+			}
+		}
+	}
+
+	return target;
+}
+
+
 std::shared_ptr<Tilemap> Level::GetCurTilemap()
 {
-	if (_curTilemapActor == nullptr)
+	if (GetCurrentTilemapActor() == nullptr)
 		return nullptr;
 	return GetCurrentTilemapActor()->GetTilemap();
 }
+

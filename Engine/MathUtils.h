@@ -1,5 +1,7 @@
 #pragma once
 #include <intrin.h>
+ 
+struct Vector2D;
 
 struct MathUtils
 {
@@ -55,5 +57,11 @@ struct MathUtils
 		_mm_store_ss(&temp, X2);
 		return temp;
 	}
+
+	// H = | x1 - x1 | + | y2 - y1 |, 수평 + 수직 이동
+	static int32 Manhattan(const Vector2D& a, const Vector2D& b);
+
+	// H = sqrt( (x2 - x1)^2 + (y2 - y1)^2 ), 수평 + 수직 + 대각선
+	static int32 Euclidean(const Vector2D& a, const Vector2D& b);
 };
 

@@ -181,6 +181,9 @@
     <ClInclude Include="Enemy.h">
       <Filter>Source Files\Objects\Actor\Game</Filter>
     </ClInclude>
+    <ClInclude Include="AlgorithmUtils.h">
+      <Filter>Source Files\Utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -284,6 +287,12 @@
     </ClCompile>
     <ClCompile Include="Enemy.cpp">
       <Filter>Source Files\Objects\Actor\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="AlgorithmUtils.cpp">
+      <Filter>Source Files\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="MathUtils.cpp">
+      <Filter>Source Files\Utils</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

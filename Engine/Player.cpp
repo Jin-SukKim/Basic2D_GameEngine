@@ -6,14 +6,17 @@
 #include "SquareComponent.h"
 #include "Level.h"
 #include "Tilemap.h"
+#include "World.h"
 
 Player::Player()
 {
+	SetTag(L"Player");
+
 	// Set texture/flipbook
 	SetPlayerAnimation();
 
 	_square = std::make_shared<SquareComponent>();
-	_square->SetSize({200.f, 200.f});
+	_square->SetSize({ 50.f, 50.f });
 	AddComponent(_square);
 
 	_camera = std::make_shared<CameraComponent>();
@@ -85,6 +88,15 @@ void Player::SetDir(Dir dir)
 	_dir = dir;
 	// 방향이 바뀌면 Animation도 상태에 맞게 바꿔준다.
 	UpdateAnimation();
+}
+
+Vector2D Player::GetDirVector2D(Dir dir)
+{
+	{
+		// enum Dir과 순서를 맞춰준다. (상하좌우)
+		static Vector2D nextDir[4] = { {0, -1}, {0, 1}, {-1, 0}, {1, 0} }; // 다음 방향
+		return nextDir[dir];
+	}
 }
 
 void Player::SetState(ActionState state)
@@ -161,24 +173,21 @@ void Player::SetPlayerAnimation()
 
 void Player::PlayerInput()
 {
-	// enum Dir과 순서를 맞춰준다. (상하좌우)
-	static Vector2D nextDir[4] = { {0, -1}, {0, 1}, {-1, 0}, {1, 0} }; // 다음 방향
-
 	if (GET_SINGLE(InputManager)->GetEventPressed(KeyType::W)) {
 		SetDir(DIR_Up);
-		SetSpeed(nextDir[DIR_Up] * _maxSpeed);
+		SetSpeed(GetDirVector2D(DIR_Up) * _maxSpeed);
 	}
 	else if (GET_SINGLE(InputManager)->GetEventPressed(KeyType::S)) {
 		SetDir(DIR_Down);
-		SetSpeed(nextDir[DIR_Down] * _maxSpeed);
+		SetSpeed(GetDirVector2D(DIR_Down) * _maxSpeed);
 	}
 	else if (GET_SINGLE(InputManager)->GetEventPressed(KeyType::A)) {
 		SetDir(DIR_Left);
-		SetSpeed(nextDir[DIR_Left] * _maxSpeed);
+		SetSpeed(GetDirVector2D(DIR_Left) * _maxSpeed);
 	}
 	else if (GET_SINGLE(InputManager)->GetEventPressed(KeyType::D)) {
 		SetDir(DIR_Right);
-		SetSpeed(nextDir[DIR_Right] * _maxSpeed);
+		SetSpeed(GetDirVector2D(DIR_Right) * _maxSpeed);
 	}
 	else 
 		SetSpeed(Vector2D::Zero);
@@ -193,7 +202,9 @@ void Player::PlayerMove(float DeltaTime)
 		return;
 
 	std::shared_ptr<Tilemap> tilemap = Level::GetCurTilemap();
-	if (tilemap && tilemap->CanGo(GetPos() + _maxSpeed * DeltaTime) == false) {
+	Vector2D nextPos = GetPos() + GetDirVector2D(GetDir()) * (GetSize() * 0.5f);
+	Vector2D toTilemapPos = Level::GetCurrentTilemapActor()->ConvertToTilemapPos(nextPos);
+	if (tilemap && tilemap->CanGo(toTilemapPos) == false) {
 		SetSpeed(Vector2D::Zero);
 	}
 		

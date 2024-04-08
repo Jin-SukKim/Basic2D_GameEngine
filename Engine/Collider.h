@@ -35,6 +35,12 @@ protected:
 	bool CheckCollisionCircleToSquare(std::weak_ptr<CircleComponent> c1, std::weak_ptr<SquareComponent> b1);
 	bool CheckCollisionCircleToCircle(std::weak_ptr<CircleComponent> c1, std::weak_ptr<CircleComponent> c2);
 
+private:
+	// 사각형을 중앙에 두고 총 9개의 존으로 나눠 원이 어느 존에 있는지 알려준다.
+	int8 GetSquareZone(const RECT& rect, const Vector2D& circlePos);
+	// 점이 원안에 있는지 확인
+	bool CheckPointInCircle(const Vector2D& cPos, const Vector2D& radius, const Vector2D& point);
+
 public:
 	void SetColliderType(ColliderType& colliderType) { _colliderType = colliderType; }
 	ColliderType GetColliderType() const { return _colliderType; }
