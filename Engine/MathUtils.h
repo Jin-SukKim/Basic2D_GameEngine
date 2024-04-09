@@ -63,5 +63,8 @@ struct MathUtils
 
 	// H = sqrt( (x2 - x1)^2 + (y2 - y1)^2 ), 수평 + 수직 + 대각선
 	static int32 Euclidean(const Vector2D& a, const Vector2D& b);
+
+	static float LinearInterpolation(const float& a, const float& b, const float& t);
+	static Vector2D LinearInterpolation(const Vector2D& src, const Vector2D& dest, const float& t);
 };
 

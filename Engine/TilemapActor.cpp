@@ -144,5 +144,8 @@ Vector2D TilemapActor::ConvertToTilemapPos(Vector2D pos)
 	const Vector2D tileSize = { 1 / (float)TILE_SIZEX, 1 / (float)TILE_SIZEY };
 
 	Vector2D tilePos = pos * tileSize;
+	tilePos.X = std::floorf(tilePos.X);
+	tilePos.Y = std::floorf(tilePos.Y);
+
 	return tilePos;
 }

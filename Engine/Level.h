@@ -33,6 +33,6 @@ private:
 	std::vector<std::shared_ptr<Actor>> _actors[LT_MAXCOUNT]; // 현재 2D 엔진이라 이렇게 한 것, 3D면 Depth값으로 확인
 
 	// TODO: Level에서 static보다는 UE처럼 GetWorld로 받아온뒤 Level에 접근해 사용하는게 더 좋을듯싶다.
-	inline static std::shared_ptr<TilemapActor> _curTilemapActor = nullptr;;
+	static inline std::shared_ptr<TilemapActor> _curTilemapActor = nullptr;;
 };
 

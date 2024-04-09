@@ -4,7 +4,7 @@
 #include "Level.h"
 #include "Tilemap.h"
 
-bool AlgorithmUtils::FindPathAStar(Vector2D src, Vector2D dest, std::vector<Vector2D>& path, int32 maxDepth)
+bool AlgorithmUtils::FindPathAStar(const Vector2D& src, Vector2D dest, std::vector<Vector2D>& path, int32 maxDepth)
 {
     // 맵이 너무 커서 멀리 가야할 경우 계산량이 급격히 늘어나기에 maxDepth로 제한
     int32 depth = MathUtils::Manhattan(src, dest); // 대략적으로 가야되는 거리
@@ -117,5 +117,5 @@ bool AlgorithmUtils::FindPathAStar(Vector2D src, Vector2D dest, std::vector<Vect
 
     std::reverse(path.begin(), path.end());
 
-    return false;
+    return true;
 }

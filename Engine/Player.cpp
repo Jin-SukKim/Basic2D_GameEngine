@@ -92,11 +92,9 @@ void Player::SetDir(Dir dir)
 
 Vector2D Player::GetDirVector2D(Dir dir)
 {
-	{
-		// enum Dir과 순서를 맞춰준다. (상하좌우)
-		static Vector2D nextDir[4] = { {0, -1}, {0, 1}, {-1, 0}, {1, 0} }; // 다음 방향
-		return nextDir[dir];
-	}
+	// enum Dir과 순서를 맞춰준다. (상하좌우)
+	static Vector2D nextDir[4] = { {0, -1}, {0, 1}, {-1, 0}, {1, 0} }; // 다음 방향
+	return nextDir[dir];
 }
 
 void Player::SetState(ActionState state)
@@ -201,9 +199,10 @@ void Player::PlayerMove(float DeltaTime)
 	if (_state == ActionState::AS_Attack)
 		return;
 
+	// 액터 크기만큼 보정
 	std::shared_ptr<Tilemap> tilemap = Level::GetCurTilemap();
-	Vector2D nextPos = GetPos() + GetDirVector2D(GetDir()) * (GetSize() * 0.5f);
-	Vector2D toTilemapPos = Level::GetCurrentTilemapActor()->ConvertToTilemapPos(nextPos);
+	Vector2D cellPos = GetPos() + GetDirVector2D(GetDir()) * (GetSize() * 0.5f);
+	Vector2D toTilemapPos = Level::GetCurrentTilemapActor()->ConvertToTilemapPos(cellPos);
 	if (tilemap && tilemap->CanGo(toTilemapPos) == false) {
 		SetSpeed(Vector2D::Zero);
 	}
