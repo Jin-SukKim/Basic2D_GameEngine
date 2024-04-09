@@ -143,9 +143,19 @@ Vector2D TilemapActor::ConvertToTilemapPos(Vector2D pos)
 	int32 size = _tilemap->GetTileSize();
 	const Vector2D tileSize = { 1 / (float)TILE_SIZEX, 1 / (float)TILE_SIZEY };
 
-	Vector2D tilePos = pos * tileSize;
-	tilePos.X = std::floorf(tilePos.X);
-	tilePos.Y = std::floorf(tilePos.Y);
+	Vector2D tilePos = GetPos() + pos * tileSize;
+
+	return MathUtils::floor(tilePos);
+}
+
+Vector2D TilemapActor::GetCellPos(const Vector2D& cellPos)
+{
+	if (_tilemap == nullptr)
+		return Vector2D::Zero;
+
+	int32 size = _tilemap->GetTileSize();
+	
+	Vector2D tilePos = GetPos() + cellPos * size + (size * 0.5f);
 
 	return tilePos;
 }

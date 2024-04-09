@@ -28,11 +28,13 @@ private:
 
 	Dir GetLookAtDir(Vector2D pos);
 
-	void FindPath(Vector2D pos, Vector2D targetPos, std::vector<Vector2D>& path);
 	Vector2D GetDirVector2D(Dir dir);
 public:
+	void SetCellPos(const Vector2D& cellPos);
+	Vector2D GetCellPos() const { return _cellPos; }
+
 	void SetDestPos(const Vector2D& pos) { _destPos = pos; }
-	Vector2D GetDestPos(const Vector2D& pos) const { return _destPos; }
+	Vector2D GetDestPos() const { return _destPos; }
 
 	void SetDir(Dir dir);
 	Dir GetDir() const { return _dir; }
@@ -50,12 +52,13 @@ public:
 	float GetMaxWaitSeconds() const { return _maxWaitSeconds; }
 private:
 	Dir _dir = DIR_Down;
-	ActionState _state = ActionState::AS_Move;
+	ActionState _state;
 
 	std::shared_ptr<SquareComponent> _square;
 
 	std::array<std::shared_ptr<Flipbook>, 4> _move;
 
+	Vector2D _cellPos;
 	Vector2D _destPos;
 
 	float _waitSeconds = 0.f;

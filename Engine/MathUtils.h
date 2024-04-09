@@ -66,5 +66,7 @@ struct MathUtils
 
 	static float LinearInterpolation(const float& a, const float& b, const float& t);
 	static Vector2D LinearInterpolation(const Vector2D& src, const Vector2D& dest, const float& t);
+
+	static Vector2D floor(const Vector2D& v);
 };
 

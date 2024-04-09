@@ -20,3 +20,8 @@ Vector2D MathUtils::LinearInterpolation(const Vector2D& src, const Vector2D& des
 {
 	return (1.f - t) * src + t * dest;
 }
+
+Vector2D MathUtils::floor(const Vector2D& v)
+{
+	return Vector2D(std::floorf(v.X), std::floorf(v.Y));
+}

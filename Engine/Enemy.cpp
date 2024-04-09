@@ -24,6 +24,7 @@ void Enemy::Init()
 {
 	Super::Init();
 
+	SetState(ActionState::AS_Idle);
 	_square->_beginOverlapDelegate.BindDelegate(this, &Enemy::BeginOverlapFunction);
 }
 
@@ -31,11 +32,18 @@ void Enemy::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	if (GetState() == ActionState::AS_Idle)
-		return;
+	switch (GetState())
+	{
+	case ActionState::AS_Idle:
+		Chase();
+		break;
+	case ActionState::AS_Move:
+		EnemyMove(DeltaTime);
+		break;
+	case ActionState::AS_Attack:
+		break;
+	}
 	
-	Chase();
-	EnemyMove(DeltaTime);
 }
 
 void Enemy::Render(HDC hdc)
@@ -45,7 +53,7 @@ void Enemy::Render(HDC hdc)
 
 void Enemy::BeginOverlapFunction(std::weak_ptr<Collider> comp, std::weak_ptr<Actor> other, std::weak_ptr<Collider> otherComp)
 {
-	SetState(ActionState::AS_Idle);
+	SetState(ActionState::AS_Attack);
 }
 
 void Enemy::EndOverlapFunction(std::weak_ptr<Collider> comp, std::weak_ptr<Actor> other, std::weak_ptr<Collider> otherComp)
@@ -82,14 +90,18 @@ void Enemy::SetEnemyAnimation()
 		_move[DIR_Right] = GET_SINGLE(AssetManager)->CreateFlipbook(L"FB_SnakeRight");
 		_move[DIR_Right]->SetInfo({ texture, L"FB_SnakeRight", {100, 100}, 0, 3, 1, 0.5f });
 	}
+
+	SetState(ActionState::AS_Idle);
 }
 
 void Enemy::EnemyMove(float DeltaTime)
 {
-	Vector2D dir = (_destPos - GetPos());
+	Vector2D dir = (GetDestPos() - GetPos());
+	float dist = dir.Length();
 	if (dir.Length() < 5.f) // 도착지점에 충분히 가까우면
 	{
-		SetSpeed(Vector2D::Zero);
+		SetPos(GetDestPos());
+		SetState(ActionState::AS_Idle);
 	}
 	// 도착지까지 부드럽게 움직이도록 보정
 	else {
@@ -106,10 +118,15 @@ void Enemy::EnemyMove(float DeltaTime)
 
 void Enemy::Chase()
 {
-	std::shared_ptr<Actor> target = _target.lock();
-	if (target == nullptr)
-		target = World::GetCurrentLevel()->FindClosestTarget(GetPos());
+	std::shared_ptr<TilemapActor> tmActor = Level::GetCurrentTilemapActor();
+	if (tmActor == nullptr)
+		return;
 
+	std::shared_ptr<Actor> target = _target.lock();
+	if (target == nullptr) {
+		target = World::GetCurrentLevel()->FindClosestTarget(GetPos());
+		SetCellPos(tmActor->ConvertToTilemapPos(GetPos()));
+	}
 
 	if (target) {
 		Vector2D dir = target->GetPos() - GetPos();
@@ -124,28 +141,24 @@ void Enemy::Chase()
 			// 목표까지 길을 찾고 1칸 이동하고 다시 찾는 걸 반복
 			// (계산량에 부담은 되나 더 자연스럽다. 부담되면 일정 시간에 찾도록 변경)
 			std::vector<Vector2D> path;
-			std::shared_ptr<TilemapActor> tmActor = Level::GetCurrentTilemapActor();
-			if (tmActor)
+			Vector2D targetCellPos = tmActor->ConvertToTilemapPos(target->GetPos());
+			AlgorithmUtils::FindPathAStar(GetCellPos(), targetCellPos, OUT path);
 			{
-				Vector2D cellPos = tmActor->ConvertToTilemapPos(GetPos());
-				Vector2D targetCellPos = tmActor->ConvertToTilemapPos(target->GetPos());
-			
-				if (AlgorithmUtils::FindPathAStar(cellPos, targetCellPos, OUT path)) {
-					// index 0은 현재 위치
-					if (path.size() > 1)
+				// index 0은 현재 위치
+				if (path.size() > 1)
+				{
+					Vector2D nextPos = path[1];
+					if (tmActor->GetTilemap()->CanGo(nextPos))
 					{
-						Vector2D nextPos = path[1];
-						if (tmActor->GetTilemap()->CanGo(nextPos))
-						{
-							SetDestPos(nextPos * tmActor->GetTilemap()->GetTileSize());
-							SetState(ActionState::AS_Move);
-						}
-					}
-					else {
-						SetDestPos(GetPos());
+ 						SetCellPos(nextPos);
+						SetState(ActionState::AS_Move);
 					}
 				}
+				else {
+					SetCellPos(GetCellPos());
+				}
 			}
+			
 		}
 	}
 }
@@ -163,15 +176,22 @@ Dir Enemy::GetLookAtDir(Vector2D pos)
 		return DIR_Up;
 }
 
-void Enemy::FindPath(Vector2D pos, Vector2D targetPos, std::vector<Vector2D>& path)
-{
-}
-
 Vector2D Enemy::GetDirVector2D(Dir dir)
 {
 	// enum Dir과 순서를 맞춰준다. (상하좌우)
 	static Vector2D nextDir[4] = { {0, -1}, {0, 1}, {-1, 0}, {1, 0} }; // 다음 방향
 	return nextDir[dir];
+}
+
+void Enemy::SetCellPos(const Vector2D& cellPos)
+{
+	_cellPos = cellPos;
+
+	std::shared_ptr<TilemapActor> tmActor = Level::GetCurrentTilemapActor();
+	if (tmActor == nullptr)
+		return;
+
+	SetDestPos(tmActor->GetCellPos(cellPos));
 }
 
 void Enemy::SetDir(Dir dir)

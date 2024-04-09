@@ -28,6 +28,7 @@ public:
 
 private:
 	Vector2D _mapSize = {};
+	// TODO: vector2D 값으로 가지고 있는게 더 좋ㅇ르 것 같다.
 	int32 _tileSize = {};
 	std::vector<std::vector<Tile>> _tiles;
 };

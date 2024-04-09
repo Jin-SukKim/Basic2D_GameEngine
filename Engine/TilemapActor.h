@@ -23,6 +23,7 @@ public:
 
 	// Tilemap 기반의 좌표로 변환 
 	Vector2D ConvertToTilemapPos(Vector2D pos);
+	Vector2D GetCellPos(const Vector2D& cellPos);
 public:
 	void SetTilemap(std::shared_ptr<Tilemap> tilemap) { _tilemap = tilemap;	}
 	std::shared_ptr<Tilemap> GetTilemap() {return _tilemap; }
