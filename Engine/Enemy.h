@@ -44,6 +44,9 @@ public:
 
 	void SetSpeed(Vector2D speed) { _speed = speed; }
 	Vector2D GetSpeed() const { return _speed; }
+	
+	void SetMaxSpeed(float speed) { _maxSpeed = speed; }
+	float GetMaxSpeed() const { return _maxSpeed; }
 
 	void SetWaitSeconds(float seconds) { _waitSeconds = seconds; }
 	float GetWaitSeconds() const { return _waitSeconds; }

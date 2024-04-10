@@ -24,8 +24,8 @@ void Enemy::Init()
 {
 	Super::Init();
 
-	SetState(ActionState::AS_Idle);
 	_square->_beginOverlapDelegate.BindDelegate(this, &Enemy::BeginOverlapFunction);
+	_square->_endOverlapDelegate.BindDelegate(this, &Enemy::EndOverlapFunction);
 }
 
 void Enemy::Tick(float DeltaTime)
@@ -53,7 +53,12 @@ void Enemy::Render(HDC hdc)
 
 void Enemy::BeginOverlapFunction(std::weak_ptr<Collider> comp, std::weak_ptr<Actor> other, std::weak_ptr<Collider> otherComp)
 {
-	SetState(ActionState::AS_Attack);
+	//SetState(ActionState::AS_Attack);
+	std::shared_ptr<Collider> collider = comp.lock();
+	if (collider) {
+		SetPos(GetPos() - collider->GetIntersect());
+		SetSpeed(Vector2D::Zero);
+	}
 }
 
 void Enemy::EndOverlapFunction(std::weak_ptr<Collider> comp, std::weak_ptr<Actor> other, std::weak_ptr<Collider> otherComp)
@@ -101,6 +106,7 @@ void Enemy::EnemyMove(float DeltaTime)
 	if (dir.Length() < 5.f) // 도착지점에 충분히 가까우면
 	{
 		SetPos(GetDestPos());
+		SetSpeed(Vector2D::Zero);
 		SetState(ActionState::AS_Idle);
 	}
 	// 도착지까지 부드럽게 움직이도록 보정
@@ -111,7 +117,6 @@ void Enemy::EnemyMove(float DeltaTime)
 		else
 			SetDir(dir.Y < 0 ? DIR_Up : DIR_Down);
 
-		Vector2D move = GetPos() + GetDirVector2D(GetDir()) * GetSpeed() * DeltaTime;
 		SetPos(GetPos() + GetDirVector2D(GetDir()) * GetSpeed() * DeltaTime);
 	}
 }
@@ -151,14 +156,13 @@ void Enemy::Chase()
 					if (tmActor->GetTilemap()->CanGo(nextPos))
 					{
  						SetCellPos(nextPos);
+						SetSpeed(GetMaxSpeed());
 						SetState(ActionState::AS_Move);
 					}
 				}
-				else {
+				else 
 					SetCellPos(GetCellPos());
-				}
 			}
-			
 		}
 	}
 }
