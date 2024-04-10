@@ -155,7 +155,7 @@ Vector2D TilemapActor::GetCellPos(const Vector2D& cellPos)
 
 	int32 size = _tilemap->GetTileSize();
 	
-	Vector2D tilePos = GetPos() + cellPos * size + (size * 0.5f);
+	Vector2D tilePos = GetPos() + cellPos * (float)size + (size * 0.5f);
 
 	return tilePos;
 }

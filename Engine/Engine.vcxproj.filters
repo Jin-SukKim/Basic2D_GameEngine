@@ -59,6 +59,9 @@
     <Filter Include="Source Files\Objects\Component\Collision">
       <UniqueIdentifier>{9f21edc3-4b55-4d53-8ee0-29baca29c596}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Objects\Actor\VFX">
+      <UniqueIdentifier>{480bf7d4-a4f9-4ba1-b52d-d9fa088ae6e7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h">
@@ -184,6 +187,9 @@
     <ClInclude Include="AlgorithmUtils.h">
       <Filter>Source Files\Utils</Filter>
     </ClInclude>
+    <ClInclude Include="SpriteEffect.h">
+      <Filter>Source Files\Objects\Actor\VFX</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -293,6 +299,9 @@
     </ClCompile>
     <ClCompile Include="MathUtils.cpp">
       <Filter>Source Files\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteEffect.cpp">
+      <Filter>Source Files\Objects\Actor\VFX</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

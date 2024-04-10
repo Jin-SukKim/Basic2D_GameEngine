@@ -44,10 +44,15 @@ public: // Getter/Setter
 	void SetTag(std::wstring tag) { _tag = tag; }
 	std::wstring GetTag() {	return _tag; }
 
+	void SetLayer(LayerType layer) { _layer = layer; }
+	LayerType GetLayer() const { return _layer; }
+
 private:
 	ObjectType _type;
 	Vector2D _pos = { 0.f, 0.f };
 	Vector2D _size = Vector2D::One;
 	std::wstring _name = L"";
 	std::wstring _tag = L"";
+
+	LayerType _layer = LayerType::LT_OBJECT;
 };

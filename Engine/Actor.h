@@ -21,12 +21,7 @@ public:
 	void AddComponent(std::shared_ptr<Component> component);
 	void RemoveComponent(std::weak_ptr<Component> component);
 
-public:
-	void SetLayer(LayerType layer) { _layer = layer;	}
-	LayerType GetLayer() const { return _layer;}
-
 private:
-	LayerType _layer = LayerType::LT_OBJECT;
 	std::vector<std::shared_ptr<Component>> _components;
 };
 

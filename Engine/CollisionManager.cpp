@@ -25,7 +25,6 @@ void CollisionManager::Tick()
 			// 충돌했는지 확인
 			if (src->CheckCollision(dest)) {
 				if (src->IsCollided(dest) == false) {
-					// TODO : OnComponentBeginOverlap 함수 부르기
 					src->OnComponentBeginOverlap(src, dest);
 					dest->OnComponentBeginOverlap(dest, src);
 
@@ -36,7 +35,6 @@ void CollisionManager::Tick()
 			else {
 				// 이전까지 충동했다 더이상 충돌하지 않는다면
 				if (src->IsCollided(dest)) {
-					// TODO : OnComponentEndOverlap 함수 부르기
 					src->OnComponentEndOverlap(src, dest);
 					dest->OnComponentEndOverlap(dest, src);
 

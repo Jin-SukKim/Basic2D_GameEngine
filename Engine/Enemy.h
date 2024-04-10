@@ -2,6 +2,7 @@
 #include "FlipbookActor.h"
 
 class SquareComponent;
+class CircleComponent;
 class Collider;
 
 class Enemy : public FlipbookActor
@@ -58,6 +59,7 @@ private:
 	ActionState _state;
 
 	std::shared_ptr<SquareComponent> _square;
+	std::shared_ptr<CircleComponent> _circle;
 
 	std::array<std::shared_ptr<Flipbook>, 4> _move;
 

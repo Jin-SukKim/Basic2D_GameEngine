@@ -166,6 +166,7 @@
     <ClInclude Include="ColliderDelegate.h" />
     <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="SpriteEffect.h" />
     <ClInclude Include="SquareComponent.h" />
     <ClInclude Include="CameraComponent.h" />
     <ClInclude Include="Collider.h" />
@@ -209,6 +210,7 @@
     <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="MathUtils.cpp" />
+    <ClCompile Include="SpriteEffect.cpp" />
     <ClCompile Include="SquareComponent.cpp" />
     <ClCompile Include="CameraComponent.cpp" />
     <ClCompile Include="Collider.cpp" />

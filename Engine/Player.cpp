@@ -16,6 +16,7 @@ Player::Player()
 	SetPlayerAnimation();
 
 	_square = std::make_shared<SquareComponent>();
+	_square->SetCollisionFlag(CLT_Object | CLT_Trace);
 	_square->SetSize({ 50.f, 50.f });
 	AddComponent(_square);
 
@@ -55,12 +56,10 @@ void Player::Render(HDC hdc)
 
 void Player::BeginOverlapFunction(std::weak_ptr<Collider> comp, std::weak_ptr<Actor> other, std::weak_ptr<Collider> otherComp)
 {
-	std::shared_ptr<Collider> collider = comp.lock();
+	std::shared_ptr<Collider> collider = dynamic_pointer_cast<SquareComponent>(comp.lock());
 	if (collider)
 		SetPos(GetPos() - collider->GetIntersect());
 }
-
-
 
 void Player::UpdateAnimation()
 {

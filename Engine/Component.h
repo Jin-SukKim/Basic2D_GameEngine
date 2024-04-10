@@ -11,7 +11,7 @@ public:
 	virtual ~Component();
 
 	virtual void Init() {};
-	virtual void Tick(float DeltaTime) {};
+	virtual void Tick(float DeltaTime);
 	virtual void Render(HDC hdc) {};
 
 	virtual void Clear() {};

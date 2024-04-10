@@ -6,10 +6,9 @@ class Texture;
 class TextureComponent : public Component {
 	GENERATE_BODY(TextureComponent, Component)
 public:
-
-	virtual void Init();
-	virtual void Tick(float DeltaTime);
-	virtual void Render(HDC hdc);
+	virtual void Init() override;
+	virtual void Tick(float DeltaTime) override;
+	virtual void Render(HDC hdc) override;
 
 
 private:

@@ -17,11 +17,9 @@ void CameraComponent::Init()
 
 void CameraComponent::Tick(float DeltaTime)
 {
-	std::shared_ptr<Actor> owner = GetOwner();
-	if (owner == nullptr)
-		return;
+	Super::Tick(DeltaTime);
 
-	Vector2D pos = owner->GetPos();
+	Vector2D pos = GetPos();
 
 	// TODO: World에 저장된 A
 	// background map size에서 clamp (보정)

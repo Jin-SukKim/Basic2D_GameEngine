@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Enemy.h"
 #include "SquareComponent.h"
+#include "CircleComponent.h"
 #include "AssetManager.h"
 #include "Flipbook.h"
 #include "World.h"
@@ -15,7 +16,15 @@ Enemy::Enemy() {
 
 	_square = std::make_shared<SquareComponent>();
 	_square->SetSize({ 50.f, 50.f });
+
+	_circle = std::make_shared<CircleComponent>();
+	_circle->SetCollisionLayer(CLT_Trace);
+	_circle->SetCollisionFlag(CLT_Object);
+	_circle->SetRadius(100.f);
+
+
 	AddComponent(_square);
+	AddComponent(_circle);
 }
 
 Enemy::~Enemy() {}
@@ -25,7 +34,7 @@ void Enemy::Init()
 	Super::Init();
 
 	_square->_beginOverlapDelegate.BindDelegate(this, &Enemy::BeginOverlapFunction);
-	_square->_endOverlapDelegate.BindDelegate(this, &Enemy::EndOverlapFunction);
+	_circle->_endOverlapDelegate.BindDelegate(this, &Enemy::EndOverlapFunction);
 }
 
 void Enemy::Tick(float DeltaTime)
@@ -54,15 +63,17 @@ void Enemy::Render(HDC hdc)
 void Enemy::BeginOverlapFunction(std::weak_ptr<Collider> comp, std::weak_ptr<Actor> other, std::weak_ptr<Collider> otherComp)
 {
 	//SetState(ActionState::AS_Attack);
-	std::shared_ptr<Collider> collider = comp.lock();
+	std::shared_ptr<Collider> collider = dynamic_pointer_cast<SquareComponent>(comp.lock());
 	if (collider) {
 		SetPos(GetPos() - collider->GetIntersect());
 		SetSpeed(Vector2D::Zero);
 	}
 }
 
+
 void Enemy::EndOverlapFunction(std::weak_ptr<Collider> comp, std::weak_ptr<Actor> other, std::weak_ptr<Collider> otherComp)
 {
+	Chase();
 }
 
 void Enemy::OnDamaged(std::weak_ptr<Actor> attacker)

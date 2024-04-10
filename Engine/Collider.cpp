@@ -20,6 +20,7 @@ void Collider::Init()
 
 void Collider::Tick(float DeltaTime)
 {
+	Super::Tick(DeltaTime);
 }
 
 void Collider::Render(HDC hdc)
@@ -40,8 +41,15 @@ bool Collider::CheckCollision(std::weak_ptr<Collider> other)
 		return false;
 
 	uint8 layer = collider->GetCollisionLayer();
-	if (_collisionFlag & (1 << layer))
+	uint8 flag = collider->GetCollisionFlag();
+
+	// 하나만 충돌 (Overlap)
+	if (GetCollisionFlag() & layer)
 		return true;
+
+	// 서로 충돌 설정해야 충돌 (즉, 일종의 Hit), UE처럼 HitEvent를 따로 만들면?
+	//if ((GetCollisionFlag() & layer) && (GetCollisionLayer() & flag))
+	//	return true;
 
 	return false;
 }
@@ -137,61 +145,52 @@ bool Collider::CheckCollisionSquareToSqaure(std::weak_ptr<SquareComponent> b1, s
 bool Collider::CheckCollisionCircleToSquare(std::weak_ptr<CircleComponent> c1, std::weak_ptr<SquareComponent> b1)
 {
 	std::shared_ptr<CircleComponent> c = c1.lock();
-	if (c)
+	if (c == nullptr)
 		return false;
 	std::shared_ptr<SquareComponent> s = b1.lock();
-	if (s)
+	if (s == nullptr)
 		return false;
 
 	// 사각형 정보
 	const RECT org = s->GetRect();
-	const Vector2D squarePos = s->GetPos();
-	const Vector2D squareHalfSize = s->GetSize();
 
 	// 원 정보
 	const Vector2D circlePos = c->GetPos();
 	const float radius = c->GetRadius();
 
-	const int8 nZone = GetSquareZone(org, circlePos); // 원이 어느 방향에 있는지
-	const Vector2D dist = circlePos - squarePos; // 원과 사각형의 거리
+	bool horizon = org.left <= circlePos.X && circlePos.X <= org.right;
+	bool verticle = org.top <= circlePos.Y && circlePos.Y <= org.bottom;
+	if (horizon || verticle) {
+		// 원의 반지름만큼 확장한 원 구하기
+		RECT exRect = {
+			org.left - static_cast<LONG>(radius),
+			org.top - static_cast<LONG>(radius),
+			org.right + static_cast<LONG>(radius),
+			org.bottom + static_cast<LONG>(radius),
+		};
 
-	switch (nZone)
-	{
-	// 사각형 바깥의 위, 아래 영역에서 원의 반지름과 작거나 같은지 확인해 충돌확인
-	case 1:
-	case 7:
-	{
-		float distY = std::fabs(dist.Y);
-		if (distY <= (radius + squareHalfSize.Y))
+		// 확장한 사각형 안에 원의 중심이 있는지 확인
+		if (exRect.left < circlePos.X && circlePos.X < exRect.right
+			&& exRect.top < circlePos.Y && circlePos.Y < exRect.bottom)
 			return true;
 	}
-	break;
-	// 사각형의 왼쪽, 오른쪽 영역
-	case 3:
-	case 5:
-	{
-		float distX = std::fabs(dist.X);
-		if (distX <= (radius + squareHalfSize.X))
+	else {
+		Vector2D point = { static_cast<float>(org.left), static_cast<float>(org.top) };
+		// 사각형 좌상단 꼭지점이 원안에 있는지
+		if (CheckPointInCircle(circlePos, radius, point))
 			return true;
-	}
-	break;
-	// 사각형 안
-	case 4:
-		return true;
-	// 모서리 영역, 사각형의 각 모서리가 원의 내부에 포함되야 충돌한다.
-	default:
-	{
-		// 왼쪽인지 오른쪽인지
-		float cornerX = (nZone == 0 || nZone == 6) ?
-			squarePos.X - squareHalfSize.X : squarePos.X + squareHalfSize.X;
-		// 위쪽인지 아래쪽인지
-		float cornerY = (nZone == 0 || nZone == 2) ?
-			squarePos.Y - squareHalfSize.Y : squarePos.Y + squareHalfSize.Y;
-
-		if (CheckPointInCircle(circlePos, radius, { cornerX, cornerY }))
+		// 사각형 좌하단 꼭지점이 원안에 있는지
+		point.Y = static_cast<float>(org.bottom);
+		if (CheckPointInCircle(circlePos, radius, point))
 			return true;
-	}
-	break;
+		// 사각형 우하단 꼭지점이 원안에 있는지
+		point.X = static_cast<float>(org.right);
+		if (CheckPointInCircle(circlePos, radius, point))
+			return true;
+		// 사각형 우상단 꼭지점이 원안에 있는지
+		point.Y = static_cast<float>(org.top);
+		if (CheckPointInCircle(circlePos, radius, point))
+			return true;
 	}
 
 	return false;
@@ -200,10 +199,10 @@ bool Collider::CheckCollisionCircleToSquare(std::weak_ptr<CircleComponent> c1, s
 bool Collider::CheckCollisionCircleToCircle(std::weak_ptr<CircleComponent> c1, std::weak_ptr<CircleComponent> c2)
 {
 	std::shared_ptr<CircleComponent> circle1 = c1.lock();
-	if (circle1)
+	if (circle1 == nullptr)
 		return false;
 	std::shared_ptr<CircleComponent> circle2 = c2.lock();
-	if (circle2)
+	if (circle2 == nullptr)
 		return false;
 
 	const Vector2D pos1 = circle1->GetOwner()->GetPos();
@@ -219,28 +218,9 @@ bool Collider::CheckCollisionCircleToCircle(std::weak_ptr<CircleComponent> c1, s
 	return dist <= radius1 + radius2;
 }
 
-/*
-	0 1 2
-	3 4 5
-	6 7 8
-
-	4가 사각형의 위치, 그 외는 사각형의 바깥
-*/
-int8 Collider::GetSquareZone(const RECT& rect, const Vector2D& circlePos)
-{
-	int xZone = (circlePos.X < rect.left) ? 0 :
-		(circlePos.X > rect.right) ? 2 : 1;
-
-	int yZone = (circlePos.Y < rect.top) ? 0 :
-		(circlePos.Y > rect.bottom) ? 2 : 1;
-
-	return xZone + 3 * yZone;
-}
-
 bool Collider::CheckPointInCircle(const Vector2D& cPos, const Vector2D& radius, const Vector2D& point)
 {
-	Vector2D lengthSq = point - cPos;
-	lengthSq = lengthSq.LengthSquared(); // 원의 중심과 점 사이의 거리
+	Vector2D lengthSq = (cPos - point).LengthSquared(); // 원의 중심과 점 사이의 거리
 
 	// 반지름보다 멀다면
 	if (lengthSq > (radius * radius))
