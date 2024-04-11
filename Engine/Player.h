@@ -4,6 +4,7 @@
 class CameraComponent;
 class SquareComponent;
 class Collider;
+class SpriteEffect;
 
 // TODO : Input과 Animation을 Component로 따로 만드는게 더 좋지 않을까
 class Player : public FlipbookActor
@@ -28,7 +29,7 @@ public:
 	void SetSpeed(Vector2D speed) { _speed = speed; }
 	Vector2D GetSpeed() const { return _speed; }
 	void PlayerMove(float DeltaTime);
-
+	void Attack();
 private:
 	void SetPlayerAnimation();
 	void PlayerInput();
@@ -44,6 +45,8 @@ private:
 	std::array<std::shared_ptr<Flipbook>, 4> _idle;
 	std::array<std::shared_ptr<Flipbook>, 4> _move;
 	std::array<std::shared_ptr<Flipbook>, 4> _attack;
+
+	std::shared_ptr<SpriteEffect> _hitEffect;
 
 	bool _keyPressed = false;
 

@@ -102,6 +102,11 @@ void FlipbookActor::SetFlipbook(std::shared_ptr<Flipbook> flipbook)
 	Reset();
 }
 
+void FlipbookActor::SetInfo(const FlipbookInfo& info)
+{
+	_flipbook->SetInfo(info);
+}
+
 
 void FlipbookActor::Reset()
 {

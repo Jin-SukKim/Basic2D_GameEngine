@@ -20,7 +20,7 @@ public:
 	~Flipbook();
 
 public:
-	void SetInfo(const FlipbookInfo& info) { _info = info; }
+	virtual void SetInfo(const FlipbookInfo& info) { _info = info; }
 	const FlipbookInfo& GetInfo() const { return _info; }
 
 private:

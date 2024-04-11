@@ -17,8 +17,9 @@ public:
 	// bool IsAnimationEnded(float time);
 public:
 	void SetFlipbook(std::shared_ptr<Flipbook> flipbook);
+	std::shared_ptr<Flipbook> GetFlipbook() const { return _flipbook; }
 
-private:
+	void SetInfo(const struct FlipbookInfo& info);
 	void Reset();
 
 protected:

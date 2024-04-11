@@ -1,20 +1,16 @@
 #pragma once
-#include "Actor.h"
+#include "FlipbookActor.h"
 
 class Sprite;
 
-class SpriteEffect : public Actor
+class SpriteEffect : public FlipbookActor
 {
-	GENERATE_BODY(SpriteEffect, Actor)
+	GENERATE_BODY(SpriteEffect, FlipbookActor)
 public:
 	virtual void Init() override;
 	virtual void Tick(float DeltaTime) override;
 	virtual void Render(HDC hdc) override;
 
 	void UpdateAnimation();
-private:
-	std::shared_ptr<Sprite> _Sprite;
-
-
 };
 

@@ -43,7 +43,7 @@ void Level::AddActor(std::shared_ptr<Actor> actor)
 		return;
 
 	std::vector<std::shared_ptr<Actor>>& v = _actors[actor->GetLayer()];
-	v.push_back(std::move(actor));
+	v.push_back(actor);
 }
 
 void Level::RemoveActor(std::weak_ptr<Actor> actor)

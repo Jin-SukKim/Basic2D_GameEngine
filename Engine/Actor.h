@@ -21,6 +21,9 @@ public:
 	void AddComponent(std::shared_ptr<Component> component);
 	void RemoveComponent(std::weak_ptr<Component> component);
 
+	// TODO: Damage 관련 함수
+	// https://erikanes.tistory.com/352
+	// https://mingyu0403.tistory.com/258
 private:
 	std::vector<std::shared_ptr<Component>> _components;
 };

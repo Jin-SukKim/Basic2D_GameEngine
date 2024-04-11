@@ -19,7 +19,6 @@ Enemy::Enemy() {
 
 	_circle = std::make_shared<CircleComponent>();
 	_circle->SetCollisionLayer(CLT_Trace);
-	_circle->SetCollisionFlag(CLT_Object);
 	_circle->SetRadius(100.f);
 
 
@@ -35,6 +34,7 @@ void Enemy::Init()
 
 	_square->_beginOverlapDelegate.BindDelegate(this, &Enemy::BeginOverlapFunction);
 	_circle->_endOverlapDelegate.BindDelegate(this, &Enemy::EndOverlapFunction);
+
 }
 
 void Enemy::Tick(float DeltaTime)
@@ -65,6 +65,8 @@ void Enemy::BeginOverlapFunction(std::weak_ptr<Collider> comp, std::weak_ptr<Act
 	//SetState(ActionState::AS_Attack);
 	std::shared_ptr<Collider> collider = dynamic_pointer_cast<SquareComponent>(comp.lock());
 	if (collider) {
+		if (collider->GetOwner() == other.lock()) // 같은 액터의 컴포넌트라면 (따로 flag 할당해도 될것같다)
+			return;
 		SetPos(GetPos() - collider->GetIntersect());
 		SetSpeed(Vector2D::Zero);
 	}

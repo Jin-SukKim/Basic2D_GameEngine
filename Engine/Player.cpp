@@ -7,6 +7,7 @@
 #include "Level.h"
 #include "Tilemap.h"
 #include "World.h"
+#include "SpriteEffect.h"
 
 Player::Player()
 {
@@ -16,12 +17,20 @@ Player::Player()
 	SetPlayerAnimation();
 
 	_square = std::make_shared<SquareComponent>();
-	_square->SetCollisionFlag(CLT_Object | CLT_Trace);
 	_square->SetSize({ 50.f, 50.f });
 	AddComponent(_square);
 
 	_camera = std::make_shared<CameraComponent>();
 	AddComponent(_camera);
+
+
+	// Effect
+	if (std::shared_ptr<Texture> texture = GET_SINGLE(AssetManager)->GetTexture(L"HitEffect"))
+	{
+		_hitEffect = std::make_shared<SpriteEffect>();
+		_hitEffect->SetFlipbook(GET_SINGLE(AssetManager)->CreateFlipbook(L"FB_Hit"));
+		_hitEffect->SetInfo({ texture, L"FB_Hit", {50, 47}, 0, 5, 0, 0.5f, false });
+	}
 }
 
 Player::~Player()
@@ -40,8 +49,7 @@ void Player::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 	if (_state == ActionState::AS_Attack) {
-		if (IsAnimationEnded())
-			SetState(ActionState::AS_Idle);
+		Attack();
 	}
 	else
 		PlayerInput();
@@ -112,6 +120,7 @@ void Player::SetPlayerAnimation()
 	GET_SINGLE(AssetManager)->LoadTexture(L"PlayerDown", L"Sprite\\Player\\PlayerDown.bmp", RGB(128, 128, 128));
 	GET_SINGLE(AssetManager)->LoadTexture(L"PlayerLeft", L"Sprite\\Player\\PlayerLeft.bmp", RGB(128, 128, 128));
 	GET_SINGLE(AssetManager)->LoadTexture(L"PlayerRight", L"Sprite\\Player\\PlayerRight.bmp", RGB(128, 128, 128));
+	GET_SINGLE(AssetManager)->LoadTexture(L"HitEffect", L"Sprite\\Effect\\Hit.bmp", RGB(0, 0, 0));
 
 	// IDLE
 	if (std::shared_ptr<Texture> texture = GET_SINGLE(AssetManager)->GetTexture(L"PlayerUp")) {
@@ -213,6 +222,26 @@ void Player::PlayerMove(float DeltaTime)
 		SetState(ActionState::AS_Move);
 
 	SetPos(GetPos() + _speed * DeltaTime);
+}
+
+void Player::Attack()
+{
+	if (GetFlipbook() == nullptr)
+		return;
+
+	// 애니메이션이 끝나면 다음 공격 가능
+	if (IsAnimationEnded()) {
+
+		std::shared_ptr<Level> level = World::GetCurrentLevel();
+		if (level == nullptr)
+			return;
+
+		if (_hitEffect) {
+			_hitEffect = level->SpawnObject<SpriteEffect>(_hitEffect, GetPos());
+		}
+
+		SetState(ActionState::AS_Idle);
+	}
 }
 
 

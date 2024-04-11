@@ -71,7 +71,7 @@ private:
 
 	std::weak_ptr<Actor> _target;
 
-	Vector2D _speed = { 70.f, 70.f };
-	float _maxSpeed = 70.f;
+	Vector2D _speed = Vector2D::Zero;
+	float _maxSpeed = 50.f;
 };
 

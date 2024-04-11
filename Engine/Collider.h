@@ -79,7 +79,7 @@ private:
 	CollisionLayerType _collisionLayer = CLT_Object; // 자신이 무엇인지 (ex: Player, Static, Dynamic etc)
 
 	// 누구랑 충돌할지
-	uint8 _collisionFlag = CLT_Object; // Default = 모두 충돌
+	uint8 _collisionFlag = CLT_Object | CLT_Trace;
 
 	// 자신과 충돌한 Collider 추적 (이미 충돌한 Collider들은 충돌체크를 더 하지 않도록)
 	std::unordered_set<std::shared_ptr<Collider>> _collisionSet;
