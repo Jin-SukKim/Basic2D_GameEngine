@@ -1,5 +1,6 @@
 #pragma once
 #include "FlipbookActor.h"
+#include "Stat.h"
 
 class CameraComponent;
 class SquareComponent;
@@ -16,8 +17,17 @@ public:
 	virtual void Render(HDC hdc) override;
 	
 	void BeginOverlapFunction(std::weak_ptr<Collider> comp, std::weak_ptr<Actor> other, std::weak_ptr<Collider> otherComp);
+	void Attack();
+	void BeginAttackBox(std::weak_ptr<Collider> comp, std::weak_ptr<Actor> other, std::weak_ptr<Collider> otherComp);
+
 protected:
 	void UpdateAnimation();
+
+private:
+	void SetPlayerAnimation();
+	void PlayerInput();
+	Vector2D GetDirVector2D(Dir dir);
+	void PlayerMove(float DeltaTime);
 
 public:
 	void SetDir(Dir dir);
@@ -28,12 +38,6 @@ public:
 
 	void SetSpeed(Vector2D speed) { _speed = speed; }
 	Vector2D GetSpeed() const { return _speed; }
-	void PlayerMove(float DeltaTime);
-	void Attack();
-private:
-	void SetPlayerAnimation();
-	void PlayerInput();
-	Vector2D GetDirVector2D(Dir dir);
 
 private:
 	Dir _dir = DIR_Down;
@@ -41,6 +45,7 @@ private:
 
 	std::shared_ptr<SquareComponent> _square;
 	std::shared_ptr<CameraComponent> _camera;
+	std::shared_ptr<SquareComponent> _attackBox;
 
 	std::array<std::shared_ptr<Flipbook>, 4> _idle;
 	std::array<std::shared_ptr<Flipbook>, 4> _move;

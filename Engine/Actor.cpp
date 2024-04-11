@@ -55,3 +55,24 @@ void Actor::RemoveComponent(std::weak_ptr<Component> component)
 
 	_components.erase(findIt);
 }
+
+void Actor::ApplyDamage(std::weak_ptr<Actor> damagedActor, float damage, std::weak_ptr<Actor> eventInstigator, std::weak_ptr<Actor> damageCauser)
+{
+	std::shared_ptr<Actor> attacker = eventInstigator.lock();
+	std::shared_ptr<Actor> causer = damageCauser.lock();
+	std::shared_ptr<Actor> actor = damageCauser.lock();
+	if (attacker == nullptr || causer == nullptr || actor == nullptr)
+		return;
+
+	actor->TakeDamage(damage, eventInstigator, damageCauser);
+}
+
+float Actor::TakeDamage(float damageAmount, std::weak_ptr<Actor> eventInstigator, std::weak_ptr<Actor> damageCauser)
+{
+	std::shared_ptr<Actor> attacker = eventInstigator.lock();
+	std::shared_ptr<Actor> causer = damageCauser.lock();
+	if (attacker == nullptr || causer == nullptr)
+		return 0.0f;
+
+	return damageAmount;
+}

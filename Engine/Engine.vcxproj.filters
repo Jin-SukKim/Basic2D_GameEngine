@@ -190,6 +190,9 @@
     <ClInclude Include="SpriteEffect.h">
       <Filter>Source Files\Objects\Actor\VFX</Filter>
     </ClInclude>
+    <ClInclude Include="Stat.h">
+      <Filter>Source Files\Objects\Actor\Game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">

@@ -26,7 +26,7 @@ void SquareComponent::Render(HDC hdc)
 
 	// º¸Á¤
 	const Vector2D camPos = World::GetCameraPos();
-	Vector2D pos = GetOwner()->GetPos();
+	Vector2D pos = GetPos();
 	pos -= camPos - Engine::GetScreenSize() * 0.5f;
 
 	::SetDCPenColor(hdc, RGB(255, 0, 0));
@@ -70,7 +70,7 @@ bool SquareComponent::CheckCollision(std::weak_ptr<Collider> other)
 
 RECT SquareComponent::GetRect()
 {
-	Vector2D pos = GetOwner()->GetPos();
+	Vector2D pos = GetPos();
 	Vector2D halfSize = GetSize() * 0.5f;
 
 	RECT rect = {

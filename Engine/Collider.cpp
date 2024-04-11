@@ -36,6 +36,9 @@ void Collider::Clear()
 
 bool Collider::CheckCollision(std::weak_ptr<Collider> other)
 {
+	if (_enable == false)
+		return false;
+
 	std::shared_ptr<Collider> collider = other.lock();
 	if (collider == nullptr)
 		return false;
@@ -118,10 +121,10 @@ bool Collider::CheckCollisionSquareToSqaure(std::weak_ptr<SquareComponent> b1, s
 	// 두 사각형이 겹치는지만 알 수 있따.
 	/*
 	{
-		const Vector2D pos1 = square1->GetOwner()->GetPos();
+		const Vector2D pos1 = square1->GetPos();
 		const Vector2D halfSize1 = square1->GetSize() * 0.5f;
 
-		const Vector2D pos2 = square2->GetOwner()->GetPos();
+		const Vector2D pos2 = square2->GetPos();
 		const Vector2D halfSize2 = square2->GetSize() * 0.5f;
 	
 		// 두 사각형의 가장 작은 점과 큰 점을 찾아 비교
@@ -205,10 +208,10 @@ bool Collider::CheckCollisionCircleToCircle(std::weak_ptr<CircleComponent> c1, s
 	if (circle2 == nullptr)
 		return false;
 
-	const Vector2D pos1 = circle1->GetOwner()->GetPos();
+	const Vector2D pos1 = circle1->GetPos();
 	const float radius1 = circle1->GetRadius();
 
-	const Vector2D pos2 = circle2->GetOwner()->GetPos();
+	const Vector2D pos2 = circle2->GetPos();
 	const float radius2 = circle2->GetRadius();
 
 	Vector2D dir = pos1 - pos2;

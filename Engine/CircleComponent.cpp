@@ -25,7 +25,7 @@ void CircleComponent::Render(HDC hdc)
 	Super::Render(hdc);
 
 	const Vector2D camPos = World::GetCameraPos();
-	Vector2D pos = GetOwner()->GetPos();
+	Vector2D pos = GetPos();
 	pos -= camPos - Engine::GetScreenSize() * 0.5f;
 
 	HPEN myPen = (HPEN)::GetStockObject(DC_PEN);

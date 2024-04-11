@@ -23,6 +23,14 @@ Player::Player()
 	_camera = std::make_shared<CameraComponent>();
 	AddComponent(_camera);
 
+	_attackBox = std::make_shared<SquareComponent>();
+	_attackBox->AddLocalPos(GetDirVector2D(GetDir()) * 50.f);
+	_attackBox->SetSize({ 25.f, 25.f });
+	_attackBox->SetCollisionLayer(CLT_Trace);
+	_attackBox->SetCollisionFlag(CLT_Object);
+	_attackBox->SetCollisionDisable();
+	AddComponent(_attackBox);
+
 
 	// Effect
 	if (std::shared_ptr<Texture> texture = GET_SINGLE(AssetManager)->GetTexture(L"HitEffect"))
@@ -42,6 +50,7 @@ void Player::Init()
 	Super::Init();
 
 	_square->_beginOverlapDelegate.BindDelegate(this, &Player::BeginOverlapFunction);
+	_attackBox->_beginOverlapDelegate.BindDelegate(this, &Player::BeginAttackBox);
 }
 
 void Player::Tick(float DeltaTime)
@@ -229,19 +238,32 @@ void Player::Attack()
 	if (GetFlipbook() == nullptr)
 		return;
 
+	_attackBox->SetCollisionEnable();
+	_attackBox->AddLocalPos(GetDirVector2D(GetDir()) * 50.f);
+	
 	// 애니메이션이 끝나면 다음 공격 가능
 	if (IsAnimationEnded()) {
-
-		std::shared_ptr<Level> level = World::GetCurrentLevel();
-		if (level == nullptr)
-			return;
-
-		if (_hitEffect) {
-			_hitEffect = level->SpawnObject<SpriteEffect>(_hitEffect, GetPos());
-		}
-
+		_attackBox->SetCollisionDisable();
 		SetState(ActionState::AS_Idle);
 	}
+}
+
+void Player::BeginAttackBox(std::weak_ptr<Collider> comp, std::weak_ptr<Actor> other, std::weak_ptr<Collider> otherComp)
+{
+	if (shared_from_this() == other.lock())
+		return;
+
+	// 따로 weapon actor를 사용하면 damageCauser parameter는 무기 액터
+	ApplyDamage(other, 0.f, weak_from_this(), weak_from_this());
+
+	std::shared_ptr<Level> level = World::GetCurrentLevel();
+	if (level == nullptr)
+		return;
+
+	if (_hitEffect) {
+		_hitEffect = level->SpawnObject<SpriteEffect>(_hitEffect, GetPos() + GetDirVector2D(GetDir()) * 50.f);
+	}
+
 }
 
 

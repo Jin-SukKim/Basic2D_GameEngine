@@ -24,6 +24,9 @@ public:
 	// TODO: Damage 관련 함수
 	// https://erikanes.tistory.com/352
 	// https://mingyu0403.tistory.com/258
+	// parameter: 데미지를 입은 액터, 데미지, 데미지를 준 액터(플레이어 등), 데미지를 준 실직적 액터(총알, 칼 등),
+	void ApplyDamage(std::weak_ptr<Actor> damagedActor, float damage, std::weak_ptr<Actor> eventInstigator, std::weak_ptr<Actor> damageCauser);
+	virtual float TakeDamage(float damageAmount, std::weak_ptr<Actor> eventInstigator, std::weak_ptr<Actor> damageCauser);
 private:
 	std::vector<std::shared_ptr<Component>> _components;
 };

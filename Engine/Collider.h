@@ -66,6 +66,9 @@ public:
 
 	void SetIntersect(Vector2D intersect) { _intersect = intersect;	}
 	Vector2D GetIntersect() const { return _intersect; }
+
+	void SetCollisionEnable() { _enable = true;	}
+	void SetCollisionDisable() { _enable = false; }
 public:
 	// Collider Component는 owner object가 사라질때 Manager 클래스에서 같이 사라지게 했으므로
 	// raw pointer인 this를 사용해도 될 것 같다.
@@ -85,4 +88,6 @@ private:
 	std::unordered_set<std::shared_ptr<Collider>> _collisionSet;
 
 	Vector2D _intersect = Vector2D::Zero;
+
+	bool _enable = true;
 };

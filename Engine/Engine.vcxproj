@@ -192,6 +192,7 @@
     <ClInclude Include="CircleComponent.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="SpriteActor.h" />
+    <ClInclude Include="Stat.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TextureActor.h" />
     <ClInclude Include="TextureComponent.h" />

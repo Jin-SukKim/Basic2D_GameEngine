@@ -14,5 +14,5 @@ void Component::Tick(float DeltaTime)
 {
 	std::shared_ptr<Actor> owner = _owner.lock();
 	if (owner)
-		SetPos(owner->GetPos());
+		SetPos(owner->GetPos() + _compPos);
 }
