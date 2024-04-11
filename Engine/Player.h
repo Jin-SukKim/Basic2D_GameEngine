@@ -20,6 +20,7 @@ public:
 	void Attack();
 	void BeginAttackBox(std::weak_ptr<Collider> comp, std::weak_ptr<Actor> other, std::weak_ptr<Collider> otherComp);
 
+	virtual float TakeDamage(float damageAmount, std::weak_ptr<Actor> eventInstigator, std::weak_ptr<Actor> damageCauser) override;
 protected:
 	void UpdateAnimation();
 
@@ -28,7 +29,7 @@ private:
 	void PlayerInput();
 	Vector2D GetDirVector2D(Dir dir);
 	void PlayerMove(float DeltaTime);
-
+	void GetDamage(float damage);
 public:
 	void SetDir(Dir dir);
 	Dir GetDir() const { return _dir; }

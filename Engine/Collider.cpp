@@ -36,11 +36,9 @@ void Collider::Clear()
 
 bool Collider::CheckCollision(std::weak_ptr<Collider> other)
 {
-	if (_enable == false)
-		return false;
 
 	std::shared_ptr<Collider> collider = other.lock();
-	if (collider == nullptr)
+	if (collider == nullptr || _enable == false || collider->GetCollisionEnable() == false)
 		return false;
 
 	uint8 layer = collider->GetCollisionLayer();

@@ -33,7 +33,7 @@ public: // Getter/Setter
 	ObjectType GetType() const { return _type; }
 	
 	virtual void SetPos(const Vector2D& pos) { _pos = pos; };
-	Vector2D GetPos() const { return _pos; }
+	virtual Vector2D GetPos() const { return _pos; }
 	
 	void SetSize(const Vector2D& size) { _size = size; };
 	Vector2D GetSize() const { return _size; }

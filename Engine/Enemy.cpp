@@ -9,6 +9,7 @@
 #include "AlgorithmUtils.h"
 #include "Tilemap.h"
 #include "TilemapActor.h"
+#include "SpriteEffect.h"
 
 Enemy::Enemy() {
 
@@ -16,14 +17,30 @@ Enemy::Enemy() {
 
 	_square = std::make_shared<SquareComponent>();
 	_square->SetSize({ 50.f, 50.f });
+	AddComponent(_square);
+
+	_attackZone = std::make_shared<CircleComponent>();
+	_attackZone->SetRadius(15.f);
+	_attackZone->AddLocalPos(GetDirVector2D(GetDir()) * 50.f);
+	_attackZone->SetCollisionLayer(CLT_Trace);
+	_attackZone->SetCollisionFlag(CLT_Object);
+	_attackZone->SetCollisionDisable();
+	AddComponent(_attackZone);
 
 	_circle = std::make_shared<CircleComponent>();
 	_circle->SetCollisionLayer(CLT_Trace);
-	_circle->SetRadius(100.f);
-
-
-	AddComponent(_square);
+	_circle->SetCollisionFlag(CLT_Object);
+	_circle->SetRadius(70.f);
 	AddComponent(_circle);
+
+
+	// Effect
+	if (std::shared_ptr<Texture> texture = GET_SINGLE(AssetManager)->GetTexture(L"HitEffect"))
+	{
+		_hitEffect = std::make_shared<SpriteEffect>();
+		_hitEffect->SetFlipbook(GET_SINGLE(AssetManager)->CreateFlipbook(L"FB_Hit"));
+		_hitEffect->SetInfo({ texture, L"FB_Hit", {50, 47}, 0, 5, 0, 0.5f, false });
+	}
 
 	SetMaxSpeed(60.f);
 }
@@ -35,8 +52,8 @@ void Enemy::Init()
 	Super::Init();
 
 	_square->_beginOverlapDelegate.BindDelegate(this, &Enemy::BeginOverlapFunction);
-	_circle->_endOverlapDelegate.BindDelegate(this, &Enemy::EndOverlapFunction);
-
+	_circle->_endOverlapDelegate.BindDelegate(this, &Enemy::EndAttackRange);
+	_attackZone->_beginOverlapDelegate.BindDelegate(this, &Enemy::BeginAttackRange);
 }
 
 void Enemy::Tick(float DeltaTime)
@@ -52,9 +69,9 @@ void Enemy::Tick(float DeltaTime)
 		EnemyMove(DeltaTime);
 		break;
 	case ActionState::AS_Attack:
+		Attack(DeltaTime);
 		break;
 	}
-	
 }
 
 void Enemy::Render(HDC hdc)
@@ -64,27 +81,39 @@ void Enemy::Render(HDC hdc)
 
 void Enemy::BeginOverlapFunction(std::weak_ptr<Collider> comp, std::weak_ptr<Actor> other, std::weak_ptr<Collider> otherComp)
 {
-	//SetState(ActionState::AS_Attack);
 	std::shared_ptr<Collider> collider = dynamic_pointer_cast<SquareComponent>(comp.lock());
 	if (collider) {
-		if (collider->GetOwner() == other.lock()) // 같은 액터의 컴포넌트라면 (따로 flag 할당해도 될것같다)
-			return;
 		SetPos(GetPos() - collider->GetIntersect());
-		SetSpeed(0.f);
+		SetState(ActionState::AS_Idle);
+	}
+}
+
+void Enemy::BeginAttackRange(std::weak_ptr<Collider> comp, std::weak_ptr<Actor> other, std::weak_ptr<Collider> otherComp)
+{
+	ApplyDamage(other, _enemyStat.attack, weak_from_this(), weak_from_this());
+
+	std::shared_ptr<Level> level = World::GetCurrentLevel();
+	if (level == nullptr)
+		return;
+
+	if (_hitEffect) {
+		_hitEffect = level->SpawnObject<SpriteEffect>(_hitEffect, GetPos() + GetDirVector2D(GetDir()) * 50.f);
 	}
 }
 
 
-void Enemy::EndOverlapFunction(std::weak_ptr<Collider> comp, std::weak_ptr<Actor> other, std::weak_ptr<Collider> otherComp)
+void Enemy::EndAttackRange(std::weak_ptr<Collider> comp, std::weak_ptr<Actor> other, std::weak_ptr<Collider> otherComp)
 {
 	Chase();
 }
+
 
 float Enemy::TakeDamage(float damageAmount, std::weak_ptr<Actor> eventInstigator, std::weak_ptr<Actor> damageCauser)
 {
 	float damage = Super::TakeDamage(damageAmount, eventInstigator, damageCauser);
 
 	GetDamage(damage);
+	Chase();
 
 	return damage;
 }
@@ -98,6 +127,7 @@ void Enemy::UpdateAnimation()
 void Enemy::SetEnemyAnimation()
 {
 	GET_SINGLE(AssetManager)->LoadTexture(L"Snake", L"Sprite\\Monster\\Snake.bmp", RGB(128, 128, 128));
+	GET_SINGLE(AssetManager)->LoadTexture(L"HitEffect", L"Sprite\\Effect\\Hit.bmp", RGB(0, 0, 0));
 
 	// Move
 	if (std::shared_ptr<Texture> texture = GET_SINGLE(AssetManager)->GetTexture(L"Snake")) {
@@ -156,14 +186,15 @@ void Enemy::Chase()
 
 	if (target) {
 		Vector2D dir = target->GetPos() - GetPos();
-		float dist = std::abs(dir.X) + std::abs(dir.Y); // 대각선은 신경쓰지 않고 상하좌우만 계산
-		if (dist == 1.f) // 바로 앞이라면
+		float dist = std::abs(dir.X) + std::abs(dir.Y);
+		if (dist < 80.f) // 바로 앞이라면
 		{
 			SetDir(GetLookAtDir(target->GetPos()));
-			SetState(ActionState::AS_Attack);
 			SetWaitSeconds(GetMaxWaitSeconds());
+			SetState(ActionState::AS_Attack);
 		}
-		else {
+		else 
+		{
 			// 목표까지 길을 찾고 1칸 이동하고 다시 찾는 걸 반복
 			// (계산량에 부담은 되나 더 자연스럽다. 부담되면 일정 시간에 찾도록 변경)
 			std::vector<Vector2D> path;
@@ -186,6 +217,22 @@ void Enemy::Chase()
 			}
 		}
 	}
+}
+
+void Enemy::Attack(float DeltaTime)
+{
+	if (_waitSeconds > 0)
+	{
+		SetWaitSeconds(max(0, _waitSeconds - DeltaTime));
+		_attackZone->SetCollisionDisable();
+		return;
+	}
+
+	if (GetFlipbook() == nullptr)
+		return;
+
+	_attackZone->SetCollisionEnable();
+	SetState(ActionState::AS_Idle);
 }
 
 Dir Enemy::GetLookAtDir(Vector2D pos)
@@ -240,6 +287,8 @@ void Enemy::SetDir(Dir dir)
 		return;
 
 	_dir = dir;
+
+	_attackZone->AddLocalPos(GetDirVector2D(_dir) * 50.f);
 	// 방향이 바뀌면 Animation도 상태에 맞게 바꿔준다.
 	UpdateAnimation();
 }

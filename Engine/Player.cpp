@@ -102,6 +102,8 @@ void Player::SetDir(Dir dir)
 		return;
 
 	_dir = dir;
+
+	_attackBox->AddLocalPos(GetDirVector2D(_dir) * 50.f);
 	// 방향이 바뀌면 Animation도 상태에 맞게 바꿔준다.
 	UpdateAnimation();
 }
@@ -233,26 +235,39 @@ void Player::PlayerMove(float DeltaTime)
 	SetPos(GetPos() + GetDirVector2D(GetDir()) * GetSpeed() * DeltaTime);
 }
 
+void Player::GetDamage(float damage)
+{
+	damage -= _playerStat.defence;
+	if (damage <= 0)
+		return;
+
+	_playerStat.hp = max(0.f, _playerStat.hp - damage);
+	if (_playerStat.hp == 0.f)
+	{
+		std::shared_ptr<Level> level = World::GetCurrentLevel();
+		if (level)
+			level->RemoveActor(weak_from_this());
+	}
+}
+
 void Player::Attack()
 {
 	if (GetFlipbook() == nullptr)
 		return;
 
-	_attackBox->SetCollisionEnable();
-	_attackBox->AddLocalPos(GetDirVector2D(GetDir()) * 50.f);
+	if (IsAnimationStarted()) 
+		_attackBox->SetCollisionEnable();
+	else 
+		_attackBox->SetCollisionDisable();
 	
 	// 애니메이션이 끝나면 다음 공격 가능
 	if (IsAnimationEnded()) {
-		_attackBox->SetCollisionDisable();
 		SetState(ActionState::AS_Idle);
 	}
 }
 
 void Player::BeginAttackBox(std::weak_ptr<Collider> comp, std::weak_ptr<Actor> other, std::weak_ptr<Collider> otherComp)
 {
-	if (shared_from_this() == other.lock())
-		return;
-
 	// 따로 weapon actor를 사용하면 damageCauser parameter는 무기 액터
 	ApplyDamage(other, _playerStat.attack, weak_from_this(), weak_from_this());
 
@@ -264,6 +279,15 @@ void Player::BeginAttackBox(std::weak_ptr<Collider> comp, std::weak_ptr<Actor> o
 		_hitEffect = level->SpawnObject<SpriteEffect>(_hitEffect, GetPos() + GetDirVector2D(GetDir()) * 50.f);
 	}
 
+}
+
+float Player::TakeDamage(float damageAmount, std::weak_ptr<Actor> eventInstigator, std::weak_ptr<Actor> damageCauser)
+{
+	float damage = Super::TakeDamage(damageAmount, eventInstigator, damageCauser);
+
+	GetDamage(damage);
+
+	return damage;
 }
 
 

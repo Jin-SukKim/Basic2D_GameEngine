@@ -46,7 +46,6 @@ private:
 	bool CheckPointInCircle(const Vector2D& cPos, const float& radius, const Vector2D& point);
 
 public:
-	void SetColliderType(ColliderType& colliderType) { _colliderType = colliderType; }
 	ColliderType GetColliderType() const { return _colliderType; }
 
 	void SetShowDebug(bool show) { _showDebug = show; }
@@ -69,6 +68,9 @@ public:
 
 	void SetCollisionEnable() { _enable = true;	}
 	void SetCollisionDisable() { _enable = false; }
+	bool GetCollisionEnable() const {
+		return _enable;
+	}
 public:
 	// Collider Component는 owner object가 사라질때 Manager 클래스에서 같이 사라지게 했으므로
 	// raw pointer인 this를 사용해도 될 것 같다.

@@ -12,7 +12,16 @@ Component::~Component()
 
 void Component::Tick(float DeltaTime)
 {
-	std::shared_ptr<Actor> owner = _owner.lock();
+	std::shared_ptr<Actor> owner = GetOwner();
 	if (owner)
 		SetPos(owner->GetPos() + _compPos);
+}
+
+Vector2D Component::GetPos() const
+{
+	std::shared_ptr<Actor> owner = GetOwner();
+	if (owner)
+		return owner->GetPos() + _compPos;
+	
+	return _compPos;
 }

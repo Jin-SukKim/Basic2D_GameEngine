@@ -24,17 +24,22 @@ void Level::Init()
 void Level::Tick(float DeltaTime)
 {
 
-	for (auto& actors : _actors)
-		for (std::shared_ptr<Actor>& actor : actors)
-			actor->Tick(DeltaTime);
+	for (auto& actors : _actors) {
+		for (std::shared_ptr<Actor> actor : actors) {
+			if (actor)
+				actor->Tick(DeltaTime);
+		}
+	}
 }
 
 void Level::Render(HDC hdc)
 {
-	for (auto& actors : _actors)
-		for (std::shared_ptr<Actor>& actor : actors)
-			actor->Render(hdc);
-
+	for (auto& actors : _actors) {
+		for (std::shared_ptr<Actor> actor : actors) {
+			if (actor)
+				actor->Render(hdc);
+		}
+	}
 }
 
 void Level::AddActor(std::shared_ptr<Actor> actor)

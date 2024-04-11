@@ -22,6 +22,8 @@ public: // Getter/Setter
 	
 	void AddLocalPos(const Vector2D& pos) { _compPos = pos; }
 
+public:
+	virtual Vector2D GetPos() const override;
 protected:
 	// weak_ptr : 보통 순환문제 해결, 임시로 데이터(cache) 사용할때 사용
 	std::weak_ptr<Actor> _owner;

@@ -80,6 +80,32 @@ void FlipbookActor::Render(HDC hdc)
 	);
 }
 
+bool FlipbookActor::IsAnimationStarted()
+{
+	if (_flipbook == nullptr)
+		return true;
+
+	const FlipbookInfo& info = _flipbook->GetInfo();
+	// Loop가 없고 모든 sprite를 play했으면
+	if (info.loop == false && _idx == info.start)
+		return true;
+
+	return false;
+}
+
+bool FlipbookActor::IsAnimationAtIdx(int32 index)
+{
+	if (_flipbook == nullptr)
+		return true;
+
+	const FlipbookInfo& info = _flipbook->GetInfo();
+	// Loop가 없고 모든 sprite를 play했으면
+	if (info.loop == false && _idx == index)
+		return true;
+
+	return false;
+}
+
 bool FlipbookActor::IsAnimationEnded()
 {
 	if (_flipbook == nullptr)

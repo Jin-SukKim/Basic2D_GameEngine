@@ -23,6 +23,13 @@ GameLevel::GameLevel()
 
 		AddActor(tilemap);
 	}
+	// Enemy
+	{
+		std::shared_ptr<Enemy> enemy = std::make_shared<Enemy>();
+		enemy->SetPos({ 700, 300 });
+
+		AddActor(enemy);
+	}
 	// Actor
 	{
 		std::shared_ptr<Player> player = std::make_shared<Player>();
@@ -30,13 +37,6 @@ GameLevel::GameLevel()
 		player->SetSize({ 48.f, 48.f});
 
 		AddActor(player);
-	}
-	// Enemy
-	{
-		std::shared_ptr<Enemy> enemy = std::make_shared<Enemy>();
-		enemy->SetPos({ 700, 300 });
-
-		AddActor(enemy);
 	}
 
 }
