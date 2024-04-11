@@ -221,9 +221,10 @@ bool Collider::CheckCollisionCircleToCircle(std::weak_ptr<CircleComponent> c1, s
 	return dist <= radius1 + radius2;
 }
 
-bool Collider::CheckPointInCircle(const Vector2D& cPos, const Vector2D& radius, const Vector2D& point)
+bool Collider::CheckPointInCircle(const Vector2D& cPos, const float& radius, const Vector2D& point)
 {
-	Vector2D lengthSq = (cPos - point).LengthSquared(); // 원의 중심과 점 사이의 거리
+	Vector2D v = cPos - point;
+	float lengthSq = v.LengthSquared(); // 원의 중심과 점 사이의 거리
 
 	// 반지름보다 멀다면
 	if (lengthSq > (radius * radius))

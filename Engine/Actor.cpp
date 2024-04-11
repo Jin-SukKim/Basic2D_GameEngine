@@ -60,7 +60,7 @@ void Actor::ApplyDamage(std::weak_ptr<Actor> damagedActor, float damage, std::we
 {
 	std::shared_ptr<Actor> attacker = eventInstigator.lock();
 	std::shared_ptr<Actor> causer = damageCauser.lock();
-	std::shared_ptr<Actor> actor = damageCauser.lock();
+	std::shared_ptr<Actor> actor = damagedActor.lock();
 	if (attacker == nullptr || causer == nullptr || actor == nullptr)
 		return;
 

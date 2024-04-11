@@ -43,7 +43,7 @@ protected:
 
 private:
 	// 점이 원안에 있는지 확인
-	bool CheckPointInCircle(const Vector2D& cPos, const Vector2D& radius, const Vector2D& point);
+	bool CheckPointInCircle(const Vector2D& cPos, const float& radius, const Vector2D& point);
 
 public:
 	void SetColliderType(ColliderType& colliderType) { _colliderType = colliderType; }

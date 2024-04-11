@@ -24,6 +24,8 @@ Enemy::Enemy() {
 
 	AddComponent(_square);
 	AddComponent(_circle);
+
+	SetMaxSpeed(60.f);
 }
 
 Enemy::~Enemy() {}
@@ -68,7 +70,7 @@ void Enemy::BeginOverlapFunction(std::weak_ptr<Collider> comp, std::weak_ptr<Act
 		if (collider->GetOwner() == other.lock()) // 같은 액터의 컴포넌트라면 (따로 flag 할당해도 될것같다)
 			return;
 		SetPos(GetPos() - collider->GetIntersect());
-		SetSpeed(Vector2D::Zero);
+		SetSpeed(0.f);
 	}
 }
 
@@ -78,9 +80,15 @@ void Enemy::EndOverlapFunction(std::weak_ptr<Collider> comp, std::weak_ptr<Actor
 	Chase();
 }
 
-void Enemy::OnDamaged(std::weak_ptr<Actor> attacker)
+float Enemy::TakeDamage(float damageAmount, std::weak_ptr<Actor> eventInstigator, std::weak_ptr<Actor> damageCauser)
 {
+	float damage = Super::TakeDamage(damageAmount, eventInstigator, damageCauser);
+
+	GetDamage(damage);
+
+	return damage;
 }
+
 
 void Enemy::UpdateAnimation()
 {
@@ -119,7 +127,7 @@ void Enemy::EnemyMove(float DeltaTime)
 	if (dir.Length() < 5.f) // 도착지점에 충분히 가까우면
 	{
 		SetPos(GetDestPos());
-		SetSpeed(Vector2D::Zero);
+		SetSpeed(0.f);
 		SetState(ActionState::AS_Idle);
 	}
 	// 도착지까지 부드럽게 움직이도록 보정
@@ -198,6 +206,21 @@ Vector2D Enemy::GetDirVector2D(Dir dir)
 	// enum Dir과 순서를 맞춰준다. (상하좌우)
 	static Vector2D nextDir[4] = { {0, -1}, {0, 1}, {-1, 0}, {1, 0} }; // 다음 방향
 	return nextDir[dir];
+}
+
+void Enemy::GetDamage(float damage)
+{
+	damage -= _enemyStat.defence;
+	if (damage <= 0)
+		return;
+
+	_enemyStat.hp = max(0.f, _enemyStat.hp - damage);
+	if (_enemyStat.hp == 0.f)
+	{
+		std::shared_ptr<Level> level = World::GetCurrentLevel();
+		if (level)
+			level->RemoveActor(weak_from_this());
+	}
 }
 
 void Enemy::SetCellPos(const Vector2D& cellPos)

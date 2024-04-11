@@ -36,8 +36,11 @@ public:
 	void SetState(ActionState state);
 	ActionState GetState() const { return _state; }
 
-	void SetSpeed(Vector2D speed) { _speed = speed; }
-	Vector2D GetSpeed() const { return _speed; }
+	void SetSpeed(float speed) { _playerStat.speed = speed; }
+	float GetSpeed() const { return _playerStat.speed; }
+	
+	void SetMaxSpeed(float speed) { _playerStat.maxSpeed = speed; }
+	float GetMaxSpeed() const { return _playerStat.maxSpeed; }
 
 private:
 	Dir _dir = DIR_Down;
@@ -55,7 +58,6 @@ private:
 
 	bool _keyPressed = false;
 
-	Vector2D _speed = Vector2D::Zero;
-	float _maxSpeed = 100.f;
+	Stat _playerStat;
 };
 

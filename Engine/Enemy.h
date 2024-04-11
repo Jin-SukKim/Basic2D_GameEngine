@@ -1,5 +1,6 @@
 #pragma once
 #include "FlipbookActor.h"
+#include "Stat.h"
 
 class SquareComponent;
 class CircleComponent;
@@ -16,8 +17,7 @@ public:
 	void BeginOverlapFunction(std::weak_ptr<Collider> comp, std::weak_ptr<Actor> other, std::weak_ptr<Collider> otherComp);
 	void EndOverlapFunction(std::weak_ptr<Collider> comp, std::weak_ptr<Actor> other, std::weak_ptr<Collider> otherComp);
 
-	void OnDamaged(class std::weak_ptr<Actor> attacker);
-
+	virtual float TakeDamage(float damageAmount, std::weak_ptr<Actor> eventInstigator, std::weak_ptr<Actor> damageCauser);
 protected:
 	void UpdateAnimation();
 
@@ -30,6 +30,8 @@ private:
 	Dir GetLookAtDir(Vector2D pos);
 
 	Vector2D GetDirVector2D(Dir dir);
+	
+	void GetDamage(float damage);
 public:
 	void SetCellPos(const Vector2D& cellPos);
 	Vector2D GetCellPos() const { return _cellPos; }
@@ -43,11 +45,11 @@ public:
 	void SetState(ActionState state);
 	ActionState GetState() const { return _state; }
 
-	void SetSpeed(Vector2D speed) { _speed = speed; }
-	Vector2D GetSpeed() const { return _speed; }
-	
-	void SetMaxSpeed(float speed) { _maxSpeed = speed; }
-	float GetMaxSpeed() const { return _maxSpeed; }
+	void SetSpeed(float speed) { _enemyStat.speed = speed; }
+	float GetSpeed() const { return _enemyStat.speed; }
+
+	void SetMaxSpeed(float speed) { _enemyStat.maxSpeed = speed; }
+	float GetMaxSpeed() const { return _enemyStat.maxSpeed; }
 
 	void SetWaitSeconds(float seconds) { _waitSeconds = seconds; }
 	float GetWaitSeconds() const { return _waitSeconds; }
@@ -71,7 +73,6 @@ private:
 
 	std::weak_ptr<Actor> _target;
 
-	Vector2D _speed = Vector2D::Zero;
-	float _maxSpeed = 50.f;
+	Stat _enemyStat;
 };
 

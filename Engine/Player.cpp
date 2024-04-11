@@ -190,22 +190,22 @@ void Player::PlayerInput()
 {
 	if (GET_SINGLE(InputManager)->GetEventPressed(KeyType::W)) {
 		SetDir(DIR_Up);
-		SetSpeed(GetDirVector2D(DIR_Up) * _maxSpeed);
+		SetSpeed(GetMaxSpeed());
 	}
 	else if (GET_SINGLE(InputManager)->GetEventPressed(KeyType::S)) {
 		SetDir(DIR_Down);
-		SetSpeed(GetDirVector2D(DIR_Down) * _maxSpeed);
+		SetSpeed(GetMaxSpeed());
 	}
 	else if (GET_SINGLE(InputManager)->GetEventPressed(KeyType::A)) {
 		SetDir(DIR_Left);
-		SetSpeed(GetDirVector2D(DIR_Left) * _maxSpeed);
+		SetSpeed(GetMaxSpeed());
 	}
 	else if (GET_SINGLE(InputManager)->GetEventPressed(KeyType::D)) {
 		SetDir(DIR_Right);
-		SetSpeed(GetDirVector2D(DIR_Right) * _maxSpeed);
+		SetSpeed(GetMaxSpeed());
 	}
 	else 
-		SetSpeed(Vector2D::Zero);
+		SetSpeed(0.f);
 	
 	if (GET_SINGLE(InputManager)->GetEventPressed(KeyType::SpaceBar)) 
 		SetState(ActionState::AS_Attack);
@@ -221,16 +221,16 @@ void Player::PlayerMove(float DeltaTime)
 	Vector2D cellPos = GetPos() + GetDirVector2D(GetDir()) * (GetSize() * 0.5f);
 	Vector2D toTilemapPos = Level::GetCurrentTilemapActor()->ConvertToTilemapPos(cellPos);
 	if (tilemap && tilemap->CanGo(toTilemapPos) == false) {
-		SetSpeed(Vector2D::Zero);
+		SetSpeed(0.f);
 	}
 		
 	
-	if (_speed == Vector2D::Zero)
+	if (GetSpeed() == 0.f)
 		SetState(ActionState::AS_Idle);
 	else
 		SetState(ActionState::AS_Move);
 
-	SetPos(GetPos() + _speed * DeltaTime);
+	SetPos(GetPos() + GetDirVector2D(GetDir()) * GetSpeed() * DeltaTime);
 }
 
 void Player::Attack()
@@ -254,7 +254,7 @@ void Player::BeginAttackBox(std::weak_ptr<Collider> comp, std::weak_ptr<Actor> o
 		return;
 
 	// 따로 weapon actor를 사용하면 damageCauser parameter는 무기 액터
-	ApplyDamage(other, 0.f, weak_from_this(), weak_from_this());
+	ApplyDamage(other, _playerStat.attack, weak_from_this(), weak_from_this());
 
 	std::shared_ptr<Level> level = World::GetCurrentLevel();
 	if (level == nullptr)
