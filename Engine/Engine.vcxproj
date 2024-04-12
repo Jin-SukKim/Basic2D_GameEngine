@@ -96,6 +96,8 @@
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <ProgramDataBaseFileName>$(OutDir)vc$(PlatformToolsetVersion)D$(ProjectName).pdb</ProgramDataBaseFileName>
+      <AdditionalHeaderUnitDependencies>%(AdditionalHeaderUnitDependencies)</AdditionalHeaderUnitDependencies>
+      <AdditionalIncludeDirectories>$(SolutionDir)Engine\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -114,6 +116,8 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalHeaderUnitDependencies>%(AdditionalHeaderUnitDependencies)</AdditionalHeaderUnitDependencies>
+      <AdditionalIncludeDirectories>$(SolutionDir)Engine\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -133,6 +137,8 @@
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <ProgramDataBaseFileName>$(OutDir)vc$(PlatformToolsetVersion)D$(ProjectName).pdb</ProgramDataBaseFileName>
+      <AdditionalHeaderUnitDependencies>%(AdditionalHeaderUnitDependencies)</AdditionalHeaderUnitDependencies>
+      <AdditionalIncludeDirectories>$(SolutionDir)Engine\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -151,6 +157,8 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalHeaderUnitDependencies>%(AdditionalHeaderUnitDependencies)</AdditionalHeaderUnitDependencies>
+      <AdditionalIncludeDirectories>$(SolutionDir)Engine\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -161,70 +169,78 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Actor.h" />
-    <ClInclude Include="AlgorithmUtils.h" />
-    <ClInclude Include="ColliderDelegate.h" />
-    <ClInclude Include="CollisionManager.h" />
-    <ClInclude Include="Enemy.h" />
-    <ClInclude Include="SpriteEffect.h" />
-    <ClInclude Include="SquareComponent.h" />
-    <ClInclude Include="CameraComponent.h" />
-    <ClInclude Include="Collider.h" />
-    <ClInclude Include="Component.h" />
-    <ClInclude Include="Defines.h" />
-    <ClInclude Include="EditLevel.h" />
+    <ClInclude Include="Actor\Actor.h" />
+    <ClInclude Include="Actor\Enemy.h" />
+    <ClInclude Include="Actor\FlipbookActor.h" />
+    <ClInclude Include="Actor\GameActor.h" />
+    <ClInclude Include="Actor\Player.h" />
+    <ClInclude Include="Actor\SpriteActor.h" />
+    <ClInclude Include="Actor\SpriteEffect.h" />
+    <ClInclude Include="Actor\Stat.h" />
+    <ClInclude Include="Actor\TextureActor.h" />
+    <ClInclude Include="Actor\TilemapActor.h" />
+    <ClInclude Include="Component\CameraComponent.h" />
+    <ClInclude Include="Component\CircleComponent.h" />
+    <ClInclude Include="Component\Collider.h" />
+    <ClInclude Include="Component\ColliderDelegate.h" />
+    <ClInclude Include="Component\Component.h" />
+    <ClInclude Include="Component\InputComponent.h" />
+    <ClInclude Include="Component\SquareComponent.h" />
+    <ClInclude Include="Component\TextureComponent.h" />
     <ClInclude Include="Engine.h" />
-    <ClInclude Include="EnginePch.h" />
     <ClInclude Include="EngineWindow.h" />
-    <ClInclude Include="Enums.h" />
-    <ClInclude Include="Flipbook.h" />
-    <ClInclude Include="FlipbookActor.h" />
-    <ClInclude Include="GameLevel.h" />
-    <ClInclude Include="InputManager.h" />
-    <ClInclude Include="InputStates.h" />
-    <ClInclude Include="Level.h" />
-    <ClInclude Include="MathUtils.h" />
+    <ClInclude Include="Headers\Defines.h" />
+    <ClInclude Include="Headers\EnginePch.h" />
+    <ClInclude Include="Headers\Enums.h" />
+    <ClInclude Include="Headers\InputStates.h" />
+    <ClInclude Include="Headers\Types.h" />
+    <ClInclude Include="Manager\AssetManager.h" />
+    <ClInclude Include="Manager\CollisionManager.h" />
+    <ClInclude Include="Manager\InputManager.h" />
+    <ClInclude Include="Manager\LevelManager.h" />
+    <ClInclude Include="Manager\TimeManager.h" />
+    <ClInclude Include="Math\Vector2D.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="pch.h" />
-    <ClInclude Include="AssetManager.h" />
-    <ClInclude Include="LevelManager.h" />
-    <ClInclude Include="Player.h" />
-    <ClInclude Include="CircleComponent.h" />
-    <ClInclude Include="Sprite.h" />
-    <ClInclude Include="SpriteActor.h" />
-    <ClInclude Include="Stat.h" />
-    <ClInclude Include="Texture.h" />
-    <ClInclude Include="TextureActor.h" />
-    <ClInclude Include="TextureComponent.h" />
-    <ClInclude Include="Tilemap.h" />
-    <ClInclude Include="TilemapActor.h" />
-    <ClInclude Include="TimeManager.h" />
-    <ClInclude Include="Timer.h" />
-    <ClInclude Include="Types.h" />
-    <ClInclude Include="Vector2D.h" />
-    <ClInclude Include="WinUtils.h" />
-    <ClInclude Include="World.h" />
+    <ClInclude Include="Resources\Flipbook.h" />
+    <ClInclude Include="Resources\Sprite.h" />
+    <ClInclude Include="Resources\Texture.h" />
+    <ClInclude Include="Resources\Tilemap.h" />
+    <ClInclude Include="Utils\AlgorithmUtils.h" />
+    <ClInclude Include="Utils\MathUtils.h" />
+    <ClInclude Include="Utils\WinUtils.h" />
+    <ClInclude Include="World\EditLevel.h" />
+    <ClInclude Include="World\GameLevel.h" />
+    <ClInclude Include="World\Level.h" />
+    <ClInclude Include="World\Timer.h" />
+    <ClInclude Include="World\World.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Actor.cpp" />
-    <ClCompile Include="AlgorithmUtils.cpp" />
-    <ClCompile Include="CollisionManager.cpp" />
-    <ClCompile Include="Enemy.cpp" />
-    <ClCompile Include="MathUtils.cpp" />
-    <ClCompile Include="SpriteEffect.cpp" />
-    <ClCompile Include="SquareComponent.cpp" />
-    <ClCompile Include="CameraComponent.cpp" />
-    <ClCompile Include="Collider.cpp" />
-    <ClCompile Include="Component.cpp" />
-    <ClCompile Include="EditLevel.cpp" />
+    <ClCompile Include="Actor\Actor.cpp" />
+    <ClCompile Include="Actor\Enemy.cpp" />
+    <ClCompile Include="Actor\FlipbookActor.cpp" />
+    <ClCompile Include="Actor\GameActor.cpp" />
+    <ClCompile Include="Actor\Player.cpp" />
+    <ClCompile Include="Actor\SpriteActor.cpp" />
+    <ClCompile Include="Actor\SpriteEffect.cpp" />
+    <ClCompile Include="Actor\TextureActor.cpp" />
+    <ClCompile Include="Actor\TilemapActor.cpp" />
+    <ClCompile Include="Component\CameraComponent.cpp" />
+    <ClCompile Include="Component\CircleComponent.cpp" />
+    <ClCompile Include="Component\Collider.cpp" />
+    <ClCompile Include="Component\Component.cpp" />
+    <ClCompile Include="Component\InputComponent.cpp" />
+    <ClCompile Include="Component\SquareComponent.cpp" />
+    <ClCompile Include="Component\TextureComponent.cpp" />
     <ClCompile Include="Engine.cpp" />
-    <ClCompile Include="EnginePch.cpp" />
     <ClCompile Include="EngineWindow.cpp" />
-    <ClCompile Include="Flipbook.cpp" />
-    <ClCompile Include="FlipbookActor.cpp" />
-    <ClCompile Include="GameLevel.cpp" />
-    <ClCompile Include="InputManager.cpp" />
-    <ClCompile Include="Level.cpp" />
+    <ClCompile Include="Headers\EnginePch.cpp" />
+    <ClCompile Include="Manager\AssetManager.cpp" />
+    <ClCompile Include="Manager\CollisionManager.cpp" />
+    <ClCompile Include="Manager\InputManager.cpp" />
+    <ClCompile Include="Manager\LevelManager.cpp" />
+    <ClCompile Include="Manager\TimeManager.cpp" />
+    <ClCompile Include="Math\Vector2D.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -232,22 +248,18 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="AssetManager.cpp" />
-    <ClCompile Include="LevelManager.cpp" />
-    <ClCompile Include="Player.cpp" />
-    <ClCompile Include="CircleComponent.cpp" />
-    <ClCompile Include="Sprite.cpp" />
-    <ClCompile Include="SpriteActor.cpp" />
-    <ClCompile Include="Texture.cpp" />
-    <ClCompile Include="TextureActor.cpp" />
-    <ClCompile Include="TextureComponent.cpp" />
-    <ClCompile Include="Tilemap.cpp" />
-    <ClCompile Include="TilemapActor.cpp" />
-    <ClCompile Include="TimeManager.cpp" />
-    <ClCompile Include="Timer.cpp" />
-    <ClCompile Include="Vector2D.cpp" />
-    <ClCompile Include="WinUtils.cpp" />
-    <ClCompile Include="World.cpp" />
+    <ClCompile Include="Resources\Flipbook.cpp" />
+    <ClCompile Include="Resources\Sprite.cpp" />
+    <ClCompile Include="Resources\Texture.cpp" />
+    <ClCompile Include="Resources\Tilemap.cpp" />
+    <ClCompile Include="Utils\AlgorithmUtils.cpp" />
+    <ClCompile Include="Utils\MathUtils.cpp" />
+    <ClCompile Include="Utils\WinUtils.cpp" />
+    <ClCompile Include="World\EditLevel.cpp" />
+    <ClCompile Include="World\GameLevel.cpp" />
+    <ClCompile Include="World\Level.cpp" />
+    <ClCompile Include="World\Timer.cpp" />
+    <ClCompile Include="World\World.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

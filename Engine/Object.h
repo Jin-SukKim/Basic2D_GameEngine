@@ -1,5 +1,4 @@
 #pragma once
-#include "AssetManager.h"
 
 enum class ObjectType {
 	Object,
@@ -29,6 +28,8 @@ public:
 		(type-trait를 사용하면 가능할수도, ex: std::is_convertiable<> 변환가능 한지 확인)
 	*/
 
+	template<typename ReturnType>
+	std::shared_ptr<ReturnType> CreateSubobject(std::wstring name);
 public: // Getter/Setter
 	ObjectType GetType() const { return _type; }
 	
@@ -56,3 +57,12 @@ private:
 
 	LayerType _layer = LayerType::LT_OBJECT;
 };
+
+template<typename ReturnType>
+inline std::shared_ptr<ReturnType> Object::CreateSubobject(std::wstring name)
+{
+
+	std::shared_ptr<ReturnType> subobject = std::make_shared<ReturnType>();
+	subobject->SetName(name);
+	return subobject;
+}

@@ -1,8 +1,8 @@
 #include "pch.h"
 #include "Engine.h"
-#include "World.h"
-#include "InputManager.h"
-#include "AssetManager.h"
+#include "World\World.h"
+#include "Manager\InputManager.h"
+#include "Manager\AssetManager.h"
 
 Engine::Engine() : EngineWindow()
 {
