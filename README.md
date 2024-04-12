@@ -29,3 +29,5 @@ Texture, Sprite, and Flipbook are created by using bmp assets.
 Collision can be used with Collider components.
 
 Manager classes handle main features for engine such as input, collision check, and etc.
+
+2D Engine can be pulled/downlowded in Basic_2DEngine branch.
