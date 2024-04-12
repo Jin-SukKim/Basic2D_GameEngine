@@ -10,6 +10,7 @@ struct MathUtils
 	static constexpr float HalfPI = { 1.57079632679f };
 	static constexpr float InvPI = { 0.31830988618f };
 
+	// 참조:	이득우의 게임 수학 - 이득우(책)
 	// 언리얼 엔진 코드에서 가져옴. 고속 역제곱근 공식 ( 1 / sqrt(x) )
 	FORCEINLINE static float InvSqrt(float InFloat)
 	{
